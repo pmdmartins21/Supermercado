@@ -165,13 +165,13 @@ namespace Supermercado
             
             if (empregadoAValidar.Id == id && empregadoAValidar.Password == password) // ver com passes diferentes.
                 {
-                Console.WriteLine("You have successfully logged in !!!");
-                return true;
+                    Console.WriteLine("You have successfully logged in !!!");
+                    return true;
                 }
                 else
                 {
                     Console.WriteLine("User/Pass incorrecto");
-                return false;
+                    return false;
                 }
         
         }
