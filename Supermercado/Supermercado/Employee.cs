@@ -159,17 +159,19 @@ namespace Supermercado
 
             return false;
         }
-        public void ValidateEntry(string id, string password)
+        public bool ValidateEntry(string id, string password)
         {
             Employee empregadoAValidar = FindEmployee(id);
             
-            if (empregadoAValidar.Id == id && empregadoAValidar.Password == password)
+            if (empregadoAValidar.Id == id && empregadoAValidar.Password == password) // ver com passes diferentes.
                 {
                 Console.WriteLine("You have successfully logged in !!!");
+                return true;
                 }
                 else
                 {
                     Console.WriteLine("User/Pass incorrecto");
+                return false;
                 }
         
         }

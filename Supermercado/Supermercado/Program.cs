@@ -13,22 +13,10 @@ namespace Supermercado
 
             Console.WriteLine(f.ToString());*/
 
-           
-
-            
-
-            
-            
-
-
-
-
-
+          
 
 
             MostrarMenu();
-
-
 
 
 
@@ -74,8 +62,7 @@ namespace Supermercado
                             string id = Console.ReadLine();
                             Console.WriteLine("Introduza a sua password");
                             string password = Console.ReadLine();
-                            list1.ValidateEntry(id, password);
-                            successfull = true;
+                            successfull = list1.ValidateEntry(id, password); ;
                         }
                         MostrarMenu2();
                         break;
