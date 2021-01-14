@@ -80,7 +80,7 @@ namespace Supermercado
         public void LerFicheiro()
         {
             string path = Directory.GetCurrentDirectory();
-            string filename = "/employeelist.txt";
+            string filename = "/../../../employeelist.txt";
 
             StreamReader streamReader = new StreamReader(path + filename);
 
@@ -107,7 +107,7 @@ namespace Supermercado
             string path = Directory.GetCurrentDirectory();
 
             //nome do ficheiro
-            string fileName = "/employeelist.txt";
+            string fileName = "/../../../employeelist.txt";
 
             //abrir a Stream para escrita
             StreamWriter streamWriter = new StreamWriter(path + fileName, false);

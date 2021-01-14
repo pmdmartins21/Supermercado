@@ -21,7 +21,7 @@ namespace Supermercado
         public void LerFicheiro()
         {
             string path = Directory.GetCurrentDirectory();
-            string filename = "/productlist.txt";
+            string filename = "/../../../productlist.txt";
 
             StreamReader streamReader = new StreamReader(path + filename);
 
@@ -50,7 +50,7 @@ namespace Supermercado
             string path = Directory.GetCurrentDirectory();
 
             //nome do ficheiro
-            string fileName = "/productlist.txt";
+            string fileName = "/../../../productlist.txt";
 
             //abrir a Stream para escrita
             StreamWriter streamWriter = new StreamWriter(path + fileName, false);
