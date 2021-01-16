@@ -100,7 +100,7 @@ namespace Supermercado
             streamReader.Close();
         }
 
-
+        
         public void GravarParaFicheiro()
         {
             //Escolher directorio
