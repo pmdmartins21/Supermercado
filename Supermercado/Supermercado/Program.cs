@@ -64,7 +64,7 @@ namespace Supermercado
                             string password = Console.ReadLine();
                             successfull = list1.ValidateEntry(id, password); ;
                         }
-                        MostrarMenu2();
+                        MostrarPrincipal();
                         break;
                     case 2:
                         Console.WriteLine("2");
@@ -79,7 +79,7 @@ namespace Supermercado
 
             } while (menuOption != 0);
         }
-        public static void MostrarMenu2() //Após Login
+        public static void MostrarPrincipal() //Menu principal
         {
             int menuOption2;
 
@@ -95,15 +95,10 @@ namespace Supermercado
                 Console.WriteLine("**                                              **");
                 Console.WriteLine("**\t" + DateTime.Now.ToString("dddd, dd MMMM yyyy HH:mm") + "\t\t**");
                 Console.WriteLine("**************************************************\n");
-                Console.WriteLine("1- Ver Stock\n");
-                Console.WriteLine("2- Adicionar Produto\n");
-                Console.WriteLine("3- Remover Produto\n");
-                Console.WriteLine("4- Limpar Stock\n");
-                Console.WriteLine("5- Registar Funcionário\n");
-                Console.WriteLine("6- Remover Funcionário\n");
-                Console.WriteLine("7- Editar Funcionário\n");
-                Console.WriteLine("8- Faturar\n");
-                Console.WriteLine("9- Listar Faturas\n");
+                Console.WriteLine("1- Vendas\n");
+                Console.WriteLine("2- Stock\n");
+                Console.WriteLine("3- Funcionarios\n");
+                Console.WriteLine("4- Listagem de Faturas\n");
                 Console.WriteLine("--------------------------------------------------");
                 Console.WriteLine("0- Sair");
 
@@ -111,6 +106,131 @@ namespace Supermercado
                 Console.Clear();
 
                 switch (menuOption2)
+                {
+                    case 0:
+                        Console.WriteLine("0");
+                        break;
+                    case 1:
+                        Console.WriteLine("1");
+                        break;
+                    case 2:
+                        MenuStock();
+                        break;
+                    case 3:
+                        MenuFuncionarios();
+                        break;
+                    case 4:
+                        Console.WriteLine("4");
+                        break;                  
+                    default:
+                        Console.WriteLine("Escolheu uma opção inválida");
+                        break;
+                }
+                Console.ReadKey();
+                Console.Clear();
+
+            } while (menuOption2 != 0);
+        }
+
+        public static void MenuFuncionarios()
+        {
+            int menuOption;
+
+            EmployeeList list1 = new EmployeeList();
+
+
+            do
+            {
+                list1.LerFicheiro();
+                Console.WriteLine("************SUPERMERCADO BINHAS ONTE***************");
+                Console.WriteLine("**                                              **");
+                Console.WriteLine("**                  Bem-vindo/a!                **");
+                Console.WriteLine("**                                              **");
+                Console.WriteLine("**\t" + DateTime.Now.ToString("dddd, dd MMMM yyyy HH:mm") + "\t\t**");
+                Console.WriteLine("**************************************************\n");
+                Console.WriteLine("1- Registar Funcionario");
+                Console.WriteLine("2- Remover Funcionario\n");
+                Console.WriteLine("3- Editar Funcionario\n");
+                Console.WriteLine("--------------------------------------------------");
+                Console.WriteLine("0- Sair");
+
+                menuOption = int.Parse(Console.ReadLine());
+                Console.Clear();
+
+                switch (menuOption)
+                {
+                    case 0:
+                        Console.WriteLine("0");
+                        break;
+                    case 1:
+                        Console.WriteLine(list1.ToString());
+                        Console.WriteLine("Introduza o ID\n");
+                        string newId = Console.ReadLine();
+                        Console.WriteLine("Introduza o Nome\n");
+                        string newName = Console.ReadLine();
+                        Console.WriteLine("Introduza a Password\n");
+                        string newPassword = Console.ReadLine();
+                        Console.WriteLine("Qual o Cargo? \n");
+                        Console.WriteLine("Para Gerente prima '0'\n");
+                        Console.WriteLine("Para Repositor prima '1'\n");
+                        Console.WriteLine("Para Caixa prima '2'\n");
+                        string newRole = Console.ReadLine();
+                        Enum.TryParse(newRole, out EmployeeRole role);
+                        list1.NewEmployee(newId, newName, newPassword, role);
+                        list1.GravarParaFicheiro(); //Depois de adicionarmos um user, qd tentamos logar com o mesmo o programa crasha. Problema com a leitura do txt apos a modificaçao??  
+                        Console.WriteLine(list1.ToString());
+                        list1.ClearList();
+                        Console.WriteLine(list1.ToString());
+                        break;
+                    case 2:
+                        Console.WriteLine(list1.ToString());
+                        Console.WriteLine("Introduza o ID a remover\n");
+                        string idARemover = Console.ReadLine();
+                        list1.RemoveEmployee(idARemover);
+                        Console.WriteLine(list1.ToString());
+                        list1.GravarParaFicheiro();
+                        list1.ClearList();
+                        Console.WriteLine(list1.ToString());
+                        break;
+                    case 3:
+                        Console.WriteLine("3");
+                        break;
+                    default:
+                        Console.WriteLine("Escolheu uma opção inválida");
+                        break;
+                }
+                Console.ReadKey();
+                Console.Clear();
+
+            } while (menuOption != 0);
+        }
+
+        public static void MenuStock()
+        {
+            int menuOption;
+
+            // EmployeeList list1 = new EmployeeList(); <-- lista produtos
+
+            do
+            {
+                // list1.LerFicheiro(); <<--- lista produtos acima
+                Console.WriteLine("************SUPERMERCADO BINHAS ONTE***************");
+                Console.WriteLine("**                                              **");
+                Console.WriteLine("**                  Bem-vindo/a!                **");
+                Console.WriteLine("**                                              **");
+                Console.WriteLine("**\t" + DateTime.Now.ToString("dddd, dd MMMM yyyy HH:mm") + "\t\t**");
+                Console.WriteLine("**************************************************\n");
+                Console.WriteLine("1- Ver / Editar Stock");
+                Console.WriteLine("2- Adicionar Novo Produto\n");
+                Console.WriteLine("3- Remover Produto\n");
+                Console.WriteLine("4- Limpar Stock\n");
+                Console.WriteLine("--------------------------------------------------");
+                Console.WriteLine("0- Sair");
+
+                menuOption = int.Parse(Console.ReadLine());
+                Console.Clear();
+
+                switch (menuOption)
                 {
                     case 0:
                         Console.WriteLine("0");
@@ -127,46 +247,6 @@ namespace Supermercado
                     case 4:
                         Console.WriteLine("4");
                         break;
-                    case 5:
-                        Console.WriteLine(list2.ToString());
-                        Console.WriteLine("Introduza o ID\n");
-                        string newId = Console.ReadLine();
-                        Console.WriteLine("Introduza o Nome\n");
-                        string newName = Console.ReadLine();
-                        Console.WriteLine("Introduza a Password\n");
-                        string newPassword = Console.ReadLine();
-                        Console.WriteLine("Qual o Cargo? \n");
-                        Console.WriteLine("Para Gerente prima '0'\n");
-                        Console.WriteLine("Para Repositor prima '1'\n");
-                        Console.WriteLine("Para Caixa prima '2'\n");
-                        string newRole = Console.ReadLine();
-                        Enum.TryParse(newRole, out EmployeeRole role);
-                        list2.NewEmployee(newId, newName, newPassword, role);
-                        list2.GravarParaFicheiro(); //Depois de adicionarmos um user, qd tentamos logar com o mesmo o programa crasha. Problema com a leitura do txt apos a modificaçao??  
-                        Console.WriteLine(list2.ToString());
-                        list2.ClearList();
-                        Console.WriteLine(list2.ToString());
-                        break;
-                    case 6:
-                        Console.WriteLine(list2.ToString());
-                        Console.WriteLine("Introduza o ID a remover\n");
-                        string idARemover = Console.ReadLine();
-                        
-                        list2.RemoveEmployee(idARemover);
-                        Console.WriteLine(list2.ToString());
-                        list2.GravarParaFicheiro();
-                        list2.ClearList();
-                        Console.WriteLine(list2.ToString());
-                        break;
-                    case 7:
-                        Console.WriteLine("7");
-                        break;
-                    case 8:
-                        Console.WriteLine("8");
-                        break;
-                    case 9:
-                        Console.WriteLine("9");
-                        break;
                     default:
                         Console.WriteLine("Escolheu uma opção inválida");
                         break;
@@ -174,7 +254,7 @@ namespace Supermercado
                 Console.ReadKey();
                 Console.Clear();
 
-            } while (menuOption2 != 0);
+            } while (menuOption != 0);
         }
     }
         
