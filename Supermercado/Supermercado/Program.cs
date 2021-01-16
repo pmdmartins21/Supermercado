@@ -55,9 +55,9 @@ namespace Supermercado
                     case 1:
 
                         bool successfull = false;
+
                         while (!successfull)
                         {
-
                             Console.WriteLine("Introduza o seu ID");
                             string id = Console.ReadLine();
                             Console.WriteLine("Introduza a sua password");
@@ -209,7 +209,7 @@ namespace Supermercado
         {
             int menuOption;
 
-            // EmployeeList list1 = new EmployeeList(); <-- lista produtos
+            ProductList list1 = new ProductList();
 
             do
             {
@@ -234,6 +234,57 @@ namespace Supermercado
                 {
                     case 0:
                         Console.WriteLine("0");
+                        break;
+                    case 1:
+                        MenuStock2();
+                        break;
+                    case 2:
+                        Console.WriteLine("I");
+                        break;
+                    case 3:
+                        Console.WriteLine("3");
+                        break;
+                    case 4:
+                        Console.WriteLine("4");
+                        break;
+                    default:
+                        Console.WriteLine("Escolheu uma opção inválida");
+                        break;
+                }
+                Console.ReadKey();
+                Console.Clear();
+
+            } while (menuOption != 0);
+        }
+
+        public static void MenuStock2()
+        {
+            int menuOption;
+
+            ProductList list1 = new ProductList(); 
+
+            do
+            {
+                // list1.LerFicheiro(); <<--- lista produtos acima
+                Console.WriteLine("************SUPERMERCADO BINHAS ONTE***************");
+                Console.WriteLine("**                                              **");
+                Console.WriteLine("**                  Bem-vindo/a!                **");
+                Console.WriteLine("**                                              **");
+                Console.WriteLine("**\t" + DateTime.Now.ToString("dddd, dd MMMM yyyy HH:mm") + "\t\t**");
+                Console.WriteLine("**************************************************\n");
+                Console.WriteLine("1- Ver Stock");
+                Console.WriteLine("2- Adicionar Stock\n");
+                Console.WriteLine("3- Remover Stock\n");
+                Console.WriteLine("--------------------------------------------------");
+                Console.WriteLine("0- Sair");
+
+                menuOption = int.Parse(Console.ReadLine());
+                Console.Clear();
+
+                switch (menuOption)
+                {
+                    case 0:
+                        Console.WriteLine("0"); // <<-- ir para menu anterior
                         break;
                     case 1:
                         Console.WriteLine("1");
