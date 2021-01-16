@@ -4,16 +4,19 @@ using System.Text;
 
 namespace Supermercado
 {
-    class FruitsVegetables
+    class FruitsVegetables : Product
     {
-        // attributes
-    
+        enum Section
+        {
+           Legumes,
+           Frutas,
+           verduras
+        }
+        public Section section { get => section; set => section = value; }
 
-        // properties
-    
+        public FruitsVegetables(string id, string name, float stock, float unitPrice, TypeOfProducts typeOfProducts, Category category, Section section) : base(id, name, stock, unitPrice, typeOfProducts, category)
+        {
 
-
-        // constructors
-    
+        }
     }
 }

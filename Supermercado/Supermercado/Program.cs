@@ -96,7 +96,7 @@ namespace Supermercado
                 Console.WriteLine("**\t" + DateTime.Now.ToString("dddd, dd MMMM yyyy HH:mm") + "\t\t**");
                 Console.WriteLine("**************************************************\n");
                 Console.WriteLine("1- Ver Stock\n");
-                Console.WriteLine("1- Adicionar Produtos\n");
+                Console.WriteLine("2- Adicionar Produto\n");
                 Console.WriteLine("3- Remover Produto\n");
                 Console.WriteLine("4- Limpar Stock\n");
                 Console.WriteLine("5- Registar Funcionário\n");
