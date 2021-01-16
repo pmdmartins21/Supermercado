@@ -144,7 +144,39 @@ namespace Supermercado
             return false;
         }
 
+        public bool ClearList()
+        {
+            this.productList.Clear();
+            return true;
+        }
 
+        public bool AddStock(string id, float amountToAdd)
+        {
+            for (int i = 0; i < this.productList.Count; i++) 
+            {
+            
+                if (this.productList[i].Id == id)
+                {
+                    this.productList[i].Stock += amountToAdd;
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public bool RemoveStock(string id, float amountToRemove)
+        {
+            for (int i = 0; i < this.productList.Count; i++)
+            {
+
+                if (this.productList[i].Id == id)
+                {
+                    this.productList[i].Stock += amountToRemove;
+                    return true;
+                }
+            }   
+            return false;
+        }
 
         public override string ToString()
         {
