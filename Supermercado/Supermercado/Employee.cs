@@ -185,9 +185,16 @@ namespace Supermercado
         }
         public bool ValidateEntry(string id, string password)
         {
+<<<<<<< Updated upstream
             Employee empregadoAValidar = FindEmployee(id); // empregado ou null
             if (empregadoAValidar != null) {
                 if (empregadoAValidar.Id == id && empregadoAValidar.Password == password) 
+=======
+            Employee empregadoAValidar = FindEmployee(id);
+            
+            if (empregadoAValidar.Id == id && empregadoAValidar.Password == password) // ver com passes diferentes.
+                
+>>>>>>> Stashed changes
                 {
                     Console.WriteLine("You have successfully logged in !!!");
                     return true;

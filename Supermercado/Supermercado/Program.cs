@@ -34,9 +34,9 @@ namespace Supermercado
             {
                 list1.LerFicheiro();
                 Console.WriteLine("************SUPERMERCADO BINHAS ONTE***************");
-                Console.WriteLine("**                                              **");
-                Console.WriteLine("**                  Bem-vindo/a!                **");
-                Console.WriteLine("**                                              **");
+                Console.WriteLine("**                                               **");
+                Console.WriteLine("**                  Bem-vindo/a!                 **");
+                Console.WriteLine("**                                               **");
                 Console.WriteLine("**\t" + DateTime.Now.ToString("dddd, dd MMMM yyyy HH:mm") + "\t\t**");
                 Console.WriteLine("**************************************************\n");
                 Console.WriteLine("1- Entrar");
@@ -56,7 +56,13 @@ namespace Supermercado
 
                         bool successfull = false;
 
+<<<<<<< Updated upstream
                         while (!successfull)
+=======
+
+
+                        while (successfull == false)
+>>>>>>> Stashed changes
                         {
                             Console.WriteLine("Introduza o seu ID");
                             string id = Console.ReadLine();
