@@ -112,7 +112,7 @@ namespace Supermercado
                         Console.WriteLine("0");
                         break;
                     case 1:
-                        Console.WriteLine("1");
+                        MenuVendas();
                         break;
                     case 2:
                         MenuStock();
@@ -132,6 +132,67 @@ namespace Supermercado
 
             } while (menuOption2 != 0);
         }
+
+
+        public static void MenuVendas() 
+        {
+            int menuOption2;
+
+            ProductList productList = new ProductList();
+
+
+            do
+            {
+                productList.LerFicheiro();
+                Console.WriteLine("************SUPERMERCADO BINHAS ONTE***************");
+                Console.WriteLine("**                                              **");
+                Console.WriteLine("**                  Bem-vindo/a!                **");
+                Console.WriteLine("**                                              **");
+                Console.WriteLine("**\t" + DateTime.Now.ToString("dddd, dd MMMM yyyy HH:mm") + "\t\t**");
+                Console.WriteLine("**************************************************\n");
+                Console.WriteLine("**MENU Vendas**\n");
+                Console.WriteLine("Selecione uma categoria\n");
+                Console.WriteLine("1- Carne\n");
+                Console.WriteLine("2- Frutas e Legumes\n");
+                Console.WriteLine("3- Mercearia\n");
+                Console.WriteLine("4- Ver carrinho de produtos\n");
+                Console.WriteLine("5- Cancelar venda\n");
+                Console.WriteLine("--------------------------------------------------");
+                Console.WriteLine("0- Terminar venda");
+
+                menuOption2 = int.Parse(Console.ReadLine());
+                Console.Clear();
+
+                switch (menuOption2)
+                {
+                    case 0:
+                        Console.WriteLine("0");
+                        break;
+                    case 1:
+                        Console.WriteLine("1");
+                        break;
+                    case 2:
+                        Console.WriteLine("2");
+                        break;
+                    case 3:
+                        Console.WriteLine("3");
+                        break;
+                    case 4:
+                        Console.WriteLine("4");
+                        break;
+                    case 5:
+                        Console.WriteLine("5");
+                        break;
+                    default:
+                        Console.WriteLine("Escolheu uma opção inválida");
+                        break;
+                }
+                Console.ReadKey();
+                Console.Clear();
+
+            } while (menuOption2 != 0);
+        }
+
 
         public static void MenuFuncionarios()
         {
