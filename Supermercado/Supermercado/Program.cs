@@ -255,15 +255,19 @@ namespace Supermercado
                         break;
                     case 2:
                         Console.WriteLine(list1.ToString()); // Listar
-                        Console.WriteLine("escolha o id do produto:");
+                        Console.WriteLine("Escolha o id do Produto:");
                         string idProdutoAAdicionar = Console.ReadLine();
-                        Console.WriteLine("escolha o Nome do produto:");
+
+                        Console.WriteLine("Escolha o Nome do Produto:");
                         string nomeDoProdutoAAdicionar = Console.ReadLine();
-                        Console.WriteLine("escolha o stock do produto:");
+
+                        Console.WriteLine("Escolha o Stock do Produto:");
                         float stockProdutoAAdicionar = float.Parse(Console.ReadLine(), CultureInfo.InvariantCulture.NumberFormat);
-                        Console.WriteLine("escolha o Preco do produto:");
+
+                        Console.WriteLine("escolha o Preco do Produto:");
                         float precoProdutoAAdicionar = float.Parse(Console.ReadLine(), CultureInfo.InvariantCulture.NumberFormat);
-                        Console.WriteLine("escolha o id do produto:");
+
+                        Console.WriteLine("Escolha o id do Produto:");
                         TypeOfProducts IdProdutoAAdicionar = Console.ReadLine();
 
                         Console.WriteLine("escolha o id do produto:");
