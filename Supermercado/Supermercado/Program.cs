@@ -264,14 +264,14 @@ namespace Supermercado
                         Console.WriteLine("Escolha o Stock do Produto:");
                         float stockProdutoAAdicionar = float.Parse(Console.ReadLine(), CultureInfo.InvariantCulture.NumberFormat);
 
-                        Console.WriteLine("escolha o Preco do Produto:");
+                        Console.WriteLine("Escolha o Preco do Produto:");
                         float precoProdutoAAdicionar = float.Parse(Console.ReadLine(), CultureInfo.InvariantCulture.NumberFormat);
 
-                        Console.WriteLine("Escolha o id do Produto:");
-                        TypeOfProducts IdProdutoAAdicionar = Console.ReadLine();
+                        Console.WriteLine("Escolha o Tipo do Produto:");
+                        TypeOfProducts tipoProdutoAAdicionar = Console.ReadLine();
 
-                        Console.WriteLine("escolha o id do produto:");
-                        Category IdProdutoAAdicionar = Console.ReadLine();
+                        Console.WriteLine("Escolha a Categoria do Produto:");
+                        Category categoryProdutoAAdicionar = Console.ReadLine();
 
 
                         break;
