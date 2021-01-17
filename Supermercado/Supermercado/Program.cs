@@ -56,13 +56,8 @@ namespace Supermercado
 
                         bool successfull = false;
 
-<<<<<<< Updated upstream
+
                         while (!successfull)
-=======
-
-
-                        while (successfull == false)
->>>>>>> Stashed changes
                         {
                             Console.WriteLine("Introduza o seu ID");
                             string id = Console.ReadLine();
