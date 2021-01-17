@@ -280,7 +280,7 @@ namespace Supermercado
 
             do
             {
-                // list1.LerFicheiro(); <<--- lista produtos acima
+                list1.LerFicheiro(); // lista produtos acima
                 Console.WriteLine("************SUPERMERCADO BINHAS ONTE***************");
                 Console.WriteLine("**                                              **");
                 Console.WriteLine("**                  Bem-vindo/a!                **");
@@ -299,10 +299,10 @@ namespace Supermercado
                 switch (menuOption)
                 {
                     case 0:
-                        Console.WriteLine("0"); // <<-- ir para menu anterior
+                        Console.WriteLine(); // <<-- ir para menu anterior
                         break;
                     case 1:
-                        Console.WriteLine("1");
+                        Console.WriteLine(list1.ToString());
                         break;
                     case 2:
                         Console.WriteLine("2");
