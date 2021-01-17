@@ -267,12 +267,23 @@ namespace Supermercado
                         Console.WriteLine("Escolha o Preco do Produto:");
                         float precoProdutoAAdicionar = float.Parse(Console.ReadLine(), CultureInfo.InvariantCulture.NumberFormat);
 
-                        Console.WriteLine("Escolha o Tipo do Produto:");
-                        TypeOfProducts tipoProdutoAAdicionar = Console.ReadLine();
+                        Console.WriteLine("Escolha o Tipo do Produto: Congelado = 0, Prateleira = 1, Enlatado = 2");
+                        Enum.TryParse(Console.ReadLine(), out TypeOfProducts typeOfproducts);
+                        
 
-                        Console.WriteLine("Escolha a Categoria do Produto:");
-                        Category categoryProdutoAAdicionar = Console.ReadLine();
+                        Console.WriteLine("Escolha a Categoria: FrutasLegumes = 0, Carne = 1, Mercearia = 2");
+                        Enum.TryParse(Console.ReadLine(), out Category categoria);
+                      
 
+                        Product x = new Product(idProdutoAAdicionar, nomeDoProdutoAAdicionar, stockProdutoAAdicionar, precoProdutoAAdicionar, typeOfproducts, categoria);
+                        Console.WriteLine(x.ToString());
+
+                        list1.AddProduct(x);
+
+                        Console.WriteLine(list1.ToString()); // Listar
+                        list1.GravarParaFicheiro();
+
+                        list1.ClearList();
 
                         break;
                     case 3:
