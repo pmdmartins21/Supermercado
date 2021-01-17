@@ -329,10 +329,44 @@ namespace Supermercado
                         Console.WriteLine(list1.ToString());
                         break;
                     case 2:
-                        Console.WriteLine("2");
+                        Console.WriteLine(list1.ToString());
+                        Console.WriteLine("**ADICIONAR STOCK**\n");
+                        Console.WriteLine("**TECLA 0 - PARA SAIR OU CANCELAR**\n");
+                        Console.WriteLine("Introduza o id do produto:\n");
+                        string idAddStock = Console.ReadLine();
+                        Console.WriteLine("Introduza a quantidade:\n"); // !!atenção se a quantidade só aceita int ou float e qtd negativa
+                        float quantityAddStock = float.Parse(Console.ReadLine());
+                        bool resultAddStock = list1.AddStock(idAddStock, quantityAddStock);
+                        list1.GravarParaFicheiro();
+                        if (resultAddStock) // true
+                        {
+                            Console.WriteLine("Quantidade adicionada com sucesso!");
+                        }
+                        else
+                        {
+                            Console.WriteLine("Falhou");
+                        }
+                        Console.WriteLine(list1.ToString());
                         break;
                     case 3:
-                        Console.WriteLine("3");
+                        Console.WriteLine(list1.ToString());
+                        Console.WriteLine("**REMOVER STOCK**\n");
+                        Console.WriteLine("**TECLA 0 - PARA SAIR OU CANCELAR**\n");
+                        Console.WriteLine("Introduza o id do produto:\n");
+                        string idRemoveStock = Console.ReadLine();
+                        Console.WriteLine("Introduza a quantidade:\n"); // !!atenção se a quantidade só aceita int ou float e qtd negativa
+                        float quantityRemoveStock = float.Parse(Console.ReadLine());
+                        bool resultRemoveStock = list1.RemoveStock(idRemoveStock, quantityRemoveStock);
+                        list1.GravarParaFicheiro();
+                        if (resultRemoveStock) // true
+                        {
+                            Console.WriteLine("Quantidade removida com sucesso!");
+                        }
+                        else
+                        {
+                            Console.WriteLine("Falhou");
+                        }
+                        Console.WriteLine(list1.ToString());
                         break;
                     case 4:
                         Console.WriteLine("4");
