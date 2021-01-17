@@ -171,7 +171,7 @@ namespace Supermercado
 
                 if (this.productList[i].Id == id)
                 {
-                    this.productList[i].Stock += amountToRemove;
+                    this.productList[i].Stock -= amountToRemove;
                     return true;
                 }
             }   
