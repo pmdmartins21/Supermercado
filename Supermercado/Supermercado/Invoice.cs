@@ -14,6 +14,8 @@ namespace Supermercado
         private float amount;
         private float price;
 
+
+        //properties
         public int InvoiceNumber { get => invoiceNumber; set => invoiceNumber = value; }
         public DateTime InvoiceDate { get => invoiceDate; set => invoiceDate = value; }
         public string CustomerName { get => customerName; set => customerName = value; }
@@ -22,6 +24,8 @@ namespace Supermercado
         public float Amount { get => amount; set => amount = value; }
         public float Price { get => price; set => price = value; }
 
+
+        // contructors
         public Invoice(int invoiceNumber, DateTime invoiceDate, string customerName, string purchasedProducts, string employeeName, float amount, float price)
         {
             InvoiceNumber = invoiceNumber;
@@ -32,6 +36,7 @@ namespace Supermercado
             Amount = amount;
             Price = price;
         }
+
     }
 
     class InvoiceList
@@ -40,7 +45,19 @@ namespace Supermercado
 
         public InvoiceList()
         {
-            this.invoiceList = new List<Invoice>(); // inicialização da lista
+            this.invoiceList = new List<Invoice>(); // inicialização da lista de faturas
         }
+
+        public override string ToString()
+        {
+            string result = "NUMERO FATURA   |   DATE   |   CLIENTE   |   CLASSE PRODUTOS   |   NOME DO PRODUTO   |   QUANTIDADE   |   PREÇO   |\n";
+            foreach (Invoice f in this.invoiceList)
+            {
+                result += f.InvoiceNumber + "   |  " + f.InvoiceDate + "    |    " + f.CustomerName + " | " + f.PurchasedProducts  + " " +
+                    "| " + f.EmployeeName + " | " + f.Amount + " | " + f.Price + "\n";
+            }
+            return result;
+        }
+
     }
 }

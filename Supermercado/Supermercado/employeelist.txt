@@ -1,2 +1,4 @@
 1,Daniela,123,Gerente
 2,Pedro,123,Repositor
+3,Moises,PT123,Gerente
+4,Lourenço,123,Gerente

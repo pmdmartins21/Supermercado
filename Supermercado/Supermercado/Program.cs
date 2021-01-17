@@ -34,9 +34,9 @@ namespace Supermercado
             {
                 list1.LerFicheiro();
                 Console.WriteLine("************SUPERMERCADO BINHAS ONTE***************");
-                Console.WriteLine("**                                              **");
-                Console.WriteLine("**                  Bem-vindo/a!                **");
-                Console.WriteLine("**                                              **");
+                Console.WriteLine("**                                               **");
+                Console.WriteLine("**                  Bem-vindo/a!                 **");
+                Console.WriteLine("**                                               **");
                 Console.WriteLine("**\t" + DateTime.Now.ToString("dddd, dd MMMM yyyy HH:mm") + "\t\t**");
                 Console.WriteLine("**************************************************\n");
                 Console.WriteLine("1- Entrar");
@@ -56,7 +56,13 @@ namespace Supermercado
 
                         bool successfull = false;
 
+<<<<<<< Updated upstream
                         while (!successfull)
+=======
+
+
+                        while (successfull == false)
+>>>>>>> Stashed changes
                         {
                             Console.WriteLine("Introduza o seu ID");
                             string id = Console.ReadLine();
@@ -165,18 +171,18 @@ namespace Supermercado
                     case 1:
                         Console.WriteLine(list1.ToString());
                         Console.WriteLine("Introduza o ID\n");
-                        string newId = Console.ReadLine();
+                        string id = Console.ReadLine();
                         Console.WriteLine("Introduza o Nome\n");
-                        string newName = Console.ReadLine();
+                        string name = Console.ReadLine();
                         Console.WriteLine("Introduza a Password\n");
-                        string newPassword = Console.ReadLine();
+                        string password = Console.ReadLine();
                         Console.WriteLine("Qual o Cargo? \n");
                         Console.WriteLine("Para Gerente prima '0'\n");
                         Console.WriteLine("Para Repositor prima '1'\n");
                         Console.WriteLine("Para Caixa prima '2'\n");
-                        string newRole = Console.ReadLine();
-                        Enum.TryParse(newRole, out EmployeeRole role);
-                        list1.NewEmployee(newId, newName, newPassword, role);
+                        string role = Console.ReadLine();
+                        Enum.TryParse(role, out EmployeeRole employeeRole);
+                        list1.NewEmployee(id, name, password, employeeRole);
                         list1.GravarParaFicheiro(); //Depois de adicionarmos um user, qd tentamos logar com o mesmo o programa crasha. Problema com a leitura do txt apos a modificaçao??  
                         Console.WriteLine(list1.ToString());
                         list1.ClearList();
@@ -193,7 +199,21 @@ namespace Supermercado
                         Console.WriteLine(list1.ToString());
                         break;
                     case 3:
-                        Console.WriteLine("3");
+                        Console.WriteLine(list1.ToString());
+                        Console.WriteLine("Introduza o ID do funcionário a editar\n");
+                        string newId = Console.ReadLine();
+                        Console.WriteLine("Introduza o novo nome\n");
+                        string newName = Console.ReadLine();
+                        Console.WriteLine("Introduza a nova password\n");
+                        string newPassword = Console.ReadLine();
+                        Console.WriteLine("Introduza a nova função\n");
+                        string newRole = Console.ReadLine();
+                        Enum.TryParse(newRole, out EmployeeRole newEmployeeRole);
+                        list1.EditEmployee(newId, newName, newPassword, newEmployeeRole);
+                        Console.WriteLine(list1.ToString());
+                        list1.GravarParaFicheiro();
+                        list1.ClearList();
+                        Console.WriteLine(list1.ToString());
                         break;
                     default:
                         Console.WriteLine("Escolheu uma opção inválida");

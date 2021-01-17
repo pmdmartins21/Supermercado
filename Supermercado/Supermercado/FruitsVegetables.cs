@@ -17,7 +17,14 @@ namespace Supermercado
 
         public FruitsVegetables(string id, string name, float stock, float unitPrice, TypeOfProducts typeOfProducts, Category category, Section section) : base(id, name, stock, unitPrice, typeOfProducts, category)
         {
-
+            this.Id = id;
+            this.Name = name;
+            this.Stock = stock;
+            this.UnitPrice = unitPrice;
+            this.TypeOfProducts = typeOfProducts;
+            this.Category = category;
+            this.Section = section;
         }
+
     }
 }

@@ -141,6 +141,30 @@ namespace Supermercado
 
         }
 
+        public Employee EditEmployee(string id, string newName, string newPassword, EmployeeRole newEmployeeRole)
+        {
+            Employee e = FindEmployee(id);
+
+            if (e != null)
+            {
+                if (!newName.Equals(""))  // if (String.IsNullOrEmpty(novoNome)
+                {
+                    e.Name = newName;
+                }
+                if (!newPassword.Equals(""))  // if (String.IsNullOrEmpty(novoNome)
+                {
+                    e.Password = newPassword;
+                }
+                if (!newEmployeeRole.Equals(""))  // if (String.IsNullOrEmpty(novoNome)
+                {
+                    e.EmployeeRole = newEmployeeRole;
+                }
+                GravarParaFicheiro();
+                return e;
+            }
+            return null;
+        }
+
         public bool RemoveEmployee(string id)
         {
             int indexAremover = -1;
@@ -161,9 +185,16 @@ namespace Supermercado
         }
         public bool ValidateEntry(string id, string password)
         {
+<<<<<<< Updated upstream
             Employee empregadoAValidar = FindEmployee(id); // empregado ou null
             if (empregadoAValidar != null) {
                 if (empregadoAValidar.Id == id && empregadoAValidar.Password == password) 
+=======
+            Employee empregadoAValidar = FindEmployee(id);
+            
+            if (empregadoAValidar.Id == id && empregadoAValidar.Password == password) // ver com passes diferentes.
+                
+>>>>>>> Stashed changes
                 {
                     Console.WriteLine("You have successfully logged in !!!");
                     return true;
