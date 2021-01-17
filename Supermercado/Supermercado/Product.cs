@@ -48,7 +48,14 @@ namespace Supermercado
             this.typeOfProducts = typeOfProducts;
             this.category = category;
         }
-
+        public override string ToString()
+        {
+            string result = "ID   | NOME    | STOCK  | PREÇO UNITÁRIO  |   TIPO DE PRODUTO  |   CATEGORIA  \n";
+            
+            result += this.Id + "   |  " + this.Name + "    |    " + this.Stock + " | " + this.UnitPrice + " | " + this.TypeOfProducts + " | " + this.Category + "\n";
+            
+            return result;
+        }
     }
 
     class ProductList
