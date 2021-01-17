@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 
 namespace Supermercado
 {
@@ -227,7 +228,7 @@ namespace Supermercado
 
             do
             {
-                // list1.LerFicheiro(); <<--- lista produtos acima
+                list1.LerFicheiro(); 
                 Console.WriteLine("************SUPERMERCADO BINHAS ONTE***************");
                 Console.WriteLine("**                                              **");
                 Console.WriteLine("**                  Bem-vindo/a!                **");
@@ -253,10 +254,29 @@ namespace Supermercado
                         MenuStock2();
                         break;
                     case 2:
-                        Console.WriteLine("I");
+                        Console.WriteLine(list1.ToString()); // Listar
+                        Console.WriteLine("escolha o id do produto:");
+                        string idProdutoAAdicionar = Console.ReadLine();
+                        Console.WriteLine("escolha o Nome do produto:");
+                        string nomeDoProdutoAAdicionar = Console.ReadLine();
+                        Console.WriteLine("escolha o stock do produto:");
+                        float stockProdutoAAdicionar = float.Parse(Console.ReadLine(), CultureInfo.InvariantCulture.NumberFormat);
+                        Console.WriteLine("escolha o Preco do produto:");
+                        float precoProdutoAAdicionar = float.Parse(Console.ReadLine(), CultureInfo.InvariantCulture.NumberFormat);
+                        Console.WriteLine("escolha o id do produto:");
+                        TypeOfProducts IdProdutoAAdicionar = Console.ReadLine();
+
+                        Console.WriteLine("escolha o id do produto:");
+                        Category IdProdutoAAdicionar = Console.ReadLine();
+
+
                         break;
                     case 3:
-                        Console.WriteLine("3");
+                        Console.WriteLine(list1.ToString()); // Listar
+                        Console.WriteLine("escolha o id a remover:");
+                        string produtoARemover = Console.ReadLine();
+                        list1.RemoveProduct(produtoARemover);
+                        list1.GravarParaFicheiro();
                         break;
                     case 4:
                         list1.ClearList();
