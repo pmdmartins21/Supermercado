@@ -259,7 +259,8 @@ namespace Supermercado
                         Console.WriteLine("3");
                         break;
                     case 4:
-                        Console.WriteLine("4");
+                        list1.ClearList();
+                        list1.GravarParaFicheiro();
                         break;
                     default:
                         Console.WriteLine("Escolheu uma opção inválida");
