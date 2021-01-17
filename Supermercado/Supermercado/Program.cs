@@ -56,7 +56,6 @@ namespace Supermercado
 
                         bool successfull = false;
 
-
                         while (!successfull)
                         {
                             Console.WriteLine("Introduza o seu ID");

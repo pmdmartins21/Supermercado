@@ -185,12 +185,10 @@ namespace Supermercado
         }
         public bool ValidateEntry(string id, string password)
         {
-
             Employee empregadoAValidar = FindEmployee(id); // empregado ou null
-            if (empregadoAValidar != null) {
-                
-            if (empregadoAValidar.Id == id && empregadoAValidar.Password == password) // ver com passes diferentes.
-                
+            if (empregadoAValidar != null)
+            {
+                if (empregadoAValidar.Id == id && empregadoAValidar.Password == password) // ver com passes diferentes.
                 {
                     Console.WriteLine("You have successfully logged in !!!");
                     return true;
@@ -200,12 +198,12 @@ namespace Supermercado
                     Console.WriteLine("User/Pass incorrecto");
                     return false;
                 }
-
-            }else
-                {
-                    Console.WriteLine("User/Pass incorrecto");
-                    return false;
-                }
+            }
+            else
+            {
+                Console.WriteLine("User/Pass incorrecto");
+                return false;
+            }
         
         }
         public Employee NewEmployee(string newId, string newName, string newPassword, EmployeeRole employeeRole)
