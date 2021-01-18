@@ -20,7 +20,7 @@ namespace Supermercado
     }
     class Product
     {
-        //atributos
+        //attributes
         private string id;
         private string name;
         private float stock;
@@ -48,6 +48,7 @@ namespace Supermercado
             this.typeOfProducts = typeOfProducts;
             this.category = category;
         }
+      
         public override string ToString()
         {
             string result = "ID   | NOME    | STOCK  | PREÇO UNITÁRIO  |   TIPO DE PRODUTO  |   CATEGORIA  \n";
@@ -58,7 +59,7 @@ namespace Supermercado
         }
     }
 
-    class ProductList
+   class ProductList
     {
         public List<Product> productList;
 
@@ -193,6 +194,26 @@ namespace Supermercado
                 result += f.Id + "   |  " + f.Name + "    |    " + f.Stock + " | " + f.UnitPrice + " | " + f.TypeOfProducts + " | " + f.Category + "\n";
             }
             return result;
+        }
+
+        public string ListProductsByCategory(Category category)
+        {
+
+            string result = "ID   | NOME    | STOCK  | PREÇO UNITÁRIO  |   TIPO DE PRODUTO  |   CATEGORIA  \n";
+            foreach (Product p in this.productList)
+            {
+                if (p.Category == category)
+                {
+                    result += p.Id + "   |  " + p.Name + "    |    " + p.Stock + " | " + p.UnitPrice + " | " 
+                        + p.TypeOfProducts + " | " + p.Category + "\n";
+                }
+            }
+            return result;
+        }
+
+        public void VerifyStock()
+        {
+           
         }
     }
 

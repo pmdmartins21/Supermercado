@@ -140,7 +140,6 @@ namespace Supermercado
 
             ProductList productList = new ProductList();
 
-
             do
             {
                 productList.LerFicheiro();
@@ -155,6 +154,7 @@ namespace Supermercado
                 Console.WriteLine("1- Carne\n");
                 Console.WriteLine("2- Frutas e Legumes\n");
                 Console.WriteLine("3- Mercearia\n");
+                Console.WriteLine("--------------------------------------------------");
                 Console.WriteLine("4- Ver carrinho de produtos\n");
                 Console.WriteLine("5- Cancelar venda\n");
                 Console.WriteLine("--------------------------------------------------");
@@ -169,13 +169,17 @@ namespace Supermercado
                         Console.WriteLine("0");
                         break;
                     case 1:
-                        Console.WriteLine("1");
+                        Console.WriteLine(productList.ListProductsByCategory(Category.Carne));
+                        MenuVenda();
+
                         break;
                     case 2:
-                        Console.WriteLine("2");
+                        Console.WriteLine(productList.ListProductsByCategory(Category.FrutasLegumes));
+                        MenuVenda();
                         break;
                     case 3:
-                        Console.WriteLine("3");
+                        Console.WriteLine(productList.ListProductsByCategory(Category.Mercearia));
+                        MenuVenda();
                         break;
                     case 4:
                         Console.WriteLine("4");
@@ -191,6 +195,32 @@ namespace Supermercado
                 Console.Clear();
 
             } while (menuOption2 != 0);
+        }
+
+        public static void MenuVenda()
+        {
+            ProductList productList = new ProductList();
+           
+            
+            bool emStock = false;
+            while (!emStock)
+            {
+                Console.WriteLine("Introduza o id do produto a adicionar ao carrinho");
+                string idPurchase = Console.ReadLine();
+                Console.WriteLine("Introduza a quantidade");
+                float quantityPurchase = float.Parse(Console.ReadLine());
+                
+                if(quantityPurchase > 0)
+                {
+                    
+              
+                }
+                else
+                {
+                    Console.WriteLine("Nao tem stock");
+                    break;
+                }
+            }
         }
 
 
