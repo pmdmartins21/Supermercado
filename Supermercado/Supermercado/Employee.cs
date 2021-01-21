@@ -51,7 +51,8 @@ namespace Supermercado
             Password = password;
             EmployeeRole = employeeRole;
         }
-
+        internal Employee()
+        {}
 
     }
 

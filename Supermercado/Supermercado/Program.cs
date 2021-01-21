@@ -8,7 +8,7 @@ namespace Supermercado
     {
         static void Main(string[] args)
         {
-
+            Employee activeUser = new Employee();
             /*System f = new System(); // inicializar lista
             f.LerFicheiro(); // ler a listagem dos produtos
 
@@ -17,14 +17,14 @@ namespace Supermercado
           
 
 
-            MostrarMenu();
+            MostrarMenu(activeUser);
 
 
 
 
         }
 
-        public static void MostrarMenu()
+        public static void MostrarMenu(Employee activeuser)
         {
             int menuOption;
 
@@ -63,9 +63,10 @@ namespace Supermercado
                             string id = Console.ReadLine();
                             Console.WriteLine("Introduza a sua password");
                             string password = Console.ReadLine();
-                            successfull = list1.ValidateEntry(id, password); ;
+                            successfull = list1.ValidateEntry(id, password);
+                            activeuser = list1.FindEmployee(id);
                         }
-                        MostrarPrincipal();
+                        MostrarPrincipal(activeuser);
                         break;
                     case 2:
                         Console.WriteLine("2");
@@ -80,13 +81,13 @@ namespace Supermercado
 
             } while (menuOption != 0);
         }
-        public static void MostrarPrincipal() //Menu principal
+        public static void MostrarPrincipal(Employee activeuser) //Menu principal
         {
             int menuOption2;
 
             EmployeeList list2 = new EmployeeList();
-            
 
+            
             do
             {
                 list2.LerFicheiro();
@@ -118,7 +119,7 @@ namespace Supermercado
                         MenuStock();
                         break;
                     case 3:
-                        MenuFuncionarios();
+                        MenuFuncionarios(activeuser);
                         break;
                     case 4:
                         Console.WriteLine("4");
@@ -137,6 +138,7 @@ namespace Supermercado
         public static void MenuVendas() 
         {
             int menuOption2;
+            int counterArray = 0;
 
             ProductList productList = new ProductList();
 
@@ -170,16 +172,20 @@ namespace Supermercado
                         break;
                     case 1:
                         Console.WriteLine(productList.ListProductsByCategory(Category.Carne));
-                        MenuVenda();
-
+                        MenuVenda(counterArray);
+                        counterArray++;
                         break;
                     case 2:
                         Console.WriteLine(productList.ListProductsByCategory(Category.FrutasLegumes));
-                        MenuVenda();
+                        MenuVenda(counterArray);
+                        counterArray++;
                         break;
                     case 3:
                         Console.WriteLine(productList.ListProductsByCategory(Category.Mercearia));
-                        MenuVenda();
+                        
+                        MenuVenda(counterArray);
+                        counterArray++;
+
                         break;
                     case 4:
                         Console.WriteLine("4");
@@ -197,10 +203,11 @@ namespace Supermercado
             } while (menuOption2 != 0);
         }
 
-        public static void MenuVenda()
+        public static void MenuVenda(int counterArray)
         {
             ProductList productList = new ProductList();
-           
+            
+            //Product produtoEscolhido;
             
             bool emStock = false;
             while (!emStock)
@@ -212,7 +219,9 @@ namespace Supermercado
                 
                 if(quantityPurchase > 0)
                 {
-                    
+                    //produtoEscolhido = productList.FindProduct(idPurchase);
+                    Console.WriteLine(counterArray);
+                    break;
               
                 }
                 else
@@ -224,13 +233,13 @@ namespace Supermercado
         }
 
 
-        public static void MenuFuncionarios()
+        public static void MenuFuncionarios(Employee activeuser)
         {
             int menuOption;
 
             EmployeeList list1 = new EmployeeList();
 
-
+            Console.WriteLine(activeuser.Name);
             do
             {
                 list1.LerFicheiro();

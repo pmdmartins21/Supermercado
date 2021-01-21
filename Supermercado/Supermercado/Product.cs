@@ -211,6 +211,21 @@ namespace Supermercado
             return result;
         }
 
+        public Product FindProduct(string id)
+        {
+
+            foreach (Product p in this.productList)
+            {
+                if (p.Id.Equals(id))
+                {
+                    return p;
+                }
+            }
+
+            return null;
+
+        }
+
         public void VerifyStock()
         {
            
