@@ -221,18 +221,19 @@ namespace Supermercado
             ProductList productList = new ProductList();
             ProductList invoiceProductList = new ProductList();
             Invoice invoice = new Invoice();
-
+            productList.LerFicheiro();
             //Product produtoEscolhido;
 
             bool emStock = false;
             float prodQuantity = 0;
             while (!emStock)
             {
+
                 Console.WriteLine("Introduza o id do produto a adicionar ao carrinho");
                 string idPurchase = Console.ReadLine();
                 //Verificar id Produto
-                invoiceProductList.FindProduct(idPurchase);
-                string name = invoiceProductList.FindName(idPurchase);
+                productList.FindProduct(idPurchase);
+                string name = productList.FindName(idPurchase);
                 Console.WriteLine("Introduza a quantidade");
                 float quantityPurchase = float.Parse(Console.ReadLine());
                 //Verificar Stock
@@ -252,6 +253,7 @@ namespace Supermercado
                 float pricePurchase = productList.FindPrice(idPurchase);
                 
                 Product product = new Product(idPurchase, name, quantityPurchase, pricePurchase);
+                Console.WriteLine(product.Name);
                 invoiceProductList.AddProduct(product);
                 Console.WriteLine(invoiceProductList.productList[0].Name);
                 //InvoiceItem item = new InvoiceItem();
