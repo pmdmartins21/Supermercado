@@ -145,7 +145,7 @@ namespace Supermercado
         public static void MenuVendas(Employee activeuser) 
         {
             int menuOption2;
-            int counterArray = 0;
+            
 
             ProductList productList = new ProductList();
 
@@ -184,19 +184,19 @@ namespace Supermercado
                         break;
                     case 1:
                         Console.WriteLine(productList.ListProductsByCategory(Category.Carne));
-                        MenuVenda(counterArray);
-                        counterArray++;
+                        MenuVenda(activeuser);
+                        
                         break;
                     case 2:
                         Console.WriteLine(productList.ListProductsByCategory(Category.FrutasLegumes));
-                        MenuVenda(counterArray);
-                        counterArray++;
+                        MenuVenda(activeuser);
+                        
                         break;
                     case 3:
                         Console.WriteLine(productList.ListProductsByCategory(Category.Mercearia));
 
-                        MenuVenda(counterArray);
-                        counterArray++;
+                        MenuVenda(activeuser);
+                        
 
                         break;
                     case 4:
@@ -215,12 +215,10 @@ namespace Supermercado
             } while (menuOption2 != 0);
         }
 
-        public static void MenuVenda(int counterArray)
+        public static void MenuVenda(Employee activeuser)
         {
 
-            ProductList productList = new ProductList();
-            ProductList invoiceProductList = new ProductList();
-            Invoice invoice = new Invoice();
+            ProductList productList = new ProductList(); //LISTAGEM DO STOCK
             productList.LerFicheiro();
             //Product produtoEscolhido;
 
@@ -231,11 +229,15 @@ namespace Supermercado
 
                 Console.WriteLine("Introduza o id do produto a adicionar ao carrinho");
                 string idPurchase = Console.ReadLine();
-                //Verificar id Produto
-                productList.FindProduct(idPurchase);
-                string name = productList.FindName(idPurchase);
+                //Verificar id Produto e FAZER CÓPIA DO PRODUTO ORIGINAL
+                Product productPurchase = productList.FindProduct(idPurchase);
+
+                
+                //string name = productList.FindName(idPurchase);
                 Console.WriteLine("Introduza a quantidade");
-                float quantityPurchase = float.Parse(Console.ReadLine());
+                float quantityPurchase = float.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
+                //INCORPORAR A QUANTIDADE NO PRODUTO A COMPRAR
+                productPurchase.Stock = quantityPurchase;
                 //Verificar Stock
                 prodQuantity = productList.VerifyStock(idPurchase);
                 if (quantityPurchase > 0)
@@ -252,25 +254,26 @@ namespace Supermercado
                 
                 float pricePurchase = productList.FindPrice(idPurchase);
                 
-                Product product = new Product(idPurchase, name, quantityPurchase, pricePurchase);
-                Console.WriteLine(product.Name);
-                invoiceProductList.AddProduct(product);
-                Console.WriteLine(invoiceProductList.productList[0].Name);
+                
+
+          
                 //InvoiceItem item = new InvoiceItem();
 
-                /*Console.WriteLine("Introduza o número da fatura:");
+
+                Console.WriteLine("Introduza o número da fatura:");
                 int numberInvoice = int.Parse(Console.ReadLine());
                 Console.WriteLine("Introduza a data");
-                DateTime date = DateTime.Parse(Console.ReadLine());
+                DateTime date = DateTime.Now;
                 Console.WriteLine("Introduza o nome do cliente:");
                 string clientName = Console.ReadLine();
-                Console.WriteLine("Introduza o nome do funcionário:");
-                string employeeName = Console.ReadLine();
-                Console.WriteLine("Introduza o total da fatura");
-                float totalAmount = float.Parse(Console.ReadLine());
-                Invoice newInvoice = new Invoice(numberInvoice, date, clientName, employeeName, totalAmount);
-                newInvoice.AddInvoiceProduct(product);
-                */
+                string employeeName = activeuser.Name;
+                Console.WriteLine("O total da fatura: ");
+
+                Invoice newInvoice = new Invoice(numberInvoice, date, clientName, employeeName);
+                newInvoice.InvoiceProducts.Add(productPurchase);
+
+                Console.WriteLine(newInvoice.ToString());
+             
 
                 /*if(quantityPurchase > 0)
                 {

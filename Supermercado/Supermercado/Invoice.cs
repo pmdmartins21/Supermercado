@@ -11,7 +11,6 @@ namespace Supermercado
         private DateTime invoiceDate;
         private string customerName;
         private string employeeName;
-        private float totalAmount;
         private List<Product> invoiceProducts;
 
         //properties
@@ -19,7 +18,6 @@ namespace Supermercado
         public DateTime InvoiceDate { get => invoiceDate; set => invoiceDate = value; }
         public string CustomerName { get => customerName; set => customerName = value; }
         public string EmployeeName { get => employeeName; set => employeeName = value; }
-        public float TotalAmount { get => totalAmount; set => totalAmount = value; }
         public List<Product> InvoiceProducts { get => invoiceProducts; set => invoiceProducts = value; }
 
 
@@ -29,21 +27,34 @@ namespace Supermercado
             InvoiceProducts = new List<Product>(); // inicialização da lista
         }
 
-        public Invoice(int invoiceNumber, DateTime invoiceDate, string customerName, string employeeName, float totalAmount)
+        public Invoice(int invoiceNumber, DateTime invoiceDate, string customerName, string employeeName)
         {
-            InvoiceNumber = invoiceNumber;
-            InvoiceDate = invoiceDate;
-            CustomerName = customerName;
-            EmployeeName = employeeName;
-            TotalAmount = totalAmount;
+            this.invoiceNumber = invoiceNumber;
+            this.invoiceDate = invoiceDate;
+            this.customerName = customerName;
+            this.employeeName = employeeName;
+            this.invoiceProducts = new List<Product>();
         }
 
-        
         public void AddInvoiceProduct(Product product)
         {
             InvoiceProducts.Add(product);
         }
-        
+
+        public override string ToString()
+        {
+            float totalInvoice = 0;
+            string result = "NUMERO FATURA   |   DATA   |   CLIENTE   |   FUNCIONÁRIO   |   TOTAL  |\n";
+            result += "   " + InvoiceNumber + "    " + invoiceDate + "    " + customerName + "    " + EmployeeName + "\n";
+            foreach (Product p in invoiceProducts)
+            {
+                
+                result += p.Name + "   |  " + p.Stock + "    |    " + p.UnitPrice + " | " + " " + "| Total da linha: " + (p.Stock * p.UnitPrice) + "\n";
+                totalInvoice += (p.Stock * p.UnitPrice);
+            }
+            result += "Total da fatura: \n" + totalInvoice;
+            return result;
+        }
 
     }
     class InvoiceList
@@ -63,8 +74,7 @@ namespace Supermercado
             string result = "NUMERO FATURA   |   DATA   |   CLIENTE   |   FUNCIONÁRIO   |   TOTAL  |\n";
             foreach (Invoice i in InvoiceListing)
             {
-                result += i.InvoiceNumber + "   |  " + i.InvoiceDate + "    |    " + i.CustomerName + " | " + " "
-                    + "| " + i.EmployeeName + " | " + i.TotalAmount + " | " + "\n";
+                result += i.InvoiceNumber + "   |  " + i.InvoiceDate + "    |    " + i.CustomerName + " | " + " " + "| " + i.EmployeeName + "\n";
             }
             return result;
         }
