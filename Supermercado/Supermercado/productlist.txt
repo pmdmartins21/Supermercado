@@ -1,4 +1,4 @@
 123, Bolachas,9,2,Prateleira,Mercearia
 231, Chocolate,7,1,99,FrutasLegumes
-111,batatas,6.5,5,Prateleira,FrutasLegumes
+111,batatas,6.5,5,Prateleira,Carne
 222,cenouras,6,1,Enlatado,FrutasLegumes
