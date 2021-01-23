@@ -52,7 +52,15 @@ namespace Supermercado
             this.typeOfProducts = typeOfProducts;
             this.category = category;
         }
-      
+
+        public Product(string id, string name, float stock, float unitPrice)
+        {
+            Id = id;
+            Name = name;
+            Stock = stock;
+            UnitPrice = unitPrice;
+        }
+
         public override string ToString()
         {
             string result = "ID   | NOME    | STOCK  | PREÇO UNITÁRIO  |   TIPO DE PRODUTO  |   CATEGORIA  \n";
@@ -230,10 +238,40 @@ namespace Supermercado
 
         }
 
-        public void VerifyStock()
+        public float VerifyStock(string id)
         {
-           
+            foreach (Product p in this.productList)
+            {
+                if (p.Id.Equals(id))
+                {
+                    return p.Stock;
+                }
+            }
+            return -1;
         }
+        public string FindName(string id)
+        {
+            foreach (Product p in this.productList)
+            {
+                if (p.Id.Equals(id))
+                {
+                    return p.Name;
+                }
+            }
+            return null;
+        }
+        public float FindPrice(string id)
+        {
+            foreach (Product p in this.productList)
+            {
+                if (p.Id.Equals(id))
+                {
+                    return p.UnitPrice;
+                }
+            }
+            return -1;
+        }
+
     }
 
 }

@@ -12,7 +12,7 @@ namespace Supermercado
         private string customerName;
         private string employeeName;
         private float totalAmount;
-        private List<InvoiceItem> invoiceItems;
+        private List<Product> invoiceProducts;
 
         //properties
         public int InvoiceNumber { get => invoiceNumber; set => invoiceNumber = value; }
@@ -20,13 +20,13 @@ namespace Supermercado
         public string CustomerName { get => customerName; set => customerName = value; }
         public string EmployeeName { get => employeeName; set => employeeName = value; }
         public float TotalAmount { get => totalAmount; set => totalAmount = value; }
-        public List<InvoiceItem> InvoiceItems { get => invoiceItems; set => invoiceItems = value; }
+        public List<Product> InvoiceProducts { get => invoiceProducts; set => invoiceProducts = value; }
 
 
         // contructors
         public Invoice()
         {
-            InvoiceItems = new List<InvoiceItem>(); // inicialização da lista
+            InvoiceProducts = new List<Product>(); // inicialização da lista
         }
 
         public Invoice(int invoiceNumber, DateTime invoiceDate, string customerName, string employeeName, float totalAmount)
@@ -38,10 +38,12 @@ namespace Supermercado
             TotalAmount = totalAmount;
         }
 
-        public void AddInvoiceItem(InvoiceItem invoiceItem)
+        
+        public void AddInvoiceProduct(Product product)
         {
-            InvoiceItems.Add(invoiceItem);
+            InvoiceProducts.Add(product);
         }
+        
 
     }
     class InvoiceList

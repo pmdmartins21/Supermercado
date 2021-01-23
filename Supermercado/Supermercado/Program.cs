@@ -14,7 +14,7 @@ namespace Supermercado
 
             Console.WriteLine(f.ToString());*/
 
-          
+
 
 
             MostrarMenu(activeUser);
@@ -90,7 +90,7 @@ namespace Supermercado
 
             EmployeeList list2 = new EmployeeList();
 
-            
+
             do
             {
                 list2.LerFicheiro();
@@ -130,7 +130,7 @@ namespace Supermercado
                         break;
                     case 4:
                         Console.WriteLine("4");
-                        break;                  
+                        break;
                     default:
                         Console.WriteLine("Escolheu uma opção inválida");
                         break;
@@ -194,7 +194,7 @@ namespace Supermercado
                         break;
                     case 3:
                         Console.WriteLine(productList.ListProductsByCategory(Category.Mercearia));
-                        
+
                         MenuVenda(counterArray);
                         counterArray++;
 
@@ -217,28 +217,46 @@ namespace Supermercado
 
         public static void MenuVenda(int counterArray)
         {
-            
+
             ProductList productList = new ProductList();
+            ProductList invoiceProductList = new ProductList();
             Invoice invoice = new Invoice();
-            
+
             //Product produtoEscolhido;
-            
+
             bool emStock = false;
+            float prodQuantity = 0;
             while (!emStock)
             {
                 Console.WriteLine("Introduza o id do produto a adicionar ao carrinho");
                 string idPurchase = Console.ReadLine();
                 //Verificar id Produto
+                invoiceProductList.FindProduct(idPurchase);
+                string name = invoiceProductList.FindName(idPurchase);
                 Console.WriteLine("Introduza a quantidade");
                 float quantityPurchase = float.Parse(Console.ReadLine());
                 //Verificar Stock
-                Console.WriteLine("Introduza o preço");
-                float pricePurchase = float.Parse(Console.ReadLine());
-                //percorrer a lista para ir buscar os atributos correspondentes ao id
-                Product product = new Product();
-                InvoiceItem item = new InvoiceItem(product, quantityPurchase, pricePurchase);
+                prodQuantity = productList.VerifyStock(idPurchase);
+                if (quantityPurchase > 0)
+                {
+                    //produtoEscolhido = productList.FindProduct(idPurchase);
+                    //Console.WriteLine(counterArray);
+                    
+                }
+                else
+                {
+                    Console.WriteLine("Nao tem stock");
+                    
+                }
+                
+                float pricePurchase = productList.FindPrice(idPurchase);
+                
+                Product product = new Product(idPurchase, name, quantityPurchase, pricePurchase);
+                invoiceProductList.AddProduct(product);
+                Console.WriteLine(invoiceProductList.productList[0].Name);
+                //InvoiceItem item = new InvoiceItem();
 
-                Console.WriteLine("Introduza o número da fatura:");
+                /*Console.WriteLine("Introduza o número da fatura:");
                 int numberInvoice = int.Parse(Console.ReadLine());
                 Console.WriteLine("Introduza a data");
                 DateTime date = DateTime.Parse(Console.ReadLine());
@@ -249,7 +267,8 @@ namespace Supermercado
                 Console.WriteLine("Introduza o total da fatura");
                 float totalAmount = float.Parse(Console.ReadLine());
                 Invoice newInvoice = new Invoice(numberInvoice, date, clientName, employeeName, totalAmount);
-                newInvoice.AddInvoiceItem(item);
+                newInvoice.AddInvoiceProduct(product);
+                */
 
                 /*if(quantityPurchase > 0)
                 {
@@ -369,7 +388,7 @@ namespace Supermercado
 
             do
             {
-                list1.LerFicheiro(); 
+                list1.LerFicheiro();
                 Console.WriteLine("************SUPERMERCADO BINHAS ONTE***************");
                 Console.WriteLine("**                                              **");
                 Console.WriteLine("**                  Bem-vindo/a!                **");
@@ -416,11 +435,11 @@ namespace Supermercado
 
                         Console.WriteLine("Escolha o Tipo do Produto: Congelado = 0, Prateleira = 1, Enlatado = 2");
                         Enum.TryParse(Console.ReadLine(), out TypeOfProducts typeOfproducts);
-                        
+
 
                         Console.WriteLine("Escolha a Categoria: FrutasLegumes = 0, Carne = 1, Mercearia = 2");
                         Enum.TryParse(Console.ReadLine(), out Category categoria);
-                      
+
 
                         Product x = new Product(idProdutoAAdicionar, nomeDoProdutoAAdicionar, stockProdutoAAdicionar, precoProdutoAAdicionar, typeOfproducts, categoria);
                         Console.WriteLine(x.ToString());
@@ -467,7 +486,7 @@ namespace Supermercado
         {
             int menuOption;
 
-            ProductList list1 = new ProductList(); 
+            ProductList list1 = new ProductList();
 
             do
             {
@@ -555,5 +574,5 @@ namespace Supermercado
             } while (menuOption != 0);
         }
     }
-        
+
 }
