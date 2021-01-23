@@ -4,29 +4,6 @@ using System.Text;
 
 namespace Supermercado
 {
-   class PurchasedProduct
-    {
-        //attributes
-        private Product product;
-        private float quantity;
-        private float productPrice;
-
-
-        //properties
-        public float Quantity { get => quantity; set => quantity = value; }
-        public float ProductPrice { get => productPrice; set => productPrice = value; }
-        internal Product Product { get => product; set => product = value; }
-
-
-        //constructors
-        public PurchasedProduct(Product p, float quantity, float productPrice)
-        {
-            this.Product = p;
-            this.Quantity = quantity;
-            this.ProductPrice = productPrice;
-        }
-    }
-
     class Invoice
     {
         //attributes
@@ -35,14 +12,7 @@ namespace Supermercado
         private string customerName;
         private string employeeName;
         private float totalAmount;
-
-        public List<PurchasedProduct> purchasedProducts;
-
-        public Invoice()
-        {
-            this.purchasedProducts = new List<PurchasedProduct>(); // inicialização da lista
-        }
-
+        private List<InvoiceItem> invoiceItems;
 
         //properties
         public int InvoiceNumber { get => invoiceNumber; set => invoiceNumber = value; }
@@ -50,10 +20,15 @@ namespace Supermercado
         public string CustomerName { get => customerName; set => customerName = value; }
         public string EmployeeName { get => employeeName; set => employeeName = value; }
         public float TotalAmount { get => totalAmount; set => totalAmount = value; }
-
+        public List<InvoiceItem> InvoiceItems { get => invoiceItems; set => invoiceItems = value; }
 
 
         // contructors
+        public Invoice()
+        {
+            InvoiceItems = new List<InvoiceItem>(); // inicialização da lista
+        }
+
         public Invoice(int invoiceNumber, DateTime invoiceDate, string customerName, string employeeName, float totalAmount)
         {
             InvoiceNumber = invoiceNumber;
@@ -62,23 +37,31 @@ namespace Supermercado
             EmployeeName = employeeName;
             TotalAmount = totalAmount;
         }
-    }
 
+        public void AddInvoiceItem(InvoiceItem invoiceItem)
+        {
+            InvoiceItems.Add(invoiceItem);
+        }
+
+    }
     class InvoiceList
     {
-        public List<Invoice> invoiceList;
+        private List<Invoice> invoiceListing;
+
+        public List<Invoice> InvoiceListing { get => invoiceListing; set => invoiceListing = value; }
+
 
         public InvoiceList()
         {
-            this.invoiceList = new List<Invoice>(); // inicialização da lista de faturas
+            InvoiceListing = new List<Invoice>(); // inicialização da lista de faturas
         }
 
         public override string ToString()
         {
             string result = "NUMERO FATURA   |   DATA   |   CLIENTE   |   FUNCIONÁRIO   |   TOTAL  |\n";
-            foreach (Invoice i in this.invoiceList)
+            foreach (Invoice i in InvoiceListing)
             {
-                result += i.InvoiceNumber + "   |  " + i.InvoiceDate + "    |    " + i.CustomerName + " | " + " " 
+                result += i.InvoiceNumber + "   |  " + i.InvoiceDate + "    |    " + i.CustomerName + " | " + " "
                     + "| " + i.EmployeeName + " | " + i.TotalAmount + " | " + "\n";
             }
             return result;

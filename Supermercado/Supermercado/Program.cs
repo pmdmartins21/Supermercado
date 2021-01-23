@@ -205,7 +205,9 @@ namespace Supermercado
 
         public static void MenuVenda(int counterArray)
         {
+            
             ProductList productList = new ProductList();
+            Invoice invoice = new Invoice();
             
             //Product produtoEscolhido;
             
@@ -214,10 +216,30 @@ namespace Supermercado
             {
                 Console.WriteLine("Introduza o id do produto a adicionar ao carrinho");
                 string idPurchase = Console.ReadLine();
+                //Verificar id Produto
                 Console.WriteLine("Introduza a quantidade");
                 float quantityPurchase = float.Parse(Console.ReadLine());
-                
-                if(quantityPurchase > 0)
+                //Verificar Stock
+                Console.WriteLine("Introduza o preço");
+                float pricePurchase = float.Parse(Console.ReadLine());
+                //percorrer a lista para ir buscar os atributos correspondentes ao id
+                Product product = new Product();
+                InvoiceItem item = new InvoiceItem(product, quantityPurchase, pricePurchase);
+
+                Console.WriteLine("Introduza o número da fatura:");
+                int numberInvoice = int.Parse(Console.ReadLine());
+                Console.WriteLine("Introduza a data");
+                DateTime date = DateTime.Parse(Console.ReadLine());
+                Console.WriteLine("Introduza o nome do cliente:");
+                string clientName = Console.ReadLine();
+                Console.WriteLine("Introduza o nome do funcionário:");
+                string employeeName = Console.ReadLine();
+                Console.WriteLine("Introduza o total da fatura");
+                float totalAmount = float.Parse(Console.ReadLine());
+                Invoice newInvoice = new Invoice(numberInvoice, date, clientName, employeeName, totalAmount);
+                newInvoice.AddInvoiceItem(item);
+
+                /*if(quantityPurchase > 0)
                 {
                     //produtoEscolhido = productList.FindProduct(idPurchase);
                     Console.WriteLine(counterArray);
@@ -229,6 +251,7 @@ namespace Supermercado
                     Console.WriteLine("Nao tem stock");
                     break;
                 }
+                */
             }
         }
 

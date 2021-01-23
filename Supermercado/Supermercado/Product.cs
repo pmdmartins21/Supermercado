@@ -39,6 +39,10 @@ namespace Supermercado
 
 
         // contructors
+        public Product()
+        {
+
+        }
         public Product(string id, string name, float stock, float unitPrice, TypeOfProducts typeOfProducts, Category category)
         {
             this.id = id;
