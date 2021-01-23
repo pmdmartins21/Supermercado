@@ -44,14 +44,17 @@ namespace Supermercado
                 Console.WriteLine("2- Recuperar a password\n"); // como será possivel recuperar a pass
                 Console.WriteLine("--------------------------------------------------");
                 Console.WriteLine("0- Sair");
-
-                menuOption = int.Parse(Console.ReadLine());
+                
+                while (int.TryParse(Console.ReadLine(), out menuOption) == false)
+                {
+                    Console.WriteLine("Opçao errada");
+                }
+                
                 Console.Clear();
 
                 switch (menuOption)
                 {
                     case 0:
-                        Console.WriteLine("0");
                         break;
                     case 1:
 
@@ -103,20 +106,24 @@ namespace Supermercado
                 Console.WriteLine("4- Listagem de Faturas\n");
                 Console.WriteLine("--------------------------------------------------");
                 Console.WriteLine("0- Sair");
-
-                menuOption2 = int.Parse(Console.ReadLine());
+                
+                while (int.TryParse(Console.ReadLine(), out menuOption2) == false)
+                {
+                    Console.WriteLine("Opçao errada");
+                }
+               
                 Console.Clear();
 
                 switch (menuOption2)
                 {
                     case 0:
-                        Console.WriteLine("0");
+                        MostrarMenu(activeuser);
                         break;
                     case 1:
-                        MenuVendas();
+                        MenuVendas(activeuser);
                         break;
                     case 2:
-                        MenuStock();
+                        MenuStock(activeuser);
                         break;
                     case 3:
                         MenuFuncionarios(activeuser);
@@ -135,7 +142,7 @@ namespace Supermercado
         }
 
 
-        public static void MenuVendas() 
+        public static void MenuVendas(Employee activeuser) 
         {
             int menuOption2;
             int counterArray = 0;
@@ -162,7 +169,12 @@ namespace Supermercado
                 Console.WriteLine("--------------------------------------------------");
                 Console.WriteLine("0- Terminar venda");
 
-                menuOption2 = int.Parse(Console.ReadLine());
+                while (int.TryParse(Console.ReadLine(), out menuOption2) == false)
+                {
+                    Console.WriteLine("Opçao errada");
+                }
+
+                
                 Console.Clear();
 
                 switch (menuOption2)
@@ -191,7 +203,7 @@ namespace Supermercado
                         Console.WriteLine("4");
                         break;
                     case 5:
-                        Console.WriteLine("5");
+                        MostrarPrincipal(activeuser);
                         break;
                     default:
                         Console.WriteLine("Escolheu uma opção inválida");
@@ -278,7 +290,12 @@ namespace Supermercado
                 Console.WriteLine("--------------------------------------------------");
                 Console.WriteLine("0- Sair");
 
-                menuOption = int.Parse(Console.ReadLine());
+                while (int.TryParse(Console.ReadLine(), out menuOption) == false)
+                {
+                    Console.WriteLine("Opçao errada");
+                }
+
+                
                 Console.Clear();
 
                 switch (menuOption)
@@ -343,9 +360,10 @@ namespace Supermercado
             } while (menuOption != 0);
         }
 
-        public static void MenuStock()
+        public static void MenuStock(Employee activeuser)
         {
             int menuOption;
+            int limparStock;
 
             ProductList list1 = new ProductList();
 
@@ -365,7 +383,13 @@ namespace Supermercado
                 Console.WriteLine("--------------------------------------------------");
                 Console.WriteLine("0- Sair");
 
-                menuOption = int.Parse(Console.ReadLine());
+                while (int.TryParse(Console.ReadLine(), out menuOption) == false)
+                {
+                    Console.WriteLine("Opçao errada");
+                }
+
+                
+
                 Console.Clear();
 
                 switch (menuOption)
@@ -374,7 +398,7 @@ namespace Supermercado
                         Console.WriteLine("0");
                         break;
                     case 1:
-                        MenuStock2();
+                        MenuStock2(activeuser);
                         break;
                     case 2:
                         Console.WriteLine(list1.ToString()); // Listar
@@ -415,10 +439,19 @@ namespace Supermercado
                         string produtoARemover = Console.ReadLine();
                         list1.RemoveProduct(produtoARemover);
                         list1.GravarParaFicheiro();
+                        list1.ClearList();
                         break;
                     case 4:
-                        list1.ClearList();
-                        list1.GravarParaFicheiro();
+                        Console.WriteLine("Vai remover o stock completo! Tem a certeza? \n(Opcao 1 - Limpar Stock| Outro numero para cancelar");
+                        while(!int.TryParse(Console.ReadLine(),out limparStock))
+                        {
+                            Console.WriteLine("Opcao Errada");
+                        } 
+                        if(limparStock == 1)
+                        {
+                            list1.ClearList();
+                            list1.GravarParaFicheiro();
+                        } 
                         break;
                     default:
                         Console.WriteLine("Escolheu uma opção inválida");
@@ -430,7 +463,7 @@ namespace Supermercado
             } while (menuOption != 0);
         }
 
-        public static void MenuStock2()
+        public static void MenuStock2(Employee activeuser)
         {
             int menuOption;
 
@@ -450,14 +483,18 @@ namespace Supermercado
                 Console.WriteLine("3- Remover Stock\n");
                 Console.WriteLine("--------------------------------------------------");
                 Console.WriteLine("0- Sair");
+                
+                while (int.TryParse(Console.ReadLine(), out menuOption) == false)
+                {
+                    Console.WriteLine("Opçao errada");
+                }
 
-                menuOption = int.Parse(Console.ReadLine());
                 Console.Clear();
-
                 switch (menuOption)
                 {
                     case 0:
-                        Console.WriteLine(); // <<-- ir para menu anterior
+                        MenuStock(activeuser); // <<-- ir para menu anterior
+                        list1.ClearList();
                         break;
                     case 1:
                         Console.WriteLine(list1.ToString());
@@ -482,6 +519,7 @@ namespace Supermercado
                             Console.WriteLine("Falhou");
                         }
                         Console.WriteLine(list1.ToString());
+                        list1.ClearList();
                         break;
                     case 3:
                         Console.WriteLine(list1.ToString());
@@ -502,6 +540,7 @@ namespace Supermercado
                             Console.WriteLine("Falhou");
                         }
                         Console.WriteLine(list1.ToString());
+                        list1.ClearList();
                         break;
                     case 4:
                         Console.WriteLine("4");
