@@ -44,6 +44,14 @@ namespace Supermercado
             InvoiceProducts.Add(product);
         }
 
+        public void AddListProductsToInvoice(ProductList productList)
+        {
+            foreach (Product p in productList.productList)
+            {
+                InvoiceProducts.Add(p);
+            }
+        }
+
         public override string ToString()
         {
             float totalInvoice = 0;
@@ -63,20 +71,20 @@ namespace Supermercado
     [Serializable]
     class InvoiceList
     {
-        private List<Invoice> invoiceListing;
+        public List<Invoice> invoiceListing;
 
-        public List<Invoice> InvoiceListing { get => invoiceListing; set => invoiceListing = value; }
+        
 
 
         public InvoiceList()
         {
-            InvoiceListing = new List<Invoice>(); // inicialização da lista de faturas
+            invoiceListing = new List<Invoice>(); // inicialização da lista de faturas
         }
 
         public override string ToString()
         {
             string result = "NUMERO FATURA   |   DATA   |   CLIENTE   |   FUNCIONÁRIO   |   TOTAL  |\n";
-            foreach (Invoice i in InvoiceListing)
+            foreach (Invoice i in invoiceListing)
             {
                 result += i.InvoiceNumber + "   |  " + i.InvoiceDate + "    |    " + i.CustomerName + " | " + " " + "| " + i.EmployeeName + "\n";
             }
@@ -104,7 +112,7 @@ namespace Supermercado
         public InvoiceList ReadInvoiceList()
         {
             string location = Directory.GetCurrentDirectory();
-            string fileName = "/../../../invoicelist.txt";
+            string fileName = "invoicelist.txt";
 
             if (File.Exists(fileName))
             {
@@ -126,13 +134,24 @@ namespace Supermercado
             }
             return null;
         }
-
-        public void ListInvoice()
+        public bool ClearList()
         {
-            foreach (Invoice item in this.InvoiceListing)
+            this.invoiceListing.Clear();
+            return true;
+        }
+
+        public void ListInvoiceList(InvoiceList il)
+        {
+            Console.WriteLine("Estive aqui");
+            foreach (Invoice item in il.invoiceListing)
             {
                 Console.WriteLine(item.ToString());
+                Console.WriteLine("Estive aqui");
             }
+        }
+        public void AddInvoice(Invoice i)
+        {
+            this.invoiceListing.Add(i);
         }
 
     }

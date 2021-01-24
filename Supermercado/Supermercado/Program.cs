@@ -88,12 +88,13 @@ namespace Supermercado
         {
             int menuOption2;
 
-            EmployeeList list2 = new EmployeeList();
-
+            EmployeeList employeelist = new EmployeeList();
+            InvoiceList invoiceList = new InvoiceList();
 
             do
             {
-                list2.LerFicheiro();
+                employeelist.LerFicheiro();
+                invoiceList.ReadInvoiceList();
                 Console.WriteLine("************SUPERMERCADO BINHAS ONTE***************");
                 Console.WriteLine("**                                              **");
                 Console.WriteLine("**                  Bem-vindo/a!                **");
@@ -120,7 +121,9 @@ namespace Supermercado
                         MostrarMenu(activeuser);
                         break;
                     case 1:
-                        MenuVendas(activeuser);
+                        invoiceList.AddInvoice(MenuVendas(activeuser));
+                        invoiceList.SaveInvoiceList(invoiceList);
+                        invoiceList.ClearList();
                         break;
                     case 2:
                         MenuStock(activeuser);
@@ -129,7 +132,7 @@ namespace Supermercado
                         MenuFuncionarios(activeuser);
                         break;
                     case 4:
-                        Console.WriteLine("4");
+                        invoiceList.ListInvoiceList(invoiceList);
                         break;
                     default:
                         Console.WriteLine("Escolheu uma opção inválida");
@@ -142,19 +145,16 @@ namespace Supermercado
         }
 
 
-        public static void MenuVendas(Employee activeuser)
+        public static Invoice MenuVendas(Employee activeuser)
         {
             int menuOption2;
             Invoice compraTotal = new Invoice();
-
-
-            ProductList productList = new ProductList();
-            InvoiceList invoiceList = new InvoiceList();
+            ProductList productList = new ProductList(); 
 
             do
             {
                 productList.LerFicheiro();
-                invoiceList.ReadInvoiceList();
+                
                 Console.WriteLine("************SUPERMERCADO BINHAS ONTE***************");
                 Console.WriteLine("**                                              **");
                 Console.WriteLine("**                  Bem-vindo/a!                **");
@@ -195,31 +195,24 @@ namespace Supermercado
 
                         compraTotal.EmployeeName = activeuser.Name;
 
-
                         Console.WriteLine(compraTotal.ToString());
-                       
-
-                        invoiceList.InvoiceListing.Add(compraTotal);
-                        invoiceList.SaveInvoiceList(invoiceList);
-                        Console.WriteLine(invoiceList.InvoiceListing[0].CustomerName);
-                        Console.WriteLine(invoiceList.InvoiceListing[0].InvoiceProducts[0].Name);
-
 
                         break;
                     case 1:
                         Console.WriteLine(productList.ListProductsByCategory(Category.Carne));
-                        compraTotal = MenuVenda(activeuser, compraTotal);
+                        compraTotal.AddListProductsToInvoice(MenuVenda(activeuser));
                         productList.ClearList();
                         break;
                     case 2:
                         Console.WriteLine(productList.ListProductsByCategory(Category.FrutasLegumes));
-                        compraTotal = MenuVenda(activeuser, compraTotal);
+                        compraTotal.AddListProductsToInvoice(MenuVenda(activeuser));
+
                         productList.ClearList();
                         break;
                     case 3:
                         Console.WriteLine(productList.ListProductsByCategory(Category.Mercearia));
 
-                        compraTotal = MenuVenda(activeuser, compraTotal);
+                        compraTotal.AddListProductsToInvoice(MenuVenda(activeuser));
                         productList.ClearList();
 
                         break;
@@ -237,21 +230,19 @@ namespace Supermercado
                 Console.Clear();
 
             } while (menuOption2 != 0);
+            return compraTotal;
         }
 
-        public static Invoice MenuVenda(Employee activeuser, Invoice compraTotal)
+        public static ProductList MenuVenda(Employee activeuser)
         {
-
             ProductList productList = new ProductList(); //LISTAGEM DO STOCK
+            ProductList productPurchaseList = new ProductList(); //LISTAGEM DOS PRODUTOS COMPRADOS
             productList.LerFicheiro();
 
             int repeat = 1;
 
             string idPurchase;
             float quantityPurchase = -1; ;
-            float prodQuantity = 0;
-
-            
 
             do
             {
@@ -279,10 +270,8 @@ namespace Supermercado
                     {
                         //INCORPORAR A QUANTIDADE NO PRODUTO A COMPRAR
                         productPurchase.Stock = quantityPurchase;
-                        compraTotal.InvoiceProducts.Add(productPurchase);
-
-                        //produtoEscolhido = productList.FindProduct(idPurchase);
-
+                        //INCORPORAR O PRODUTO NA LISTA DE PRODUTOS A COMPRAR
+                        productPurchaseList.productList.Add(productPurchase);
                     }
                     else
                     {
@@ -298,19 +287,11 @@ namespace Supermercado
 
             }
 
-
-            //prodQuantity = productList.VerifyStock(idPurchase);
-
-           
-
-            Console.WriteLine(compraTotal.ToString());
-
             do
             {
                 string idPurchaseRepeat;
                 float quantityPurchaseRepeat = -1;
                
-
                 Console.WriteLine("Deseja inserir mais items desta categoria? Sim= 1, Nao = Outro numero qualquer\n");
                 while (int.TryParse(Console.ReadLine(), out repeat) == false)
                 {
@@ -344,8 +325,8 @@ namespace Supermercado
                             {
                                 //INCORPORAR A QUANTIDADE NO PRODUTO A COMPRAR
                                 productPurchaseRepeat.Stock = quantityPurchaseRepeat;
-                                compraTotal.InvoiceProducts.Add(productPurchaseRepeat);
-                                //produtoEscolhido = productList.FindProduct(idPurchase);
+                                //INCORPORAR O PRODUTO NA LISTA DE PRODUTOS A COMPRAR
+                                productPurchaseList.AddProduct(productPurchaseRepeat);
                             }
                             else
                             {
@@ -361,13 +342,9 @@ namespace Supermercado
 
                     } 
 
- 
-                    
-                    Console.WriteLine(compraTotal.ToString());
                 }
             } while (repeat == 1);
-
-            return compraTotal;
+            return productPurchaseList;
         }
 
 
