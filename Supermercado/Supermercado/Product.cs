@@ -249,28 +249,7 @@ namespace Supermercado
             }
             return -1;
         }
-        public string FindName(string id)
-        {
-            foreach (Product p in this.productList)
-            {
-                if (p.Id.Equals(id))
-                {
-                    return p.Name;
-                }
-            }
-            return null;
-        }
-        public float FindPrice(string id)
-        {
-            foreach (Product p in this.productList)
-            {
-                if (p.Id.Equals(id))
-                {
-                    return p.UnitPrice;
-                }
-            }
-            return -1;
-        }
+       
 
     }
 
