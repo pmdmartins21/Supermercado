@@ -48,29 +48,21 @@ namespace Supermercado
 
         public Product(Product p)
         {
-            this.id = p.id;
-            this.name = p.name;
-            this.stock = p.stock;
-            this.unitPrice = p.unitPrice;
-            this.typeOfProducts = p.typeOfProducts;
-            this.category = p.category;
+            this.Id = p.id;
+            this.Name = p.name;
+            this.Stock = p.stock;
+            this.UnitPrice = p.unitPrice;
+            this.TypeOfProducts = p.typeOfProducts;
+            this.Category = p.category;
         }
         public Product(string id, string name, float stock, float unitPrice, TypeOfProducts typeOfProducts, Category category)
         {
-            this.id = id;
-            this.name = name;
-            this.stock = stock;
-            this.unitPrice = unitPrice;
-            this.typeOfProducts = typeOfProducts;
-            this.category = category;
-        }
-
-        public Product(string id, string name, float stock, float unitPrice)
-        {
-            Id = id;
-            Name = name;
-            Stock = stock;
-            UnitPrice = unitPrice;
+            this.Id = id;
+            this.Name = name;
+            this.Stock = stock;
+            this.UnitPrice = unitPrice;
+            this.TypeOfProducts = typeOfProducts;
+            this.Category = category;
         }
 
         public override string ToString()

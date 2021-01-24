@@ -3,4 +3,3 @@
 3,Moises,PT123,Gerente
 4,Lourenço,123,Gerente
 5,Manuel,123,Caixa
-6,Maria,123,Caixa

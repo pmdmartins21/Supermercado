@@ -243,6 +243,7 @@ namespace Supermercado
 
             string idPurchase;
             float quantityPurchase = -1; ;
+           
 
             do
             {
@@ -270,8 +271,11 @@ namespace Supermercado
                     {
                         //INCORPORAR A QUANTIDADE NO PRODUTO A COMPRAR
                         productPurchase.Stock = quantityPurchase;
-                        //INCORPORAR O PRODUTO NA LISTA DE PRODUTOS A COMPRAR
-                        productPurchaseList.productList.Add(productPurchase);
+                        productList.RemoveStock(idPurchase, quantityPurchase);
+                        compraTotal.InvoiceProducts.Add(productPurchase);
+
+                        //produtoEscolhido = productList.FindProduct(idPurchase);
+
                     }
                     else
                     {
@@ -325,8 +329,9 @@ namespace Supermercado
                             {
                                 //INCORPORAR A QUANTIDADE NO PRODUTO A COMPRAR
                                 productPurchaseRepeat.Stock = quantityPurchaseRepeat;
-                                //INCORPORAR O PRODUTO NA LISTA DE PRODUTOS A COMPRAR
-                                productPurchaseList.AddProduct(productPurchaseRepeat);
+                                productList.RemoveStock(idPurchase, quantityPurchase);
+                                compraTotal.InvoiceProducts.Add(productPurchaseRepeat);
+                                //produtoEscolhido = productList.FindProduct(idPurchase);
                             }
                             else
                             {
@@ -340,8 +345,10 @@ namespace Supermercado
                             
                         }
 
-                    } 
+                    }
+                    
 
+                    Console.WriteLine(compraTotal.ToString());
                 }
             } while (repeat == 1);
             return productPurchaseList;
