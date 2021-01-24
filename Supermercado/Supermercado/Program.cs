@@ -249,11 +249,10 @@ namespace Supermercado
             int repeat = 1;
 
             string idPurchase;
-
             float quantityPurchase = -1; ;
             float prodQuantity = 0;
 
-            Product productPurchase = new Product();
+            
 
             do
             {
@@ -266,8 +265,7 @@ namespace Supermercado
 
 
             } while (productList.FindProduct(idPurchase) == null);
-
-            productPurchase = productList.FindProduct(idPurchase);
+            Product productPurchase = new Product(productList.FindProduct(idPurchase));
             //Verificar id Produto e FAZER CÓPIA DO PRODUTO ORIGINAL
             while (quantityPurchase <= 0)
             {
@@ -275,14 +273,16 @@ namespace Supermercado
                 Console.WriteLine("Introduza a quantidade");
                 quantityPurchase = float.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
 
+
                 if (quantityPurchase > 0)
                 {
                     if (quantityPurchase <= productPurchase.Stock)
                     {
                         //INCORPORAR A QUANTIDADE NO PRODUTO A COMPRAR
                         productPurchase.Stock = quantityPurchase;
+                        compraTotal.InvoiceProducts.Add(productPurchase);
                         //produtoEscolhido = productList.FindProduct(idPurchase);
-                        
+
                     }
                     else
                     {
@@ -301,7 +301,7 @@ namespace Supermercado
 
             //prodQuantity = productList.VerifyStock(idPurchase);
 
-            compraTotal.InvoiceProducts.Add(productPurchase);
+           
 
             Console.WriteLine(compraTotal.ToString());
 
@@ -309,8 +309,7 @@ namespace Supermercado
             {
                 string idPurchaseRepeat;
                 float quantityPurchaseRepeat = -1;
-                Product productPurchaseRepeat;
-
+               
 
                 Console.WriteLine("Deseja inserir mais items desta categoria? Sim= 1, Nao = Outro numero qualquer\n");
                 while (int.TryParse(Console.ReadLine(), out repeat) == false)
@@ -319,7 +318,6 @@ namespace Supermercado
                 }
                 if (repeat == 1)
                 {
-
                     do
                     {
                         Console.WriteLine("Introduza o id do produto a adicionar ao carrinho");
@@ -331,7 +329,7 @@ namespace Supermercado
 
                     } while (productList.FindProduct(idPurchaseRepeat) == null);
 
-                    productPurchaseRepeat = productList.FindProduct(idPurchaseRepeat);
+                    Product productPurchaseRepeat = new Product(productList.FindProduct(idPurchaseRepeat));
                     
 
                     while (quantityPurchaseRepeat <= 0)
@@ -346,6 +344,7 @@ namespace Supermercado
                             {
                                 //INCORPORAR A QUANTIDADE NO PRODUTO A COMPRAR
                                 productPurchaseRepeat.Stock = quantityPurchaseRepeat;
+                                compraTotal.InvoiceProducts.Add(productPurchaseRepeat);
                                 //produtoEscolhido = productList.FindProduct(idPurchase);
                             }
                             else
@@ -363,7 +362,7 @@ namespace Supermercado
                     } 
 
  
-                    compraTotal.InvoiceProducts.Add(productPurchaseRepeat);
+                    
                     Console.WriteLine(compraTotal.ToString());
                 }
             } while (repeat == 1);

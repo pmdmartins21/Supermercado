@@ -45,6 +45,16 @@ namespace Supermercado
         {
 
         }
+
+        public Product(Product p)
+        {
+            this.id = p.id;
+            this.name = p.name;
+            this.stock = p.stock;
+            this.unitPrice = p.unitPrice;
+            this.typeOfProducts = p.typeOfProducts;
+            this.category = p.category;
+        }
         public Product(string id, string name, float stock, float unitPrice, TypeOfProducts typeOfProducts, Category category)
         {
             this.id = id;
