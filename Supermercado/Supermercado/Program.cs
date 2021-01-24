@@ -282,6 +282,7 @@ namespace Supermercado
                         //INCORPORAR A QUANTIDADE NO PRODUTO A COMPRAR
                         productPurchase.Stock = quantityPurchase;
                         //produtoEscolhido = productList.FindProduct(idPurchase);
+                        
                     }
                     else
                     {
@@ -292,6 +293,7 @@ namespace Supermercado
                 else
                 {
                     Console.WriteLine("Quantidade inválida!");
+
                 }
 
             }
@@ -305,6 +307,11 @@ namespace Supermercado
 
             do
             {
+                string idPurchaseRepeat;
+                float quantityPurchaseRepeat = -1;
+                Product productPurchaseRepeat;
+
+
                 Console.WriteLine("Deseja inserir mais items desta categoria? Sim= 1, Nao = Outro numero qualquer\n");
                 while (int.TryParse(Console.ReadLine(), out repeat) == false)
                 {
@@ -316,35 +323,35 @@ namespace Supermercado
                     do
                     {
                         Console.WriteLine("Introduza o id do produto a adicionar ao carrinho");
-                        idPurchase = Console.ReadLine();
-                        if (productList.FindProduct(idPurchase) == null)
+                        idPurchaseRepeat = Console.ReadLine();
+                        if (productList.FindProduct(idPurchaseRepeat) == null)
                         {
                             Console.WriteLine("Id inválido!");
                         }
 
-                    } while (productList.FindProduct(idPurchase) == null);
+                    } while (productList.FindProduct(idPurchaseRepeat) == null);
 
-                    productPurchase = productList.FindProduct(idPurchase);
-                    quantityPurchase = -1;
+                    productPurchaseRepeat = productList.FindProduct(idPurchaseRepeat);
+                    
 
-                    while (quantityPurchase <= 0)
+                    while (quantityPurchaseRepeat <= 0)
                     {
 
                         Console.WriteLine("Introduza a quantidade");
-                        quantityPurchase = float.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
+                        quantityPurchaseRepeat = float.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
 
-                        if (quantityPurchase > 0)
+                        if (quantityPurchaseRepeat > 0)
                         {
-                            if (quantityPurchase <= productPurchase.Stock)
+                            if (quantityPurchaseRepeat <= productPurchaseRepeat.Stock)
                             {
                                 //INCORPORAR A QUANTIDADE NO PRODUTO A COMPRAR
-                                productPurchase.Stock = quantityPurchase;
+                                productPurchaseRepeat.Stock = quantityPurchaseRepeat;
                                 //produtoEscolhido = productList.FindProduct(idPurchase);
                             }
                             else
                             {
                                 Console.WriteLine("Nao tem stock");
-                                quantityPurchase = -1;
+                                break;
                             }
                         }
                         else
@@ -356,7 +363,7 @@ namespace Supermercado
                     } 
 
  
-                    compraTotal.InvoiceProducts.Add(productPurchase);
+                    compraTotal.InvoiceProducts.Add(productPurchaseRepeat);
                     Console.WriteLine(compraTotal.ToString());
                 }
             } while (repeat == 1);
