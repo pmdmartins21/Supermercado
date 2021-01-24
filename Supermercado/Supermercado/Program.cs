@@ -149,10 +149,12 @@ namespace Supermercado
 
 
             ProductList productList = new ProductList();
+            InvoiceList invoiceList = new InvoiceList();
 
             do
             {
                 productList.LerFicheiro();
+                invoiceList.ReadInvoiceList();
                 Console.WriteLine("************SUPERMERCADO BINHAS ONTE***************");
                 Console.WriteLine("**                                              **");
                 Console.WriteLine("**                  Bem-vindo/a!                **");
@@ -197,6 +199,12 @@ namespace Supermercado
                         Console.WriteLine("O total da fatura: ");
 
                         Console.WriteLine(compraTotal.ToString());
+                       
+
+                        invoiceList.InvoiceListing.Add(compraTotal);
+                        invoiceList.SaveInvoiceList(invoiceList);
+                        Console.WriteLine(invoiceList.InvoiceListing[0].CustomerName);
+                        Console.WriteLine(invoiceList.InvoiceListing[0].InvoiceProducts[0].Name);
 
                         break;
                     case 1:

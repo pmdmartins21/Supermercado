@@ -6,6 +6,7 @@ using System.Text;
 
 namespace Supermercado
 {
+    [Serializable]
     enum TypeOfProducts
     {
         Congelado,
@@ -18,6 +19,7 @@ namespace Supermercado
         Carne,
         Mercearia
     }
+    [Serializable]
     class Product
     {
         //attributes
@@ -70,8 +72,8 @@ namespace Supermercado
             return result;
         }
     }
-
-   class ProductList
+    [Serializable]
+    class ProductList
     {
         public List<Product> productList;
 

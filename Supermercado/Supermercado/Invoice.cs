@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 
 namespace Supermercado
 {
+    [Serializable]
     class Invoice
     {
         //attributes
@@ -57,6 +60,7 @@ namespace Supermercado
         }
 
     }
+    [Serializable]
     class InvoiceList
     {
         private List<Invoice> invoiceListing;
@@ -77,6 +81,50 @@ namespace Supermercado
                 result += i.InvoiceNumber + "   |  " + i.InvoiceDate + "    |    " + i.CustomerName + " | " + " " + "| " + i.EmployeeName + "\n";
             }
             return result;
+        }
+
+        public void SaveInvoiceList(InvoiceList il)
+        {
+            string location = Directory.GetCurrentDirectory();
+            string fileName = "invoicelist.txt";
+
+            if (File.Exists(fileName))
+            {
+                Console.WriteLine("Deleting old file");
+                File.Delete(fileName);
+            }
+
+            FileStream fileStream = File.Create(fileName);
+            BinaryFormatter f = new BinaryFormatter();
+
+            f.Serialize(fileStream, il);
+            fileStream.Close();
+        }
+
+        public InvoiceList ReadInvoiceList()
+        {
+            string location = Directory.GetCurrentDirectory();
+            string fileName = "/../../../invoicelist.txt";
+
+            if (File.Exists(fileName))
+            {
+                FileStream fileStream = File.OpenRead(fileName);
+                BinaryFormatter f = new BinaryFormatter();
+
+                while (fileStream.Position < fileStream.Length)
+                {
+                    InvoiceList il = f.Deserialize(fileStream) as InvoiceList;
+                    return il;
+
+                }
+                fileStream.Close();
+
+            }
+            else
+            {
+                return null;
+            }
+            return null;
         }
 
     }

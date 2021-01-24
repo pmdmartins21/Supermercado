@@ -10,6 +10,7 @@ namespace Supermercado
         Frutas,
         verduras
     }
+    [Serializable]
     class FruitsVegetables : Product
     {
         private Section section;

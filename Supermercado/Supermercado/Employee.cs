@@ -5,13 +5,14 @@ using System.Text;
 
 namespace Supermercado
 {
+    [Serializable]
     enum EmployeeRole
     {
         Gerente,
         Repositor,
         Caixa
     }
-
+    [Serializable]
     public class Employee
     {
         //attributes
@@ -55,7 +56,7 @@ namespace Supermercado
         {}
 
     }
-
+    [Serializable]
     class EmployeeList
     {
         public List<Employee> employeeList;
