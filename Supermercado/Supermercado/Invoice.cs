@@ -127,5 +127,13 @@ namespace Supermercado
             return null;
         }
 
+        public void ListInvoice()
+        {
+            foreach (Invoice item in this.InvoiceListing)
+            {
+                Console.WriteLine(item.ToString());
+            }
+        }
+
     }
 }

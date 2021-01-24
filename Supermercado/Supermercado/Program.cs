@@ -184,8 +184,6 @@ namespace Supermercado
                 {
                     case 0:
 
-
-
                         Console.WriteLine("Introduza o número da fatura:");
                         compraTotal.InvoiceNumber = int.Parse(Console.ReadLine());
 
@@ -196,7 +194,7 @@ namespace Supermercado
                         compraTotal.CustomerName = Console.ReadLine();
 
                         compraTotal.EmployeeName = activeuser.Name;
-                        Console.WriteLine("O total da fatura: ");
+
 
                         Console.WriteLine(compraTotal.ToString());
                        
@@ -205,6 +203,7 @@ namespace Supermercado
                         invoiceList.SaveInvoiceList(invoiceList);
                         Console.WriteLine(invoiceList.InvoiceListing[0].CustomerName);
                         Console.WriteLine(invoiceList.InvoiceListing[0].InvoiceProducts[0].Name);
+
 
                         break;
                     case 1:
@@ -281,6 +280,7 @@ namespace Supermercado
                         //INCORPORAR A QUANTIDADE NO PRODUTO A COMPRAR
                         productPurchase.Stock = quantityPurchase;
                         compraTotal.InvoiceProducts.Add(productPurchase);
+
                         //produtoEscolhido = productList.FindProduct(idPurchase);
 
                     }
