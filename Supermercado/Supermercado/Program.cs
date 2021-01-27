@@ -13,14 +13,7 @@ namespace Supermercado
             f.LerFicheiro(); // ler a listagem dos produtos
 
             Console.WriteLine(f.ToString());*/
-
-
-
-
             MostrarMenu(activeUser);
-
-
-
 
         }
 
@@ -29,8 +22,6 @@ namespace Supermercado
             int menuOption;
 
             EmployeeList list1 = new EmployeeList();
-
-
             do
             {
                 list1.LerFicheiro();
@@ -91,10 +82,11 @@ namespace Supermercado
             EmployeeList employeelist = new EmployeeList();
             InvoiceList invoiceList = new InvoiceList();
 
+
             do
             {
                 employeelist.LerFicheiro();
-                invoiceList.ReadInvoiceList();
+                invoiceList = GravadorFaturas.ReadInvoiceList();
                 Console.WriteLine("************SUPERMERCADO BINHAS ONTE***************");
                 Console.WriteLine("**                                              **");
                 Console.WriteLine("**                  Bem-vindo/a!                **");
@@ -118,12 +110,12 @@ namespace Supermercado
                 switch (menuOption2)
                 {
                     case 0:
-                        MostrarMenu(activeuser);
+                        GravadorFaturas.SaveInvoiceList(invoiceList);
                         break;
                     case 1:
-                        invoiceList.AddInvoice(MenuVendas(activeuser));
-                        invoiceList.SaveInvoiceList(invoiceList);
-                        invoiceList.ClearList();
+                        Invoice newInvoice = (MenuVendas(activeuser));
+                        invoiceList.AddInvoice(newInvoice);
+                        GravadorFaturas.SaveInvoiceList(invoiceList);
                         break;
                     case 2:
                         MenuStock(activeuser);
@@ -154,7 +146,6 @@ namespace Supermercado
             do
             {
                 productList.LerFicheiro();
-                
                 Console.WriteLine("************SUPERMERCADO BINHAS ONTE***************");
                 Console.WriteLine("**                                              **");
                 Console.WriteLine("**                  Bem-vindo/a!                **");
@@ -196,7 +187,6 @@ namespace Supermercado
                         compraTotal.EmployeeName = activeuser.Name;
 
                         Console.WriteLine(compraTotal.ToString());
-
                         break;
                     case 1:
                         Console.WriteLine(productList.ListProductsByCategory(Category.Carne));
@@ -243,7 +233,6 @@ namespace Supermercado
 
             string idPurchase;
             float quantityPurchase = -1; ;
-           
 
             do
             {
@@ -271,11 +260,8 @@ namespace Supermercado
                     {
                         //INCORPORAR A QUANTIDADE NO PRODUTO A COMPRAR
                         productPurchase.Stock = quantityPurchase;
-                        productList.RemoveStock(idPurchase, quantityPurchase);
-                        compraTotal.InvoiceProducts.Add(productPurchase);
-
-                        //produtoEscolhido = productList.FindProduct(idPurchase);
-
+                        //INCORPORAR O PRODUTO NA LISTA DE PRODUTOS A COMPRAR
+                        productPurchaseList.productList.Add(productPurchase);
                     }
                     else
                     {
@@ -329,9 +315,8 @@ namespace Supermercado
                             {
                                 //INCORPORAR A QUANTIDADE NO PRODUTO A COMPRAR
                                 productPurchaseRepeat.Stock = quantityPurchaseRepeat;
-                                productList.RemoveStock(idPurchase, quantityPurchase);
-                                compraTotal.InvoiceProducts.Add(productPurchaseRepeat);
-                                //produtoEscolhido = productList.FindProduct(idPurchase);
+                                //INCORPORAR O PRODUTO NA LISTA DE PRODUTOS A COMPRAR
+                                productPurchaseList.AddProduct(productPurchaseRepeat);
                             }
                             else
                             {
@@ -345,10 +330,8 @@ namespace Supermercado
                             
                         }
 
-                    }
-                    
+                    } 
 
-                    Console.WriteLine(compraTotal.ToString());
                 }
             } while (repeat == 1);
             return productPurchaseList;

@@ -91,7 +91,7 @@ namespace Supermercado
             return result;
         }
 
-        public void SaveInvoiceList(InvoiceList il)
+        public static void SaveInvoiceList(InvoiceList il)
         {
             string location = Directory.GetCurrentDirectory();
             string fileName = "invoicelist.txt";
@@ -109,7 +109,7 @@ namespace Supermercado
             fileStream.Close();
         }
 
-        public InvoiceList ReadInvoiceList()
+        public static InvoiceList ReadInvoiceList()
         {
             string location = Directory.GetCurrentDirectory();
             string fileName = "invoicelist.txt";
@@ -133,6 +133,7 @@ namespace Supermercado
                 return null;
             }
             return null;
+
         }
         public bool ClearList()
         {
