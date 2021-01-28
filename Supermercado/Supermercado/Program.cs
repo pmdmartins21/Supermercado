@@ -17,9 +17,20 @@ namespace Supermercado
 
         }
 
+        
+
         public static void MostrarMenu(Employee activeuser)
         {
             int menuOption;
+
+            Console.Clear();
+            Table.PrintLine();
+            Table.PrintRow("Column 1", "Column 2", "Column 3", "Column 4");
+            Table.PrintLine();
+            Table.PrintRow("", "", "", "");
+            Table.PrintRow("", "", "", "");
+            Table.PrintLine();
+            Console.ReadLine();
 
             EmployeeList list1 = new EmployeeList();
             do
