@@ -97,6 +97,7 @@ namespace Supermercado
                 Console.WriteLine("2- Stock\n");
                 Console.WriteLine("3- Funcionarios\n");
                 Console.WriteLine("4- Listagem de Faturas\n");
+                Console.WriteLine("5- Remover Faturas\n");
                 Console.WriteLine("--------------------------------------------------");
                 Console.WriteLine("0- Sair");
 
@@ -110,7 +111,6 @@ namespace Supermercado
                 switch (menuOption2)
                 {
                     case 0:
-                        GravadorFaturas.SaveInvoiceList(invoiceList);
                         break;
                     case 1:
                         Invoice newInvoice = (MenuVendas(activeuser));
@@ -125,6 +125,11 @@ namespace Supermercado
                         break;
                     case 4:
                         invoiceList.ListInvoiceList(invoiceList);
+                        break;
+                    case 5:
+                        invoiceList.ListInvoiceList(invoiceList);
+                        invoiceList.RemoveInvoiceFromList(invoiceList);
+                        GravadorFaturas.SaveInvoiceList(invoiceList);
                         break;
                     default:
                         Console.WriteLine("Escolheu uma opção inválida");
@@ -142,6 +147,8 @@ namespace Supermercado
             int menuOption2;
             Invoice compraTotal = new Invoice();
             ProductList productList = new ProductList(); 
+            ProductList productListOriginal = new ProductList();
+            productListOriginal.LerFicheiro();
 
             do
             {
@@ -174,19 +181,21 @@ namespace Supermercado
                 switch (menuOption2)
                 {
                     case 0:
+                        if (compraTotal != null)
+                        {
+                            Console.WriteLine("Introduza o número da fatura:");
+                            compraTotal.InvoiceNumber = int.Parse(Console.ReadLine());
 
-                        Console.WriteLine("Introduza o número da fatura:");
-                        compraTotal.InvoiceNumber = int.Parse(Console.ReadLine());
+                            Console.WriteLine("Data");
+                            compraTotal.InvoiceDate = DateTime.Now;
 
-                        Console.WriteLine("Data");
-                        compraTotal.InvoiceDate = DateTime.Now;
+                            Console.WriteLine("Introduza o nome do cliente:");
+                            compraTotal.CustomerName = Console.ReadLine();
 
-                        Console.WriteLine("Introduza o nome do cliente:");
-                        compraTotal.CustomerName = Console.ReadLine();
+                            compraTotal.EmployeeName = activeuser.Name;
 
-                        compraTotal.EmployeeName = activeuser.Name;
-
-                        Console.WriteLine(compraTotal.ToString());
+                            Console.WriteLine(compraTotal.ToString());
+                        }
                         break;
                     case 1:
                         Console.WriteLine(productList.ListProductsByCategory(Category.Carne));
@@ -196,12 +205,10 @@ namespace Supermercado
                     case 2:
                         Console.WriteLine(productList.ListProductsByCategory(Category.FrutasLegumes));
                         compraTotal.AddListProductsToInvoice(MenuVenda(activeuser));
-
                         productList.ClearList();
                         break;
                     case 3:
                         Console.WriteLine(productList.ListProductsByCategory(Category.Mercearia));
-
                         compraTotal.AddListProductsToInvoice(MenuVenda(activeuser));
                         productList.ClearList();
 
@@ -210,7 +217,8 @@ namespace Supermercado
                         Console.WriteLine(compraTotal.ToString());
                         break;
                     case 5:
-                        MostrarPrincipal(activeuser);
+                        compraTotal = null;
+                        productListOriginal.GravarParaFicheiro();
                         break;
                     default:
                         Console.WriteLine("Escolheu uma opção inválida");
@@ -232,7 +240,7 @@ namespace Supermercado
             int repeat = 1;
 
             string idPurchase;
-            float quantityPurchase = -1; ;
+            float quantityPurchase = -1; 
 
             do
             {
@@ -251,8 +259,7 @@ namespace Supermercado
             {
 
                 Console.WriteLine("Introduza a quantidade");
-                quantityPurchase = float.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
-
+                quantityPurchase = float.Parse(Console.ReadLine(), CultureInfo.InvariantCulture); //Fazer tryParse
 
                 if (quantityPurchase > 0)
                 {
@@ -262,6 +269,8 @@ namespace Supermercado
                         productPurchase.Stock = quantityPurchase;
                         //INCORPORAR O PRODUTO NA LISTA DE PRODUTOS A COMPRAR
                         productPurchaseList.productList.Add(productPurchase);
+                        //Remover do stock a quantidade de produto comprada
+                        productList.RemoveStock(productPurchase.Id, productPurchase.Stock);
                     }
                     else
                     {
@@ -317,6 +326,8 @@ namespace Supermercado
                                 productPurchaseRepeat.Stock = quantityPurchaseRepeat;
                                 //INCORPORAR O PRODUTO NA LISTA DE PRODUTOS A COMPRAR
                                 productPurchaseList.AddProduct(productPurchaseRepeat);
+                                //remover o produto do stock
+                                productList.RemoveStock(productPurchaseRepeat.Id, productPurchaseRepeat.Stock);
                             }
                             else
                             {

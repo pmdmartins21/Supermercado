@@ -141,6 +141,36 @@ namespace Supermercado
             return true;
         }
 
+        public void RemoveInvoiceFromList(InvoiceList il)
+        {
+            int id;
+            do
+            {
+                Console.WriteLine("Insira o ID da Fatura que pretende remover da lista");
+                id = int.Parse(Console.ReadLine());
+                if (il.FindInvoiceInList(il,id) == null)
+                {
+                    Console.WriteLine("Id inválido!");
+                } 
+            } while (il.FindInvoiceInList(il,id) == null);
+            il.invoiceListing.Remove(il.FindInvoiceInList(il,id));
+            //Nao se pode apagar faturas por lei, este metodo é apenas para remover as faturas ques estamos a testar.
+        }
+
+        public Invoice FindInvoiceInList(InvoiceList il, int id)
+        {
+            Invoice i = new Invoice();
+            for (int j = 0; j < il.invoiceListing.Count; j++)
+            {
+                if (il.invoiceListing[j].InvoiceNumber == id)
+                {
+                    i = il.invoiceListing[j];
+                    return i;
+                }
+            }
+            return null;
+        }
+
         public void ListInvoiceList(InvoiceList il)
         {
             Console.WriteLine("Estive aqui");
