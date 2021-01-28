@@ -196,7 +196,7 @@ namespace Supermercado
                 switch (menuOption2)
                 {
                     case 0:
-                        if (compraTotal.InvoiceProducts.Count > 0)
+                        if (compraTotal.InvoiceProducts.Count > 0) // Só pede detalhes para faturas com 
                         {
                             Console.WriteLine("Introduza o número da fatura:");
                             compraTotal.InvoiceNumber = int.Parse(Console.ReadLine());
@@ -235,6 +235,7 @@ namespace Supermercado
                     case 5:
                         compraTotal = new Invoice();
                         productListOriginal.GravarParaFicheiro();
+                        productList.ClearList();
                         break;
                     default:
                         Console.WriteLine("Escolheu uma opção inválida");
@@ -287,7 +288,7 @@ namespace Supermercado
                         productPurchaseList.productList.Add(productPurchase);
                         //Remover do stock a quantidade de produto comprada
                         productList.RemoveStock(productPurchase.Id, productPurchase.Stock);
-                        Console.WriteLine(productList.ListProductsByCategory(Category.Carne));
+                        
                     }
                     else
                     {
@@ -307,7 +308,7 @@ namespace Supermercado
             {
                 string idPurchaseRepeat;
                 float quantityPurchaseRepeat = -1;
-                Console.WriteLine(productList.ListProductsByCategory(Category.Carne)); 
+                
                 Console.WriteLine("Deseja inserir mais items desta categoria? Sim= 1, Nao = Outro numero qualquer\n");
                 while (int.TryParse(Console.ReadLine(), out repeat) == false)
                 {
@@ -345,7 +346,7 @@ namespace Supermercado
                                 productPurchaseList.AddProduct(productPurchaseRepeat);
                                 //remover o produto do stock
                                 productList.RemoveStock(productPurchaseRepeat.Id, productPurchaseRepeat.Stock);
-                                Console.WriteLine(productList.ListProductsByCategory(Category.Carne));
+                                
                             }
                             else
                             {
@@ -496,7 +497,6 @@ namespace Supermercado
                 switch (menuOption)
                 {
                     case 0:
-                        Console.WriteLine("0");
                         break;
                     case 1:
                         MenuStock2(activeuser);
@@ -594,7 +594,6 @@ namespace Supermercado
                 switch (menuOption)
                 {
                     case 0:
-                        MenuStock(activeuser); // <<-- ir para menu anterior
                         list1.ClearList();
                         break;
                     case 1:
