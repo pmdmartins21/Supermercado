@@ -594,10 +594,19 @@ namespace Supermercado
                         Console.WriteLine(list1.ToString());
                         Console.WriteLine("**ADICIONAR STOCK**\n");
                         Console.WriteLine("**TECLA 0 - PARA SAIR OU CANCELAR**\n");
-                        Console.WriteLine("Introduza o id do produto:\n");
-                        string idAddStock = Console.ReadLine();
+                        string idAddStock;
+                        do
+                        {
+                            Console.WriteLine("Introduza o id do produto");
+                            idAddStock = Console.ReadLine();
+                            if (list1.FindProduct(idAddStock) == null)
+                            {
+                                Console.WriteLine("Id inválido!");
+                            }
+
+                        } while (list1.FindProduct(idAddStock) == null);
                         Console.WriteLine("Introduza a quantidade:\n"); // !!atenção se a quantidade só aceita int ou float e qtd negativa
-                        float quantityAddStock = float.Parse(Console.ReadLine());
+                        float quantityAddStock = float.Parse(Console.ReadLine(), CultureInfo.InvariantCulture.NumberFormat);
                         bool resultAddStock = list1.AddStock(idAddStock, quantityAddStock);
                         list1.GravarParaFicheiro();
                         if (resultAddStock) // true
@@ -615,10 +624,19 @@ namespace Supermercado
                         Console.WriteLine(list1.ToString());
                         Console.WriteLine("**REMOVER STOCK**\n");
                         Console.WriteLine("**TECLA 0 - PARA SAIR OU CANCELAR**\n");
-                        Console.WriteLine("Introduza o id do produto:\n");
-                        string idRemoveStock = Console.ReadLine();
+                        string idRemoveStock;
+                        do
+                        {
+                            Console.WriteLine("Introduza o id do produto");
+                            idRemoveStock = Console.ReadLine();
+                            if (list1.FindProduct(idRemoveStock) == null)
+                            {
+                                Console.WriteLine("Id inválido!");
+                            }
+
+                        } while (list1.FindProduct(idRemoveStock) == null);
                         Console.WriteLine("Introduza a quantidade:\n"); // !!atenção se a quantidade só aceita int ou float e qtd negativa
-                        float quantityRemoveStock = float.Parse(Console.ReadLine());
+                        float quantityRemoveStock = float.Parse(Console.ReadLine(), CultureInfo.InvariantCulture.NumberFormat);
                         bool resultRemoveStock = list1.RemoveStock(idRemoveStock, quantityRemoveStock);
                         list1.GravarParaFicheiro();
                         if (resultRemoveStock) // true
