@@ -9,10 +9,7 @@ namespace Supermercado
         static void Main(string[] args)
         {
             Employee activeUser = new Employee();
-            /*System f = new System(); // inicializar lista
-            f.LerFicheiro(); // ler a listagem dos produtos
-
-            Console.WriteLine(f.ToString());*/
+            
             MostrarMenu(activeUser);
 
         }
@@ -60,7 +57,16 @@ namespace Supermercado
                             Console.WriteLine("Introduza o seu ID");
                             string id = Console.ReadLine();
                             Console.WriteLine("Introduza a sua password");
-                            string password = Console.ReadLine();
+                            string password = null;
+                            while (true)
+                            {
+                                var key = System.Console.ReadKey(true);
+                                Console.Write("*");
+                                if (key.Key == ConsoleKey.Enter)
+                                    break;
+                                password += key.KeyChar;
+                            }
+                            
                             successfull = list1.ValidateEntry(id, password);
                             activeuser = list1.FindEmployee(id);
                         }
@@ -534,7 +540,8 @@ namespace Supermercado
                         {
                             Console.WriteLine("Valor incorrecto, tente novamente:");
                         }
-                       
+                        stockProdutoAAdicionar = Operator.VerificarValorNegativo(stockProdutoAAdicionar);
+
 
                         Console.WriteLine("Escolha o Preço do Produto:");
                         float precoProdutoAAdicionar;
@@ -542,7 +549,8 @@ namespace Supermercado
                         {
                             Console.WriteLine("Valor incorrecto, tente novamente:");
                         }
-                        
+                        precoProdutoAAdicionar = Operator.VerificarValorNegativo(precoProdutoAAdicionar);
+
 
                         Console.WriteLine("Escolha a Tipo do Produto: Congelado = 0, Prateleira = 1, Enlatado = 2");
                         bool result = Enum.TryParse(Console.ReadLine(), out TypeOfProducts typeOfProducts) && Enum.IsDefined(typeof(TypeOfProducts), typeOfProducts); // Nao esta bem. Nao 
@@ -670,8 +678,8 @@ namespace Supermercado
                         {
                             Console.WriteLine("Quantidade incorrecta, tente novamente:");
                         }
+                        quantityAddStock = Operator.VerificarValorNegativo(quantityAddStock);
 
-                        
                         if (quantityAddStock == 0)
                         {
                             list1.ClearList();
@@ -722,6 +730,7 @@ namespace Supermercado
                                 list1.ClearList();
                                 break;
                             }
+                        quantityRemoveStock = Operator.VerificarValorNegativo(quantityRemoveStock);
                         bool resultRemoveStock = list1.RemoveStock(idRemoveStock, quantityRemoveStock);
                         
                         list1.GravarParaFicheiro();
