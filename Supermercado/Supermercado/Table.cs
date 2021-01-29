@@ -6,21 +6,21 @@ namespace Supermercado
 {
     class Table
     {
-        static int tableWidth = 73;
+        static int tableWidth = 97;
 
         public static void PrintLine()
         {
-            Console.WriteLine(new string('*', tableWidth));
+            Console.WriteLine(new string('-', tableWidth));
         }
 
         public static void PrintRow(params string[] columns)
         {
             int width = (tableWidth - columns.Length) / columns.Length;
-            string row = "*";
+            string row = "|";
 
             foreach (string column in columns)
             {
-                row += AlignCentre(column, width) + "*";
+                row += AlignCentre(column, width) + "|";
             }
 
             Console.WriteLine(row);
@@ -39,5 +39,7 @@ namespace Supermercado
                 return text.PadRight(width - (width - text.Length) / 2).PadLeft(width);
             }
         }
+
+       
     }
 }

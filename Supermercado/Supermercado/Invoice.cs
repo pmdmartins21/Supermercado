@@ -83,10 +83,15 @@ namespace Supermercado
 
         public override string ToString()
         {
-            string result = "NUMERO FATURA   |   DATA   |   CLIENTE   |   FUNCIONÁRIO   |   TOTAL  |\n";
+            string result = "";
+            Table.PrintLine();
+            Table.PrintRow("NUMERO FATURA", "DATA", "CLIENTE", "FUNCIONÁRIO", "TOTAL");
             foreach (Invoice i in invoiceListing)
             {
-                result += i.InvoiceNumber + "   |  " + i.InvoiceDate + "    |    " + i.CustomerName + " | " + " " + "| " + i.EmployeeName + "\n";
+                Table.PrintLine();
+                Table.PrintRow(i.InvoiceNumber.ToString(), i.InvoiceDate.ToString(), i.CustomerName, i.EmployeeName);
+                Table.PrintLine();
+                //result += i.InvoiceNumber + "   |  " + i.InvoiceDate + "    |    " + i.CustomerName + " | " + " " + "| " + i.EmployeeName + "\n";
             }
             return result;
         }

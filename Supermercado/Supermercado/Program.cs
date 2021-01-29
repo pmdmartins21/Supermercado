@@ -23,14 +23,7 @@ namespace Supermercado
         {
             int menuOption;
 
-            Console.Clear();
-            Table.PrintLine();
-            Table.PrintRow("Column 1", "Column 2", "Column 3", "Column 4");
-            Table.PrintLine();
-            Table.PrintRow("", "", "", "");
-            Table.PrintRow("", "", "", "");
-            Table.PrintLine();
-            Console.ReadLine();
+            
 
             EmployeeList list1 = new EmployeeList();
             do
@@ -224,18 +217,23 @@ namespace Supermercado
                         }
                         break;
                     case 1:
-                        Console.WriteLine(productList.ListProductsByCategory(Category.Carne));
+                        Table.PrintLine();
+                        Table.PrintRow("MENU VENDAS - CATEGORIA: CARNE");
+                        productList.ListProductsByCategory(Category.Carne);
                         compraTotal.AddListProductsToInvoice(MenuVenda(activeuser));
-
                         productList.ClearList();
                         break;
                     case 2:
-                        Console.WriteLine(productList.ListProductsByCategory(Category.FrutasLegumes));
+                        Table.PrintLine();
+                        Table.PrintRow("MENU VENDAS - CATEGORIA: FRUTAS E LEGUMES");
+                        productList.ListProductsByCategory(Category.FrutasLegumes);
                         compraTotal.AddListProductsToInvoice(MenuVenda(activeuser));
                         productList.ClearList();
                         break;
                     case 3:
-                        Console.WriteLine(productList.ListProductsByCategory(Category.Mercearia));
+                        Table.PrintLine();
+                        Table.PrintRow("MENU VENDAS - CATEGORIA: MERCEARIA");
+                        productList.ListProductsByCategory(Category.Mercearia);
                         compraTotal.AddListProductsToInvoice(MenuVenda(activeuser));
                         productList.ClearList();
 
@@ -573,14 +571,14 @@ namespace Supermercado
 
                         list1.AddProduct(x);
 
-                        Console.WriteLine(list1.ToString()); // Listar
+                        Console.WriteLine(list1.ToString());  // Listar
                         list1.GravarParaFicheiro();
 
                         list1.ClearList();
 
                         break;
                     case 3:
-                        Console.WriteLine(list1.ToString()); // Listar
+                        Console.WriteLine(list1.ToString());  // Listar
                         Console.WriteLine("escolha o id a remover:");
                         string produtoARemover = Console.ReadLine();
                         list1.RemoveProduct(produtoARemover);

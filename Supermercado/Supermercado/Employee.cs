@@ -68,10 +68,14 @@ namespace Supermercado
 
         public override string ToString()
         {
-            string result = "ID   | NOME    | PASSWORD  | Tipo de Funcionário  \n";
+            string result = "";
+            Table.PrintLine();
+            Table.PrintRow("ID", "NOME", "PASSWORD", "Tipo de Funcionário");
             foreach (Employee f in this.employeeList)
             {
-                result += f.Id + "   |  " + f.Name + "    |    " + f.Password + " | " + f.EmployeeRole + "\n";
+                Table.PrintLine();
+                Table.PrintRow(f.Id, f.Name, f.Password, f.EmployeeRole.ToString());
+                Table.PrintLine();
             }
             return result;
         }

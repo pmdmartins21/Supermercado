@@ -67,9 +67,12 @@ namespace Supermercado
 
         public override string ToString()
         {
-            string result = "ID   | NOME    | STOCK  | PREÇO UNITÁRIO  |   TIPO DE PRODUTO  |   CATEGORIA  \n";
-            
-            result += this.Id + "   |  " + this.Name + "    |    " + this.Stock + " | " + this.UnitPrice + " | " + this.TypeOfProducts + " | " + this.Category + "\n";
+            string result = "";
+            Table.PrintLine();
+            Table.PrintRow("ID", "NOME", "STOCK", "PREÇO UNITÁRIO", "TIPO DE PRODUTO", "CATEGORIA");
+            Table.PrintLine();
+            Table.PrintRow(Id, Name, Stock.ToString(), UnitPrice.ToString("F2"), TypeOfProducts.ToString(), Category.ToString());
+            Table.PrintLine();
             
             return result;
         }
@@ -204,27 +207,32 @@ namespace Supermercado
 
         public override string ToString()
         {
-            string result = "ID   | NOME    | STOCK  | PREÇO UNITÁRIO  |   TIPO DE PRODUTO  |   CATEGORIA  \n";
+            string result = "";
+            Table.PrintLine();
+            Table.PrintRow("ID", "NOME", "STOCK", "PREÇO UNITÁRIO", "TIPO DE PRODUTO", "CATEGORIA");
             foreach (Product f in this.productList)
             {
-                result += f.Id + "   |  " + f.Name + "    |    " + f.Stock + " | " + f.UnitPrice + " | " + f.TypeOfProducts + " | " + f.Category + "\n";
+                Table.PrintLine();
+                Table.PrintRow(f.Id, f.Name, f.Stock.ToString("F2"), f.UnitPrice.ToString("F2"), f.TypeOfProducts.ToString(), f.Category.ToString());
+                Table.PrintLine();
             }
             return result;
         }
+        
 
-        public string ListProductsByCategory(Category category)
+        public void ListProductsByCategory(Category category)
         {
-
-            string result = "ID   | NOME    | STOCK  | PREÇO UNITÁRIO  |   TIPO DE PRODUTO  |   CATEGORIA  \n";
+            Table.PrintLine();
+            Table.PrintRow("ID", "NOME", "STOCK", "PREÇO UNITÁRIO", "TIPO DE PRODUTO", "CATEGORIA");
             foreach (Product p in this.productList)
             {
                 if (p.Category == category)
                 {
-                    result += p.Id + "   |  " + p.Name + "    |    " + p.Stock + " | " + p.UnitPrice + " | " 
-                        + p.TypeOfProducts + " | " + p.Category + "\n";
+                    Table.PrintLine();
+                    Table.PrintRow(p.Id, p.Name, p.Stock.ToString("F2"), p.UnitPrice.ToString("F2"), p.TypeOfProducts.ToString(), p.Category.ToString());
+                    Table.PrintLine();
                 }
             }
-            return result;
         }
 
         public Product FindProduct(string id)
@@ -253,8 +261,5 @@ namespace Supermercado
             }
             return -1;
         }
-       
-
     }
-
 }
