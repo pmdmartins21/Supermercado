@@ -1,0 +1,4 @@
+123, Bolachas,10,2,Prateleira,Mercearia
+231, Chocolate,5,1.99,Prateleira,Mercearia
+111,batatas,5.5,1.5,Prateleira,FrutasLegumes
+222,cenouras,5.0,1.2,Prateleira,FrutasLegumes

@@ -61,10 +61,22 @@ namespace Supermercado
                             while (true)
                             {
                                 var key = System.Console.ReadKey(true);
-                                Console.Write("*");
                                 if (key.Key == ConsoleKey.Enter)
+                                {
+                                    Console.WriteLine("\n");
                                     break;
-                                password += key.KeyChar;
+                                }
+                                else if (key.Key == ConsoleKey.Backspace)
+                                {
+                                    password = password.Remove(password.Length - 1);
+                                    Console.Write("\b \b");
+                                }
+                                else
+                                {
+                                    password += key.KeyChar;
+                                    Console.Write("*");
+                                }
+                                     
                             }
                             
                             successfull = list1.ValidateEntry(id, password);
@@ -695,6 +707,7 @@ namespace Supermercado
                         {
                             Console.WriteLine("Falhou");
                         }
+
                         Console.WriteLine(list1.ToString());
                         list1.ClearList();
                         break;
