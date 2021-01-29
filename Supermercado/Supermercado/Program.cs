@@ -196,12 +196,17 @@ namespace Supermercado
                 switch (menuOption2)
                 {
                     case 0:
-                        if (compraTotal.InvoiceProducts.Count > 0)
+                        if (compraTotal.InvoiceProducts.Count > 0) // Só pede detalhes para faturas com algum produto
                         {
-                            Console.WriteLine("Introduza o número da fatura:");
-                            compraTotal.InvoiceNumber = int.Parse(Console.ReadLine());
+                            int result;
+                            Console.WriteLine("Introduza o número da fatura:"); // introduzir valor automatico
+                            while (int.TryParse(Console.ReadLine(), out result) == false)
+                            {
+                                Console.WriteLine("Introduza um numero:");
+                            }
+                            compraTotal.InvoiceNumber = result;
 
-                            Console.WriteLine("Data");
+                            //Console.WriteLine("Data");
                             compraTotal.InvoiceDate = DateTime.Now;
 
                             Console.WriteLine("Introduza o nome do cliente:");
@@ -210,6 +215,12 @@ namespace Supermercado
                             compraTotal.EmployeeName = activeuser.Name;
 
                             Console.WriteLine(compraTotal.ToString());
+                        }
+                        else // sem produtos faz reset à fatura(pode já ter items adicionados) e grava o stock original.
+                        {
+                            compraTotal = new Invoice();
+                            productListOriginal.GravarParaFicheiro();
+                            productList.ClearList();
                         }
                         break;
                     case 1:
@@ -231,10 +242,12 @@ namespace Supermercado
                         break;
                     case 4:
                         Console.WriteLine(compraTotal.ToString());
+                        productList.ClearList();
                         break;
                     case 5:
                         compraTotal = new Invoice();
                         productListOriginal.GravarParaFicheiro();
+                        productList.ClearList();
                         break;
                     default:
                         Console.WriteLine("Escolheu uma opção inválida");
@@ -275,7 +288,11 @@ namespace Supermercado
             {
 
                 Console.WriteLine("Introduza a quantidade");
-                quantityPurchase = float.Parse(Console.ReadLine(), CultureInfo.InvariantCulture); //Fazer tryParse
+                while (float.TryParse(Console.ReadLine(),out quantityPurchase) == false )
+                {
+                    Console.WriteLine("Quantidade incorrecta, tente novamente:");
+                }
+
 
                 if (quantityPurchase > 0)
                 {
@@ -287,7 +304,7 @@ namespace Supermercado
                         productPurchaseList.productList.Add(productPurchase);
                         //Remover do stock a quantidade de produto comprada
                         productList.RemoveStock(productPurchase.Id, productPurchase.Stock);
-                        Console.WriteLine(productList.ListProductsByCategory(Category.Carne));
+                        
                     }
                     else
                     {
@@ -307,7 +324,7 @@ namespace Supermercado
             {
                 string idPurchaseRepeat;
                 float quantityPurchaseRepeat = -1;
-                Console.WriteLine(productList.ListProductsByCategory(Category.Carne)); 
+                
                 Console.WriteLine("Deseja inserir mais items desta categoria? Sim= 1, Nao = Outro numero qualquer\n");
                 while (int.TryParse(Console.ReadLine(), out repeat) == false)
                 {
@@ -333,7 +350,12 @@ namespace Supermercado
                     {
 
                         Console.WriteLine("Introduza a quantidade");
-                        quantityPurchaseRepeat = float.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
+
+                        while (float.TryParse(Console.ReadLine(), out quantityPurchaseRepeat) == false)
+                        {
+                            Console.WriteLine("Quantidade incorrecta, tente novamente:");
+                        }
+
 
                         if (quantityPurchaseRepeat > 0)
                         {
@@ -345,7 +367,7 @@ namespace Supermercado
                                 productPurchaseList.AddProduct(productPurchaseRepeat);
                                 //remover o produto do stock
                                 productList.RemoveStock(productPurchaseRepeat.Id, productPurchaseRepeat.Stock);
-                                Console.WriteLine(productList.ListProductsByCategory(Category.Carne));
+                                
                             }
                             else
                             {
@@ -496,7 +518,6 @@ namespace Supermercado
                 switch (menuOption)
                 {
                     case 0:
-                        Console.WriteLine("0");
                         break;
                     case 1:
                         MenuStock2(activeuser);
@@ -510,20 +531,44 @@ namespace Supermercado
                         string nomeDoProdutoAAdicionar = Console.ReadLine();
 
                         Console.WriteLine("Escolha o Stock do Produto:");
-                        float stockProdutoAAdicionar = float.Parse(Console.ReadLine(), CultureInfo.InvariantCulture.NumberFormat);
+                        float stockProdutoAAdicionar;
+                        while (float.TryParse(Console.ReadLine(), out stockProdutoAAdicionar) == false)
+                        {
+                            Console.WriteLine("Valor incorrecto, tente novamente:");
+                        }
+                       
 
-                        Console.WriteLine("Escolha o Preco do Produto:");
-                        float precoProdutoAAdicionar = float.Parse(Console.ReadLine(), CultureInfo.InvariantCulture.NumberFormat);
+                        Console.WriteLine("Escolha o Preço do Produto:");
+                        float precoProdutoAAdicionar;
+                        while (float.TryParse(Console.ReadLine(), out precoProdutoAAdicionar) == false)
+                        {
+                            Console.WriteLine("Valor incorrecto, tente novamente:");
+                        }
+                        
 
-                        Console.WriteLine("Escolha o Tipo do Produto: Congelado = 0, Prateleira = 1, Enlatado = 2");
-                        Enum.TryParse(Console.ReadLine(), out TypeOfProducts typeOfproducts);
+                        Console.WriteLine("Escolha a Tipo do Produto: Congelado = 0, Prateleira = 1, Enlatado = 2");
+                        bool result = Enum.TryParse(Console.ReadLine(), out TypeOfProducts typeOfProducts) && Enum.IsDefined(typeof(TypeOfProducts), typeOfProducts); // Nao esta bem. Nao 
+                        while (!result)
+                        {
+                            Console.WriteLine("Valor incorrecto, tente novamente");
+                            result = Enum.TryParse(Console.ReadLine(), out typeOfProducts) && Enum.IsDefined(typeof(TypeOfProducts), typeOfProducts);
+                        }
+
 
 
                         Console.WriteLine("Escolha a Categoria: FrutasLegumes = 0, Carne = 1, Mercearia = 2");
-                        Enum.TryParse(Console.ReadLine(), out Category categoria);
+                        bool result2 = Enum.TryParse(Console.ReadLine(), out Category categoria) && Enum.IsDefined(typeof(Category), categoria); 
+                        while (!result2)
+                        {
+                            Console.WriteLine("Valor incorrecto, tente novamente");
+                            result2 = Enum.TryParse(Console.ReadLine(), out categoria) && Enum.IsDefined(typeof(Category), categoria);
+                        }
 
 
-                        Product x = new Product(idProdutoAAdicionar, nomeDoProdutoAAdicionar, stockProdutoAAdicionar, precoProdutoAAdicionar, typeOfproducts, categoria);
+
+                        Product x = new Product(idProdutoAAdicionar, nomeDoProdutoAAdicionar, stockProdutoAAdicionar, precoProdutoAAdicionar, typeOfProducts, categoria);
+
+                        
                         Console.WriteLine(x.ToString());
 
                         list1.AddProduct(x);
@@ -594,7 +639,6 @@ namespace Supermercado
                 switch (menuOption)
                 {
                     case 0:
-                        MenuStock(activeuser); // <<-- ir para menu anterior
                         list1.ClearList();
                         break;
                     case 1:
@@ -610,14 +654,31 @@ namespace Supermercado
                         {
                             Console.WriteLine("Introduza o id do produto");
                             idAddStock = Console.ReadLine();
+                            if (idAddStock == "0")
+                            {
+                                list1.ClearList();
+                                break;
+                            }
                             if (list1.FindProduct(idAddStock) == null)
                             {
                                 Console.WriteLine("Id inválido!");
                             }
-
+                            
                         } while (list1.FindProduct(idAddStock) == null);
-                        Console.WriteLine("Introduza a quantidade:\n"); // !!atenção se a quantidade só aceita int ou float e qtd negativa
-                        float quantityAddStock = float.Parse(Console.ReadLine(), CultureInfo.InvariantCulture.NumberFormat);
+                        if (idAddStock == "0") break;
+                        Console.WriteLine("Introduza a quantidade:\n"); // 
+                        float quantityAddStock;
+                        while (float.TryParse(Console.ReadLine(), out quantityAddStock) == false)
+                        {
+                            Console.WriteLine("Quantidade incorrecta, tente novamente:");
+                        }
+
+                        
+                        if (quantityAddStock == 0)
+                        {
+                            list1.ClearList();
+                            break;
+                        }
                         bool resultAddStock = list1.AddStock(idAddStock, quantityAddStock);
                         list1.GravarParaFicheiro();
                         if (resultAddStock) // true
@@ -640,15 +701,31 @@ namespace Supermercado
                         {
                             Console.WriteLine("Introduza o id do produto");
                             idRemoveStock = Console.ReadLine();
+                            if (idRemoveStock == "0")
+                            {
+                                list1.ClearList();
+                                break;
+                            }
                             if (list1.FindProduct(idRemoveStock) == null)
                             {
                                 Console.WriteLine("Id inválido!");
                             }
 
                         } while (list1.FindProduct(idRemoveStock) == null);
-                        Console.WriteLine("Introduza a quantidade:\n"); // !!atenção se a quantidade só aceita int ou float e qtd negativa
-                        float quantityRemoveStock = float.Parse(Console.ReadLine(), CultureInfo.InvariantCulture.NumberFormat);
+                        if (idRemoveStock == "0") break;
+                        Console.WriteLine("Introduza a quantidade:\n");
+                        float quantityRemoveStock;
+                        while (float.TryParse(Console.ReadLine(), out quantityRemoveStock) == false)
+                        {
+                            Console.WriteLine("Quantidade incorrecta, tente novamente:");
+                        }
+                        
+                        if (quantityRemoveStock == 0) {
+                                list1.ClearList();
+                                break;
+                            }
                         bool resultRemoveStock = list1.RemoveStock(idRemoveStock, quantityRemoveStock);
+                        
                         list1.GravarParaFicheiro();
                         if (resultRemoveStock) // true
                         {

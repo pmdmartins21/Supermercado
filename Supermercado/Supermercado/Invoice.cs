@@ -147,7 +147,10 @@ namespace Supermercado
             do
             {
                 Console.WriteLine("Insira o ID da Fatura que pretende remover da lista");
-                id = int.Parse(Console.ReadLine());
+                while (int.TryParse(Console.ReadLine(), out id) == false)
+                {
+                    Console.WriteLine("Id inválido");
+                }
                 if (il.FindInvoiceInList(il,id) == null)
                 {
                     Console.WriteLine("Id inválido!");
