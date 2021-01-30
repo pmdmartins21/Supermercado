@@ -185,11 +185,11 @@ namespace Supermercado
 
         public void ListInvoiceList(InvoiceList il)
         {
-            Console.WriteLine("Estive aqui");
+            Console.WriteLine("Estive aqui 1");
             foreach (Invoice item in il.invoiceListing)
             {
                 Console.WriteLine(item.ToString());
-                Console.WriteLine("Estive aqui");
+                Console.WriteLine("Estive aqui 2");
                 Console.WriteLine(il.invoiceListing.Count);
             }
         }

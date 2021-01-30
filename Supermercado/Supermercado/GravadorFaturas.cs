@@ -34,7 +34,7 @@ namespace Supermercado
             {
                 using (FileStream fileStream = File.OpenRead(fileName))
                 {
-                    ;
+                    Console.WriteLine("Estive aqui 3");
                     BinaryFormatter f = new BinaryFormatter();
 
                     while (fileStream.Position < fileStream.Length)

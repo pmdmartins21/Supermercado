@@ -4,8 +4,10 @@ using System.Globalization;
 
 namespace Supermercado
 {
+    [Serializable]
     class Program
     {
+       
         static void Main(string[] args)
         {
             Employee activeUser = new Employee();
