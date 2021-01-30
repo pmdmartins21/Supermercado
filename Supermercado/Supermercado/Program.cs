@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 
@@ -567,7 +567,7 @@ namespace Supermercado
                         Console.WriteLine("Escolha a Tipo do Produto: Congelado = 0, Prateleira = 1, Enlatado = 2");
                         bool result = Enum.TryParse(Console.ReadLine(), out TypeOfProducts typeOfProducts) && Enum.IsDefined(typeof(TypeOfProducts), typeOfProducts); // Nao esta bem. Nao 
                         while (!result)
-                        {
+                        {  
                             Console.WriteLine("Valor incorrecto, tente novamente");
                             result = Enum.TryParse(Console.ReadLine(), out typeOfProducts) && Enum.IsDefined(typeof(TypeOfProducts), typeOfProducts);
                         }
