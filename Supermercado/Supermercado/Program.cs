@@ -24,10 +24,10 @@ namespace Supermercado
 
             
 
-            EmployeeList list1 = new EmployeeList();
+            EmployeeList employeeList = new EmployeeList();
             do
             {
-                list1.LerFicheiro();
+                employeeList.LerFicheiro();
                 Console.WriteLine("************SUPERMERCADO BINHAS ONTE***************");
                 Console.WriteLine("**                                               **");
                 Console.WriteLine("**                  Bem-vindo/a!                 **");
@@ -81,8 +81,8 @@ namespace Supermercado
                                      
                             }
                             
-                            successfull = list1.ValidateEntry(id, password);
-                            activeuser = list1.FindEmployee(id);
+                            successfull = employeeList.ValidateEntry(id, password);
+                            activeuser = employeeList.FindEmployee(id);
                         }
                         MostrarPrincipal(activeuser);
                         break;
@@ -138,7 +138,7 @@ namespace Supermercado
                     case 0:
                         break;
                     case 1:
-                        Invoice newInvoice = (MenuVendas(activeuser));
+                        Invoice newInvoice = (MenuVendas(activeuser,invoiceList));
                         if (newInvoice.InvoiceProducts.Count > 0)
                             {
                             invoiceList.AddInvoice(newInvoice);
@@ -177,7 +177,7 @@ namespace Supermercado
         }
 
 
-        public static Invoice MenuVendas(Employee activeuser)
+        public static Invoice MenuVendas(Employee activeuser, InvoiceList il)
         {
             int menuOption2;
             Invoice compraTotal = new Invoice();
@@ -218,14 +218,9 @@ namespace Supermercado
                     case 0:
                         if (compraTotal.InvoiceProducts.Count > 0) // Só pede detalhes para faturas com algum produto
                         {
-                            int result;
-                            Console.WriteLine("Introduza o número da fatura:"); // introduzir valor automatico
-                            while (int.TryParse(Console.ReadLine(), out result) == false)
-                            {
-                                Console.WriteLine("Introduza um numero:");
-                            }
-                            compraTotal.InvoiceNumber = result;
-
+                            compraTotal.InvoiceNumber = Operator.AtribuirIDFatura(il);
+                            Console.WriteLine("ID da Fatura: {0}",compraTotal.InvoiceNumber);
+                            
                             //Console.WriteLine("Data");
                             compraTotal.InvoiceDate = DateTime.Now;
 
@@ -254,9 +249,8 @@ namespace Supermercado
                         Table.PrintLine();
                         Table.PrintRow("MENU VENDAS - CATEGORIA: FRUTAS E LEGUMES");
                         productList.ListProductsByCategory(Category.FrutasLegumes);
-                        Invoice compra = new Invoice(); 
-                        compra.AddListProductsToInvoice(MenuVenda(activeuser));
-                        //compraTotal.AddListProductsToInvoice(MenuVenda(activeuser));
+
+                        compraTotal.AddListProductsToInvoice(MenuVenda(activeuser));
                         productList.ClearList();
                         break;
                     case 3:
@@ -311,10 +305,13 @@ namespace Supermercado
 
 
             } while (productList.FindProduct(idPurchase) == null);
+
             Product productPurchase = new Product();
+
             if (idPurchase != "0")
             {
-                productPurchase = productList.FindProduct(idPurchase);
+
+                productPurchase = new Product(productList.FindProduct(idPurchase));
             }
             
             
@@ -350,7 +347,6 @@ namespace Supermercado
                 else
                 {
                     Console.WriteLine("Quantidade inválida!");
-
                 }
 
             }
@@ -532,11 +528,11 @@ namespace Supermercado
             int menuOption;
             int limparStock;
 
-            ProductList list1 = new ProductList();
+            ProductList productList = new ProductList();
 
             do
             {
-                list1.LerFicheiro();
+                productList.LerFicheiro();
                 Console.WriteLine("************SUPERMERCADO BINHAS ONTE***************");
                 Console.WriteLine("**                                              **");
                 Console.WriteLine("**                  Bem-vindo/a!                **");
@@ -567,11 +563,12 @@ namespace Supermercado
                         MenuStock2(activeuser);
                         break;
                     case 2:
-                        Console.WriteLine(list1.ToString()); // Listar
-                        Console.WriteLine("Escolha o id do Produto:");
-                        string idProdutoAAdicionar = Console.ReadLine();
+                        Console.WriteLine(productList.ToString()); // Listar
 
-                        Console.WriteLine("Escolha o Nome do Produto:");
+                        Console.WriteLine("ID: {0}\n", productList.productList.Count + 1);
+                        string idProdutoAAdicionar = Operator.AtribuirIDProduto(productList);
+
+                        Console.WriteLine("Insira o Nome do Produto:");
                         string nomeDoProdutoAAdicionar = Console.ReadLine();
 
                         Console.WriteLine("Escolha o Stock do Produto:");
@@ -582,7 +579,6 @@ namespace Supermercado
                         }
                         stockProdutoAAdicionar = Operator.VerificarValorNegativo(stockProdutoAAdicionar);
 
-
                         Console.WriteLine("Escolha o Preço do Produto:");
                         float precoProdutoAAdicionar;
                         while (float.TryParse(Console.ReadLine(), out precoProdutoAAdicionar) == false)
@@ -590,7 +586,6 @@ namespace Supermercado
                             Console.WriteLine("Valor incorrecto, tente novamente:");
                         }
                         precoProdutoAAdicionar = Operator.VerificarValorNegativo(precoProdutoAAdicionar);
-
 
                         Console.WriteLine("Escolha a Tipo do Produto: Congelado = 0, Prateleira = 1, Enlatado = 2");
                         bool result = Enum.TryParse(Console.ReadLine(), out TypeOfProducts typeOfProducts) && Enum.IsDefined(typeof(TypeOfProducts), typeOfProducts); // Nao esta bem. Nao 
@@ -600,8 +595,6 @@ namespace Supermercado
                             result = Enum.TryParse(Console.ReadLine(), out typeOfProducts) && Enum.IsDefined(typeof(TypeOfProducts), typeOfProducts);
                         }
 
-
-
                         Console.WriteLine("Escolha a Categoria: FrutasLegumes = 0, Carne = 1, Mercearia = 2");
                         bool result2 = Enum.TryParse(Console.ReadLine(), out Category categoria) && Enum.IsDefined(typeof(Category), categoria); 
                         while (!result2)
@@ -610,28 +603,26 @@ namespace Supermercado
                             result2 = Enum.TryParse(Console.ReadLine(), out categoria) && Enum.IsDefined(typeof(Category), categoria);
                         }
 
-
-
                         Product x = new Product(idProdutoAAdicionar, nomeDoProdutoAAdicionar, stockProdutoAAdicionar, precoProdutoAAdicionar, typeOfProducts, categoria);
 
                         
                         Console.WriteLine(x.ToString());
 
-                        list1.AddProduct(x);
+                        productList.AddProduct(x);
 
-                        Console.WriteLine(list1.ToString());  // Listar
-                        list1.GravarParaFicheiro();
+                        Console.WriteLine(productList.ToString());  // Listar
+                        productList.GravarParaFicheiro();
 
-                        list1.ClearList();
+                        productList.ClearList();
 
                         break;
                     case 3:
-                        Console.WriteLine(list1.ToString());  // Listar
+                        Console.WriteLine(productList.ToString());  // Listar
                         Console.WriteLine("escolha o id a remover:");
                         string produtoARemover = Console.ReadLine();
-                        list1.RemoveProduct(produtoARemover);
-                        list1.GravarParaFicheiro();
-                        list1.ClearList();
+                        productList.RemoveProduct(produtoARemover);
+                        productList.GravarParaFicheiro();
+                        productList.ClearList();
                         break;
                     case 4:
                         Console.WriteLine("Vai remover o stock completo! Tem a certeza? \n(Opcao 1 - Limpar Stock| Outro numero para cancelar");
@@ -641,8 +632,8 @@ namespace Supermercado
                         }
                         if (limparStock == 1)
                         {
-                            list1.ClearList();
-                            list1.GravarParaFicheiro();
+                            productList.ClearList();
+                            productList.GravarParaFicheiro();
                         }
                         break;
                     default:

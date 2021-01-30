@@ -35,5 +35,21 @@ namespace Supermercado
             id = (int.Parse(lastEmployee.Id) + 1).ToString();
             return id;
         }
+
+        public static string AtribuirIDProduto(ProductList pl)
+        {
+            string id;
+            Product lastProduct= pl.productList[pl.productList.Count - 1];
+            id = (int.Parse(lastProduct.Id) + 1).ToString();
+            return id;
+        }
+
+        public static int AtribuirIDFatura(InvoiceList il)
+        {
+            int id;
+            Invoice lastInvoice = il.invoiceListing[il.invoiceListing.Count - 1];
+            id = lastInvoice.InvoiceNumber + 1;
+            return id;
+        }
     }
 }
