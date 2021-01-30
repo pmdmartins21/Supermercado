@@ -38,6 +38,7 @@ namespace Supermercado
                 Console.WriteLine("2- Recuperar a password\n"); // como será possivel recuperar a pass
                 Console.WriteLine("--------------------------------------------------");
                 Console.WriteLine("0- Sair");
+                
 
                 while (int.TryParse(Console.ReadLine(), out menuOption) == false)
                 {
@@ -105,8 +106,6 @@ namespace Supermercado
 
             EmployeeList employeelist = new EmployeeList();
             InvoiceList invoiceList = new InvoiceList();
-            ProductList productList = new ProductList();
-
 
             do
             {
@@ -140,7 +139,7 @@ namespace Supermercado
                     case 1:
                         Invoice newInvoice = (MenuVendas(activeuser,invoiceList));
                         if (newInvoice.InvoiceProducts.Count > 0)
-                            {
+                        {
                             invoiceList.AddInvoice(newInvoice);
                             GravadorFaturas.SaveInvoiceList(invoiceList);
                         }
@@ -158,7 +157,7 @@ namespace Supermercado
                         Table.PrintLine();
                         Console.WriteLine("\n");
                         invoiceList.ToString();
-                        productList.ToString();
+                        
                         //invoiceList.ListInvoiceList(invoiceList);
                         break;
                     case 5:
@@ -269,6 +268,7 @@ namespace Supermercado
                         compraTotal = new Invoice();
                         productListOriginal.GravarParaFicheiro();
                         productList.ClearList();
+                        MostrarPrincipal(activeuser);
                         break;
                     default:
                         Console.WriteLine("Escolheu uma opção inválida");
@@ -601,7 +601,7 @@ namespace Supermercado
                 Console.WriteLine("**                                              **");
                 Console.WriteLine("**\t" + DateTime.Now.ToString("dddd, dd MMMM yyyy HH:mm") + "\t\t**");
                 Console.WriteLine("**************************************************\n");
-                Console.WriteLine("1- Ver / Editar Stock");
+                Console.WriteLine("1- Ver / Editar Stock\n");
                 Console.WriteLine("2- Adicionar Novo Produto\n");
                 Console.WriteLine("3- Remover Produto\n");
                 Console.WriteLine("4- Limpar Stock\n");
@@ -739,7 +739,7 @@ namespace Supermercado
                 Console.WriteLine("**                                              **");
                 Console.WriteLine("**\t" + DateTime.Now.ToString("dddd, dd MMMM yyyy HH:mm") + "\t\t**");
                 Console.WriteLine("**************************************************\n");
-                Console.WriteLine("1- Ver Stock");
+                Console.WriteLine("1- Ver Stock\n");
                 Console.WriteLine("2- Adicionar Stock\n");
                 Console.WriteLine("3- Remover Stock\n");
                 Console.WriteLine("--------------------------------------------------");

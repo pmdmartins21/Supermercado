@@ -34,10 +34,8 @@ namespace Supermercado
 
             if (File.Exists(location + fileName))
             {
-                Console.WriteLine("EStIVE QUI 3");
                 using (FileStream fileStream = File.OpenRead(location + fileName))
                 {
-                    Console.WriteLine("Estive aqui 3");
                     BinaryFormatter f = new BinaryFormatter();
 
                     while (fileStream.Position < fileStream.Length)
