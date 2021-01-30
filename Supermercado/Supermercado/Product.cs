@@ -13,6 +13,7 @@ namespace Supermercado
         Prateleira,
         Enlatado
     }
+    [Serializable]
     enum Category //secçao
     {
         FrutasLegumes,

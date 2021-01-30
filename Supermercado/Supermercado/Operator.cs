@@ -6,6 +6,7 @@ namespace Supermercado
 {
     class Operator
     {
+        [Serializable]
         public static float VerificarValorNegativo(float valorAVerificar)
         {
             if (valorAVerificar < 0)
