@@ -16,6 +16,15 @@ namespace Supermercado
             }
             return valorAVerificar;
         }
+        public static float Virgulas(float valorAVerificar)
+        {
+            string input;
+            float valorComPonto;
+            input = valorAVerificar.ToString();
+            input.Replace(',', '.');
+            valorComPonto = float.Parse(input);
+            return valorComPonto;
+        }
 
         public static void UpdatePosicaoListaEmpregados(EmployeeList el) // Desnecessario
         {

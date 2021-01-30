@@ -589,7 +589,6 @@ namespace Supermercado
         {
             int menuOption;
             int limparStock;
-
             ProductList productList = new ProductList();
 
             do
@@ -623,6 +622,7 @@ namespace Supermercado
                         break;
                     case 1:
                         MenuStock2(activeuser);
+                        productList.ClearList();
                         break;
                     case 2:
                         Console.WriteLine("**TECLA 0 - PARA SAIR OU CANCELAR**\n");
@@ -632,7 +632,11 @@ namespace Supermercado
                         string idProdutoAAdicionar = Operator.AtribuirIDProduto(productList);
 
                         Console.WriteLine("Insira o Nome do Produto:");
-                        string nomeDoProdutoAAdicionar = Console.ReadLine();
+                        string nomeDoProdutoAAdicionar = Console.ReadLine(); //nao pode ser nulo
+                        while(nomeDoProdutoAAdicionar == "")
+                        {
+
+                        }
                         if (nomeDoProdutoAAdicionar == "0")
                         {
                             productList.ClearList();
@@ -695,9 +699,15 @@ namespace Supermercado
 
                         break;
                     case 3:
+                        Console.WriteLine("**TECLA 0 - PARA SAIR OU CANCELAR**\n");
                         Console.WriteLine(productList.ToString());  // Listar
                         Console.WriteLine("escolha o id a remover:");
                         string produtoARemover = Console.ReadLine();
+                        if (produtoARemover == "0")
+                        {
+                            productList.ClearList();
+                            break;
+                        }
                         productList.RemoveProduct(produtoARemover);
                         productList.GravarParaFicheiro();
                         productList.ClearList();
@@ -728,11 +738,11 @@ namespace Supermercado
         {
             int menuOption;
 
-            ProductList list1 = new ProductList();
+            ProductList productList = new ProductList();
 
             do
             {
-                list1.LerFicheiro(); // lista produtos acima
+                productList.LerFicheiro(); // lista produtos acima
                 Console.WriteLine("************SUPERMERCADO BINHAS ONTE***************");
                 Console.WriteLine("**                                              **");
                 Console.WriteLine("**                  Bem-vindo/a!                **");
@@ -754,14 +764,14 @@ namespace Supermercado
                 switch (menuOption)
                 {
                     case 0:
-                        list1.ClearList();
+                        productList.ClearList();
                         break;
                     case 1:
-                        Console.WriteLine(list1.ToString());
-                        list1.ClearList();
+                        Console.WriteLine(productList.ToString());
+                        productList.ClearList();
                         break;
                     case 2:
-                        Console.WriteLine(list1.ToString());
+                        Console.WriteLine(productList.ToString());
                         Console.WriteLine("**ADICIONAR STOCK**\n");
                         Console.WriteLine("**TECLA 0 - PARA SAIR OU CANCELAR**\n");
                         string idAddStock;
@@ -771,15 +781,15 @@ namespace Supermercado
                             idAddStock = Console.ReadLine();
                             if (idAddStock == "0")
                             {
-                                list1.ClearList();
+                                productList.ClearList();
                                 break;
                             }
-                            if (list1.FindProduct(idAddStock) == null)
+                            if (productList.FindProduct(idAddStock) == null)
                             {
                                 Console.WriteLine("Id inválido!");
                             }
                             
-                        } while (list1.FindProduct(idAddStock) == null);
+                        } while (productList.FindProduct(idAddStock) == null);
                         if (idAddStock == "0") break;
                         Console.WriteLine("Introduza a quantidade:\n"); // 
                         float quantityAddStock;
@@ -787,15 +797,16 @@ namespace Supermercado
                         {
                             Console.WriteLine("Quantidade incorrecta, tente novamente:");
                         }
+                        quantityAddStock = Operator.Virgulas(quantityAddStock);
                         quantityAddStock = Operator.VerificarValorNegativo(quantityAddStock);
 
                         if (quantityAddStock == 0)
                         {
-                            list1.ClearList();
+                            productList.ClearList();
                             break;
                         }
-                        bool resultAddStock = list1.AddStock(idAddStock, quantityAddStock);
-                        list1.GravarParaFicheiro();
+                        bool resultAddStock = productList.AddStock(idAddStock, quantityAddStock);
+                        productList.GravarParaFicheiro();
                         if (resultAddStock) // true
                         {
                             Console.WriteLine("Quantidade adicionada com sucesso!");
@@ -805,11 +816,11 @@ namespace Supermercado
                             Console.WriteLine("Falhou");
                         }
 
-                        Console.WriteLine(list1.ToString());
-                        list1.ClearList();
+                        Console.WriteLine(productList.ToString());
+                        productList.ClearList();
                         break;
                     case 3:
-                        Console.WriteLine(list1.ToString());
+                        Console.WriteLine(productList.ToString());
                         Console.WriteLine("**REMOVER STOCK**\n");
                         Console.WriteLine("**TECLA 0 - PARA SAIR OU CANCELAR**\n");
                         string idRemoveStock;
@@ -819,15 +830,15 @@ namespace Supermercado
                             idRemoveStock = Console.ReadLine();
                             if (idRemoveStock == "0")
                             {
-                                list1.ClearList();
+                                productList.ClearList();
                                 break;
                             }
-                            if (list1.FindProduct(idRemoveStock) == null)
+                            if (productList.FindProduct(idRemoveStock) == null)
                             {
                                 Console.WriteLine("Id inválido!");
                             }
 
-                        } while (list1.FindProduct(idRemoveStock) == null);
+                        } while (productList.FindProduct(idRemoveStock) == null);
                         if (idRemoveStock == "0") break;
                         Console.WriteLine("Introduza a quantidade:\n");
                         float quantityRemoveStock;
@@ -837,13 +848,13 @@ namespace Supermercado
                         }
                         
                         if (quantityRemoveStock == 0) {
-                                list1.ClearList();
+                                productList.ClearList();
                                 break;
                             }
                         quantityRemoveStock = Operator.VerificarValorNegativo(quantityRemoveStock);
-                        bool resultRemoveStock = list1.RemoveStock(idRemoveStock, quantityRemoveStock);
-                        
-                        list1.GravarParaFicheiro();
+                        bool resultRemoveStock = productList.RemoveStock(idRemoveStock, quantityRemoveStock);
+
+                        productList.GravarParaFicheiro();
                         if (resultRemoveStock) // true
                         {
                             Console.WriteLine("Quantidade removida com sucesso!");
@@ -852,8 +863,8 @@ namespace Supermercado
                         {
                             Console.WriteLine("Falhou");
                         }
-                        Console.WriteLine(list1.ToString());
-                        list1.ClearList();
+                        Console.WriteLine(productList.ToString());
+                        productList.ClearList();
                         break;
                     case 4:
                         Console.WriteLine("4");
