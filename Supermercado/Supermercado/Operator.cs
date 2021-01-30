@@ -4,9 +4,10 @@ using System.Text;
 
 namespace Supermercado
 {
+    [Serializable]
     class Operator
     {
-        [Serializable]
+        
         public static float VerificarValorNegativo(float valorAVerificar)
         {
             if (valorAVerificar < 0)

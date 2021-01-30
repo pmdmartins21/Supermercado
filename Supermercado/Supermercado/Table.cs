@@ -4,6 +4,7 @@ using System.Text;
 
 namespace Supermercado
 {
+    [Serializable]
     class Table
     {
         static int tableWidth = 97;
