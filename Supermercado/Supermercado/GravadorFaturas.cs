@@ -15,12 +15,12 @@ namespace Supermercado
             string location = Directory.GetCurrentDirectory();
             string fileName = "/../../../invoicelist.txt";
 
-            if (File.Exists(fileName))
+            if (File.Exists(location + fileName))
             {
                 Console.WriteLine("Deleting old file");
-                File.Delete(fileName);
+                File.Delete(location + fileName);
             }
-            FileStream fileStream = File.Create(fileName);
+            FileStream fileStream = File.Create(location + fileName);
             BinaryFormatter f = new BinaryFormatter();
 
             f.Serialize(fileStream, il);
@@ -32,10 +32,10 @@ namespace Supermercado
             string location = Directory.GetCurrentDirectory();
             string fileName = "/../../../invoicelist.txt";
 
-            if (File.Exists(fileName))
+            if (File.Exists(location + fileName))
             {
                 Console.WriteLine("EStIVE QUI 3");
-                using (FileStream fileStream = File.OpenRead(fileName))
+                using (FileStream fileStream = File.OpenRead(location + fileName))
                 {
                     Console.WriteLine("Estive aqui 3");
                     BinaryFormatter f = new BinaryFormatter();
