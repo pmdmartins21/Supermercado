@@ -6,10 +6,10 @@ using System.Text;
 
 namespace Supermercado
 {
-    
+    [Serializable]
     static class GravadorFaturas
     {
-        [Serializable]
+        
         public static void SaveInvoiceList(InvoiceList il)
         {
             string location = Directory.GetCurrentDirectory();
