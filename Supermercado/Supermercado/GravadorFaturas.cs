@@ -11,7 +11,7 @@ namespace Supermercado
         public static void SaveInvoiceList(InvoiceList il)
         {
             string location = Directory.GetCurrentDirectory();
-            string fileName = "invoicelist.txt";
+            string fileName = "/../../../invoicelist.txt";
 
             if (File.Exists(fileName))
             {
@@ -28,7 +28,7 @@ namespace Supermercado
         public static InvoiceList ReadInvoiceList()
         {
             string location = Directory.GetCurrentDirectory();
-            string fileName = "invoicelist.txt";
+            string fileName = "/../../../invoicelist.txt";
 
             if (File.Exists(fileName))
             {
