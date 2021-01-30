@@ -54,16 +54,20 @@ namespace Supermercado
 
         public override string ToString()
         {
+            string result = "";
             float totalInvoice = 0;
-            string result = "NUMERO FATURA   |   DATA   |   CLIENTE   |   FUNCIONÁRIO   |   TOTAL  |\n";
-            result += "   " + InvoiceNumber + "    " + invoiceDate + "    " + customerName + "    " + EmployeeName + "\n";
+            Table.PrintLine();
+            Table.PrintRow("NUMERO FATURA", "DATA", "CLIENTE", "FUNCIONÁRIO", "TOTAL");
+            //result += "   " + InvoiceNumber + "    " + invoiceDate + "    " + customerName + "    " + EmployeeName + "\n"; 
             foreach (Product p in invoiceProducts)
             {
-                
-                result += p.Name + "   |  " + p.Stock + "    |    " + p.UnitPrice + " | " + " " + "| Total da linha: " + (p.Stock * p.UnitPrice) + "\n";
-                totalInvoice += (p.Stock * p.UnitPrice);
+                Table.PrintLine();
+                Table.PrintRow(p.Name, p.Stock.ToString("F"), p.UnitPrice.ToString("F"), (p.Stock * p.UnitPrice).ToString("F2"), totalInvoice.ToString("F2"));
+                Table.PrintLine();
+                //result += p.Name + "   |  " + p.Stock + "    |    " + p.UnitPrice + " | " + " " + "| Total da linha: " + (p.Stock * p.UnitPrice) + "\n"; 
+                //totalInvoice += (p.Stock * p.UnitPrice); 
             }
-            result += "Total da fatura: \n" + totalInvoice;
+            //result += "Total da fatura: \n" + totalInvoice; 
             return result;
         }
 
