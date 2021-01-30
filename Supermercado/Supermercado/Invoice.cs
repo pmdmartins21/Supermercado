@@ -58,7 +58,7 @@ namespace Supermercado
             float totalInvoice = 0;
 
             Table.PrintLine();
-            Table.PrintRow("NOME", "STOCK", "PREÇO UNITÁRIO", "TOTAL");
+            Table.PrintRow("NOME", "QUANTIDADE", "PREÇO UNITÁRIO", "TOTAL");
             Table.PrintLine();
             //result += "   " + InvoiceNumber + "    " + invoiceDate + "    " + customerName + "    " + EmployeeName + "\n"; 
             foreach (Product p in invoiceProducts)
@@ -67,8 +67,17 @@ namespace Supermercado
                 Table.PrintRow(p.Name, p.Stock.ToString("F2"), p.UnitPrice.ToString("F2"), (p.Stock * p.UnitPrice).ToString("F2"));
                 Table.PrintLine();
                 //result += p.Name + "   |  " + p.Stock + "    |    " + p.UnitPrice + " | " + " " + "| Total da linha: " + (p.Stock * p.UnitPrice) + "\n"; 
-                //totalInvoice += (p.Stock * p.UnitPrice); 
+                totalInvoice += (p.Stock * p.UnitPrice) * 1.0F; 
             }
+            Table.PrintRow("TOTAL DA FATURA");
+            Table.PrintLine();
+            Console.OutputEncoding = Encoding.UTF8;
+            Table.PrintRow(totalInvoice.ToString("F2") + "\u20AC");
+            Table.PrintLine();
+
+
+
+
             //result += "Total da fatura: \n" + totalInvoice; 
             return result;
         }
@@ -78,8 +87,6 @@ namespace Supermercado
     class InvoiceList
     {
         public List<Invoice> invoiceListing;
-
-
 
         public InvoiceList()
         {
@@ -92,18 +99,15 @@ namespace Supermercado
 
             foreach (Invoice i in invoiceListing)
             {
+                Console.WriteLine("\n");
                 Table.PrintLine();
                 Table.PrintRow("NUMERO FATURA", "DATA", "CLIENTE", "FUNCIONÁRIO");
                 Table.PrintLine();
                 Table.PrintRow(i.InvoiceNumber.ToString(), i.InvoiceDate.ToString(), i.CustomerName, i.EmployeeName);
                 Table.PrintLine();
                 //result += i.InvoiceNumber + "   |  " + i.InvoiceDate + "    |    " + i.CustomerName + " | " + " " + "| " + i.EmployeeName + "\n";
-                Table.PrintLine();
-                Table.PrintLine();
-                Console.WriteLine("Lista de Produtos: \n");
+                Table.PrintRow("LISTA DE PRODUTOS");
                 i.ToString();
-                Table.PrintLine();
-                Table.PrintLine();
             }
             return result;
         }

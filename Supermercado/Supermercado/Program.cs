@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Threading;
 
 namespace Supermercado
 {
@@ -155,7 +156,6 @@ namespace Supermercado
                         Table.PrintLine();
                         Table.PrintRow("LISTAGEM DE FATURAS");
                         Table.PrintLine();
-                        Console.WriteLine("\n");
                         invoiceList.ToString();
                         
                         //invoiceList.ListInvoiceList(invoiceList);
@@ -219,7 +219,8 @@ namespace Supermercado
                         {
                             compraTotal.InvoiceNumber = Operator.AtribuirIDFatura(il);
                             Console.WriteLine("ID da Fatura: {0}",compraTotal.InvoiceNumber);
-                            
+
+
                             //Console.WriteLine("Data");
                             compraTotal.InvoiceDate = DateTime.Now;
 
@@ -320,7 +321,8 @@ namespace Supermercado
             {
 
                 Console.WriteLine("Introduza a quantidade");
-                while (float.TryParse(Console.ReadLine(),out quantityPurchase) == false )
+                
+                while (float.TryParse(Console.ReadLine(), NumberStyles.Number, CultureInfo.CurrentCulture, out quantityPurchase) == false)
                 {
                     Console.WriteLine("Quantidade incorrecta, tente novamente:");
                 }
