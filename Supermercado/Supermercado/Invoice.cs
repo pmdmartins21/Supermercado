@@ -32,11 +32,11 @@ namespace Supermercado
 
         public Invoice(int invoiceNumber, DateTime invoiceDate, string customerName, string employeeName)
         {
-            this.invoiceNumber = invoiceNumber;
-            this.invoiceDate = invoiceDate;
-            this.customerName = customerName;
-            this.employeeName = employeeName;
-            this.invoiceProducts = new List<Product>();
+            InvoiceNumber = invoiceNumber;
+            InvoiceDate = invoiceDate;
+            CustomerName = customerName;
+            EmployeeName = employeeName;
+            InvoiceProducts = new List<Product>();
         }
 
         public void AddInvoiceProduct(Product product)
@@ -57,12 +57,12 @@ namespace Supermercado
             string result = "";
             float totalInvoice = 0;
             Table.PrintLine();
-            Table.PrintRow("NUMERO FATURA", "DATA", "CLIENTE", "FUNCIONÁRIO", "TOTAL");
+            Table.PrintRow("NOME", "STOCK", "PREÇO UNITÁRIO", "TOTAL");
             //result += "   " + InvoiceNumber + "    " + invoiceDate + "    " + customerName + "    " + EmployeeName + "\n"; 
             foreach (Product p in invoiceProducts)
             {
                 Table.PrintLine();
-                Table.PrintRow(p.Name, p.Stock.ToString("F"), p.UnitPrice.ToString("F"), (p.Stock * p.UnitPrice).ToString("F2"), totalInvoice.ToString("F2"));
+                Table.PrintRow(p.Name, p.Stock.ToString("F2"), p.UnitPrice.ToString("F2"), (p.Stock * p.UnitPrice).ToString("F2"));
                 Table.PrintLine();
                 //result += p.Name + "   |  " + p.Stock + "    |    " + p.UnitPrice + " | " + " " + "| Total da linha: " + (p.Stock * p.UnitPrice) + "\n"; 
                 //totalInvoice += (p.Stock * p.UnitPrice); 
@@ -88,14 +88,17 @@ namespace Supermercado
         public override string ToString()
         {
             string result = "";
-            Table.PrintLine();
-            Table.PrintRow("NUMERO FATURA", "DATA", "CLIENTE", "FUNCIONÁRIO", "TOTAL");
+
             foreach (Invoice i in invoiceListing)
             {
+                Table.PrintLine();
+                Table.PrintRow("NUMERO FATURA", "DATA", "CLIENTE", "FUNCIONÁRIO");
                 Table.PrintLine();
                 Table.PrintRow(i.InvoiceNumber.ToString(), i.InvoiceDate.ToString(), i.CustomerName, i.EmployeeName);
                 Table.PrintLine();
                 //result += i.InvoiceNumber + "   |  " + i.InvoiceDate + "    |    " + i.CustomerName + " | " + " " + "| " + i.EmployeeName + "\n";
+                Console.WriteLine("Lista de Produtos: \n");
+                
             }
             return result;
         }
@@ -185,12 +188,10 @@ namespace Supermercado
 
         public void ListInvoiceList(InvoiceList il)
         {
-            Console.WriteLine("Estive aqui 1");
             foreach (Invoice item in il.invoiceListing)
             {
                 Console.WriteLine(item.ToString());
-                Console.WriteLine("Estive aqui 2");
-                Console.WriteLine(il.invoiceListing.Count);
+                //Console.WriteLine(il.invoiceListing.Count);
             }
         }
         public void AddInvoice(Invoice i)

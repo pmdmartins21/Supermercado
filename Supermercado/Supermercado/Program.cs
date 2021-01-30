@@ -105,6 +105,7 @@ namespace Supermercado
 
             EmployeeList employeelist = new EmployeeList();
             InvoiceList invoiceList = new InvoiceList();
+            ProductList productList = new ProductList();
 
 
             do
@@ -152,7 +153,13 @@ namespace Supermercado
                         MenuFuncionarios(activeuser);
                         break;
                     case 4:
-                        invoiceList.ListInvoiceList(invoiceList);
+                        Table.PrintLine();
+                        Table.PrintRow("LISTAGEM DE FATURAS");
+                        Table.PrintLine();
+                        Console.WriteLine("\n");
+                        invoiceList.ToString();
+                        productList.ToString();
+                        //invoiceList.ListInvoiceList(invoiceList);
                         break;
                     case 5:
                         invoiceList.ListInvoiceList(invoiceList);
