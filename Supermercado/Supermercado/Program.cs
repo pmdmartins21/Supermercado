@@ -472,14 +472,30 @@ namespace Supermercado
                         string id = Operator.AtribuirIDEmpregado(employeeList);
                         Console.WriteLine("Introduza o Nome\n");
                         string name = Console.ReadLine();
+                        if (name == "0")
+                        {
+                            employeeList.ClearList();
+                            break;
+                        }
                         Console.WriteLine("Introduza a Password\n");
                         string password = Console.ReadLine();
+                        if (password == "0")
+                        {
+                            employeeList.ClearList();
+                            break;
+                        }
                         Console.WriteLine("Qual o Cargo? \n");
                         Console.WriteLine("Para Gerente prima '0'\n");
                         Console.WriteLine("Para Repositor prima '1'\n");
                         Console.WriteLine("Para Caixa prima '2'\n");
-                        string role = Console.ReadLine();
-                        Enum.TryParse(role, out EmployeeRole employeeRole);
+
+                        bool result = Enum.TryParse(Console.ReadLine(), out EmployeeRole employeeRole) && Enum.IsDefined(typeof(EmployeeRole), employeeRole);
+                        while (!result)
+                        {
+                            Console.WriteLine("Valor incorrecto, tente novamente");
+                            result = Enum.TryParse(Console.ReadLine(), out employeeRole) && Enum.IsDefined(typeof(EmployeeRole), employeeRole);
+                        }
+                        
                         employeeList.NewEmployee(id, name, password, employeeRole);
                         employeeList.GravarParaFicheiro();
                         Console.WriteLine(employeeList.ToString());
@@ -487,9 +503,15 @@ namespace Supermercado
                         Console.WriteLine(employeeList.ToString());
                         break;
                     case 2:
+                        Console.WriteLine("**TECLA 0 - PARA SAIR OU CANCELAR**\n");
                         Console.WriteLine(employeeList.ToString());
                         Console.WriteLine("Introduza o ID a remover\n");
                         string idARemover = Console.ReadLine();
+                        if (idARemover == "0")
+                        {
+                            employeeList.ClearList();
+                            break;
+                        }
                         employeeList.RemoveEmployee(idARemover);
                         Console.WriteLine(employeeList.ToString());
                         employeeList.GravarParaFicheiro();
@@ -497,17 +519,57 @@ namespace Supermercado
                         Console.WriteLine(employeeList.ToString());
                         break;
                     case 3:
+                        Console.WriteLine("**TECLA 0 - PARA SAIR OU CANCELAR**\n");
                         Console.WriteLine(employeeList.ToString());
                         Console.WriteLine("Introduza o ID do funcionário a editar\n");
                         string newId = Console.ReadLine();
-                        Console.WriteLine("Introduza o novo nome\n");
-                        string newName = Console.ReadLine();
-                        Console.WriteLine("Introduza a nova password\n");
-                        string newPassword = Console.ReadLine();
-                        Console.WriteLine("Introduza a nova função\n");
-                        string newRole = Console.ReadLine();
-                        Enum.TryParse(newRole, out EmployeeRole newEmployeeRole);
-                        employeeList.EditEmployee(newId, newName, newPassword, newEmployeeRole);
+                        if (newId == "0")
+                        {
+                            employeeList.ClearList();
+                            break;
+                        }
+                        Console.WriteLine("**O QUE DESEJA ALTERAR? \n 1: Nome  |  2: password  | 3: Função**\n");
+                        int opcaoAlterarFunc = -1;
+                        while (int.TryParse(Console.ReadLine(), out opcaoAlterarFunc) == false)
+                        {
+                            Console.WriteLine("Opçao errada");
+                        }
+
+                        Console.Clear();
+
+                        switch (opcaoAlterarFunc)
+                        {
+                            case 0:
+                                Console.WriteLine("0");
+                                break;
+                            case 1:
+                                Console.WriteLine("Introduza o novo nome\n");
+                                string newName = Console.ReadLine();
+                                employeeList.FindEmployee(newId).Name = newName;
+                                break;
+                            case 2:
+                                Console.WriteLine("Introduza a nova password\n");
+                                string newPassword = Console.ReadLine();
+                                employeeList.FindEmployee(newId).Password = newPassword;
+                                break;
+                            case 3:
+                                Console.WriteLine("Introduza a nova função\n");
+                                Console.WriteLine("Para Gerente prima '0'\n");
+                                Console.WriteLine("Para Repositor prima '1'\n");
+                                Console.WriteLine("Para Caixa prima '2'\n");
+                                bool result2 = Enum.TryParse(Console.ReadLine(), out EmployeeRole newEmployeeRole) && Enum.IsDefined(typeof(EmployeeRole), newEmployeeRole);
+                                while (!result2)
+                                {
+                                    Console.WriteLine("Valor incorrecto, tente novamente");
+                                    result = Enum.TryParse(Console.ReadLine(), out newEmployeeRole) && Enum.IsDefined(typeof(EmployeeRole), newEmployeeRole);
+                                }
+                                employeeList.FindEmployee(newId).EmployeeRole = newEmployeeRole;
+                                break;
+                            default:
+                                Console.WriteLine("Opção Invalida");
+                                break;
+                        }
+
                         Console.WriteLine(employeeList.ToString());
                         employeeList.GravarParaFicheiro();
                         employeeList.ClearList();
@@ -563,6 +625,7 @@ namespace Supermercado
                         MenuStock2(activeuser);
                         break;
                     case 2:
+                        Console.WriteLine("**TECLA 0 - PARA SAIR OU CANCELAR**\n");
                         Console.WriteLine(productList.ToString()); // Listar
 
                         Console.WriteLine("ID: {0}\n", productList.productList.Count + 1);
@@ -570,6 +633,11 @@ namespace Supermercado
 
                         Console.WriteLine("Insira o Nome do Produto:");
                         string nomeDoProdutoAAdicionar = Console.ReadLine();
+                        if (nomeDoProdutoAAdicionar == "0")
+                        {
+                            productList.ClearList();
+                            break;
+                        }
 
                         Console.WriteLine("Escolha o Stock do Produto:");
                         float stockProdutoAAdicionar;
@@ -578,6 +646,11 @@ namespace Supermercado
                             Console.WriteLine("Valor incorrecto, tente novamente:");
                         }
                         stockProdutoAAdicionar = Operator.VerificarValorNegativo(stockProdutoAAdicionar);
+                        if (stockProdutoAAdicionar == 0)
+                        {
+                            productList.ClearList();
+                            break;
+                        }
 
                         Console.WriteLine("Escolha o Preço do Produto:");
                         float precoProdutoAAdicionar;
@@ -586,6 +659,11 @@ namespace Supermercado
                             Console.WriteLine("Valor incorrecto, tente novamente:");
                         }
                         precoProdutoAAdicionar = Operator.VerificarValorNegativo(precoProdutoAAdicionar);
+                        if (precoProdutoAAdicionar == 0)
+                        {
+                            productList.ClearList();
+                            break;
+                        }
 
                         Console.WriteLine("Escolha a Tipo do Produto: Congelado = 0, Prateleira = 1, Enlatado = 2");
                         bool result = Enum.TryParse(Console.ReadLine(), out TypeOfProducts typeOfProducts) && Enum.IsDefined(typeof(TypeOfProducts), typeOfProducts); // Nao esta bem. Nao 
@@ -603,12 +681,12 @@ namespace Supermercado
                             result2 = Enum.TryParse(Console.ReadLine(), out categoria) && Enum.IsDefined(typeof(Category), categoria);
                         }
 
-                        Product x = new Product(idProdutoAAdicionar, nomeDoProdutoAAdicionar, stockProdutoAAdicionar, precoProdutoAAdicionar, typeOfProducts, categoria);
+                        Product newProduct = new Product(idProdutoAAdicionar, nomeDoProdutoAAdicionar, stockProdutoAAdicionar, precoProdutoAAdicionar, typeOfProducts, categoria);
 
                         
-                        Console.WriteLine(x.ToString());
+                        Console.WriteLine(newProduct.ToString());
 
-                        productList.AddProduct(x);
+                        productList.AddProduct(newProduct);
 
                         Console.WriteLine(productList.ToString());  // Listar
                         productList.GravarParaFicheiro();

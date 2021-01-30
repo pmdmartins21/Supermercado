@@ -1,6 +1,6 @@
 1,Daniela,123,Gerente
 2,Pedro,123,Repositor
 3,Moises,PT123,Gerente
-4,Lourenço,123,Gerente
-5,mzeze,123,Caixa
+4,Lourenço,123,Caixa
+5,Manuel,123,Gerente
 6,Carlos,123,Repositor

@@ -147,29 +147,7 @@ namespace Supermercado
 
         }
 
-        public Employee EditEmployee(string id, string newName, string newPassword, EmployeeRole newEmployeeRole)
-        {
-            Employee e = FindEmployee(id);
-
-            if (e != null)
-            {
-                if (!newName.Equals(""))  // if (String.IsNullOrEmpty(novoNome)
-                {
-                    e.Name = newName;
-                }
-                if (!newPassword.Equals(""))  // if (String.IsNullOrEmpty(novoNome)
-                {
-                    e.Password = newPassword;
-                }
-                if (!newEmployeeRole.Equals(""))  // if (String.IsNullOrEmpty(novoNome)
-                {
-                    e.EmployeeRole = newEmployeeRole;
-                }
-                GravarParaFicheiro();
-                return e;
-            }
-            return null;
-        }
+       
 
         public bool RemoveEmployee(string id)
         {
