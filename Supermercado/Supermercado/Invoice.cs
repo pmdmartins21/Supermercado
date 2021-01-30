@@ -79,7 +79,6 @@ namespace Supermercado
     {
         public List<Invoice> invoiceListing;
 
-        
 
 
         public InvoiceList()
@@ -96,10 +95,15 @@ namespace Supermercado
                 Table.PrintLine();
                 Table.PrintRow("NUMERO FATURA", "DATA", "CLIENTE", "FUNCIONÁRIO");
                 Table.PrintLine();
-                Table.PrintRow(i.InvoiceNumber.ToString(), i.InvoiceDate.ToString(), i.CustomerName, i.EmployeeName, i.InvoiceProducts[0].ToString());
+                Table.PrintRow(i.InvoiceNumber.ToString(), i.InvoiceDate.ToString(), i.CustomerName, i.EmployeeName);
                 Table.PrintLine();
                 //result += i.InvoiceNumber + "   |  " + i.InvoiceDate + "    |    " + i.CustomerName + " | " + " " + "| " + i.EmployeeName + "\n";
+                Table.PrintLine();
+                Table.PrintLine();
                 Console.WriteLine("Lista de Produtos: \n");
+                i.ToString();
+                Table.PrintLine();
+                Table.PrintLine();
             }
             return result;
         }
