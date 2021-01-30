@@ -247,7 +247,9 @@ namespace Supermercado
                         Table.PrintLine();
                         Table.PrintRow("MENU VENDAS - CATEGORIA: FRUTAS E LEGUMES");
                         productList.ListProductsByCategory(Category.FrutasLegumes);
-                        compraTotal.AddListProductsToInvoice(MenuVenda(activeuser));
+                        Invoice compra = new Invoice(); 
+                        compra.AddListProductsToInvoice(MenuVenda(activeuser));
+                        //compraTotal.AddListProductsToInvoice(MenuVenda(activeuser));
                         productList.ClearList();
                         break;
                     case 3:
@@ -285,14 +287,16 @@ namespace Supermercado
             productList.LerFicheiro();
 
             int repeat = 1;
-
             string idPurchase;
-            float quantityPurchase = -1; 
+            float quantityPurchase = -1;
 
+            Console.WriteLine("**TECLA 0 - PARA SAIR OU CANCELAR**\n");
             do
             {
+                
                 Console.WriteLine("Introduza o id do produto a adicionar ao carrinho");
                 idPurchase = Console.ReadLine();
+                if(idPurchase == "0") break; 
                 if (productList.FindProduct(idPurchase) == null)
                 {
                     Console.WriteLine("Id inválido!");
@@ -300,9 +304,15 @@ namespace Supermercado
 
 
             } while (productList.FindProduct(idPurchase) == null);
-            Product productPurchase = new Product(productList.FindProduct(idPurchase));
+            Product productPurchase = new Product();
+            if (idPurchase != "0")
+            {
+                productPurchase = productList.FindProduct(idPurchase);
+            }
+            
+            
             //Verificar id Produto e FAZER CÓPIA DO PRODUTO ORIGINAL
-            while (quantityPurchase <= 0)
+            while (quantityPurchase <= 0 && idPurchase != "0")
             {
 
                 Console.WriteLine("Introduza a quantidade");
@@ -310,7 +320,7 @@ namespace Supermercado
                 {
                     Console.WriteLine("Quantidade incorrecta, tente novamente:");
                 }
-
+                if (quantityPurchase == 0) break;
 
                 if (quantityPurchase > 0)
                 {
@@ -352,8 +362,11 @@ namespace Supermercado
                 {
                     do
                     {
+                        Console.WriteLine("**TECLA 0 - PARA SAIR OU CANCELAR**\n");
                         Console.WriteLine("Introduza o id do produto a adicionar ao carrinho");
                         idPurchaseRepeat = Console.ReadLine();
+                        if (idPurchaseRepeat == "0") break;
+                       
                         if (productList.FindProduct(idPurchaseRepeat) == null)
                         {
                             Console.WriteLine("Id inválido!");
@@ -361,10 +374,15 @@ namespace Supermercado
 
                     } while (productList.FindProduct(idPurchaseRepeat) == null);
 
-                    Product productPurchaseRepeat = new Product(productList.FindProduct(idPurchaseRepeat));
+                    Product productPurchaseRepeat = new Product();
+                    if (idPurchaseRepeat != "0")
+                    {
+                        productPurchaseRepeat = productList.FindProduct(idPurchaseRepeat);
+                    }
+                    
                     
 
-                    while (quantityPurchaseRepeat <= 0)
+                    while (quantityPurchaseRepeat <= 0 && idPurchaseRepeat != "0")
                     {
 
                         Console.WriteLine("Introduza a quantidade");
@@ -374,7 +392,7 @@ namespace Supermercado
                             Console.WriteLine("Quantidade incorrecta, tente novamente:");
                         }
 
-
+                        if (quantityPurchaseRepeat == 0) break;
                         if (quantityPurchaseRepeat > 0)
                         {
                             if (quantityPurchaseRepeat <= productPurchaseRepeat.Stock)
@@ -413,12 +431,12 @@ namespace Supermercado
         {
             int menuOption;
 
-            EmployeeList list1 = new EmployeeList();
+            EmployeeList employeeList = new EmployeeList();
 
             Console.WriteLine(activeuser.Name);
             do
             {
-                list1.LerFicheiro();
+                employeeList.LerFicheiro();
                 Console.WriteLine("************SUPERMERCADO BINHAS ONTE***************");
                 Console.WriteLine("**                                              **");
                 Console.WriteLine("**                  Bem-vindo/a!                **");
@@ -445,9 +463,10 @@ namespace Supermercado
                         Console.WriteLine("0");
                         break;
                     case 1:
-                        Console.WriteLine(list1.ToString());
-                        Console.WriteLine("Introduza o ID\n");
-                        string id = Console.ReadLine();
+                        Console.WriteLine("**TECLA 0 - PARA SAIR OU CANCELAR**\n");
+                        Console.WriteLine(employeeList.ToString());
+                        Console.WriteLine("ID: {0}\n",employeeList.employeeList.Count+1);
+                        string id = Operator.AtribuirIDEmpregado(employeeList);
                         Console.WriteLine("Introduza o Nome\n");
                         string name = Console.ReadLine();
                         Console.WriteLine("Introduza a Password\n");
@@ -458,24 +477,24 @@ namespace Supermercado
                         Console.WriteLine("Para Caixa prima '2'\n");
                         string role = Console.ReadLine();
                         Enum.TryParse(role, out EmployeeRole employeeRole);
-                        list1.NewEmployee(id, name, password, employeeRole);
-                        list1.GravarParaFicheiro(); //Depois de adicionarmos um user, qd tentamos logar com o mesmo o programa crasha. Problema com a leitura do txt apos a modificaçao??  
-                        Console.WriteLine(list1.ToString());
-                        list1.ClearList();
-                        Console.WriteLine(list1.ToString());
+                        employeeList.NewEmployee(id, name, password, employeeRole);
+                        employeeList.GravarParaFicheiro();
+                        Console.WriteLine(employeeList.ToString());
+                        employeeList.ClearList();
+                        Console.WriteLine(employeeList.ToString());
                         break;
                     case 2:
-                        Console.WriteLine(list1.ToString());
+                        Console.WriteLine(employeeList.ToString());
                         Console.WriteLine("Introduza o ID a remover\n");
                         string idARemover = Console.ReadLine();
-                        list1.RemoveEmployee(idARemover);
-                        Console.WriteLine(list1.ToString());
-                        list1.GravarParaFicheiro();
-                        list1.ClearList();
-                        Console.WriteLine(list1.ToString());
+                        employeeList.RemoveEmployee(idARemover);
+                        Console.WriteLine(employeeList.ToString());
+                        employeeList.GravarParaFicheiro();
+                        employeeList.ClearList();
+                        Console.WriteLine(employeeList.ToString());
                         break;
                     case 3:
-                        Console.WriteLine(list1.ToString());
+                        Console.WriteLine(employeeList.ToString());
                         Console.WriteLine("Introduza o ID do funcionário a editar\n");
                         string newId = Console.ReadLine();
                         Console.WriteLine("Introduza o novo nome\n");
@@ -485,11 +504,11 @@ namespace Supermercado
                         Console.WriteLine("Introduza a nova função\n");
                         string newRole = Console.ReadLine();
                         Enum.TryParse(newRole, out EmployeeRole newEmployeeRole);
-                        list1.EditEmployee(newId, newName, newPassword, newEmployeeRole);
-                        Console.WriteLine(list1.ToString());
-                        list1.GravarParaFicheiro();
-                        list1.ClearList();
-                        Console.WriteLine(list1.ToString());
+                        employeeList.EditEmployee(newId, newName, newPassword, newEmployeeRole);
+                        Console.WriteLine(employeeList.ToString());
+                        employeeList.GravarParaFicheiro();
+                        employeeList.ClearList();
+                        Console.WriteLine(employeeList.ToString());
                         break;
                     default:
                         Console.WriteLine("Escolheu uma opção inválida");
