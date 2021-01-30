@@ -34,6 +34,7 @@ namespace Supermercado
 
             if (File.Exists(fileName))
             {
+                Console.WriteLine("EStIVE QUI 3");
                 using (FileStream fileStream = File.OpenRead(fileName))
                 {
                     Console.WriteLine("Estive aqui 3");
