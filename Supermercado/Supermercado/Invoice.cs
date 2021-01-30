@@ -56,8 +56,10 @@ namespace Supermercado
         {
             string result = "";
             float totalInvoice = 0;
+
             Table.PrintLine();
             Table.PrintRow("NOME", "STOCK", "PREÇO UNITÁRIO", "TOTAL");
+            Table.PrintLine();
             //result += "   " + InvoiceNumber + "    " + invoiceDate + "    " + customerName + "    " + EmployeeName + "\n"; 
             foreach (Product p in invoiceProducts)
             {
@@ -94,11 +96,10 @@ namespace Supermercado
                 Table.PrintLine();
                 Table.PrintRow("NUMERO FATURA", "DATA", "CLIENTE", "FUNCIONÁRIO");
                 Table.PrintLine();
-                Table.PrintRow(i.InvoiceNumber.ToString(), i.InvoiceDate.ToString(), i.CustomerName, i.EmployeeName);
+                Table.PrintRow(i.InvoiceNumber.ToString(), i.InvoiceDate.ToString(), i.CustomerName, i.EmployeeName, i.InvoiceProducts[0].ToString());
                 Table.PrintLine();
                 //result += i.InvoiceNumber + "   |  " + i.InvoiceDate + "    |    " + i.CustomerName + " | " + " " + "| " + i.EmployeeName + "\n";
                 Console.WriteLine("Lista de Produtos: \n");
-                
             }
             return result;
         }
@@ -191,7 +192,6 @@ namespace Supermercado
             foreach (Invoice item in il.invoiceListing)
             {
                 Console.WriteLine(item.ToString());
-                //Console.WriteLine(il.invoiceListing.Count);
             }
         }
         public void AddInvoice(Invoice i)
