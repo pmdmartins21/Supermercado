@@ -92,7 +92,7 @@ namespace Supermercado
         public static object Globalization { get; private set; }
 
    
-        public ProductList LerFicheiro()
+        public static ProductList LerFicheiro()
         {
 
             string location = Directory.GetCurrentDirectory();
@@ -119,34 +119,10 @@ namespace Supermercado
                 return null;
             }
             return null;
-
-            /*
-            string path = Directory.GetCurrentDirectory();
-            string filename = "/../../../productlist.txt";
-
-            StreamReader streamReader = new StreamReader(path + filename);
-
-            while (!streamReader.EndOfStream)
-            {
-                string line = streamReader.ReadLine();
-                string id = line.Split(",")[0];
-                string name = line.Split(",")[1];
-                float stock = float.Parse(line.Split(",")[2], CultureInfo.InvariantCulture.NumberFormat);
-                float unitPrice = float.Parse(line.Split(",")[3], CultureInfo.InvariantCulture.NumberFormat);
-                Enum.TryParse(line.Split(",")[4], out TypeOfProducts typeOfProducts);
-                Enum.TryParse(line.Split(",")[5], out Category category);
-
-
-                productList.Add(new Product(id, name, stock, unitPrice, typeOfProducts, category));
-                //Console.WriteLine(streamReader.ReadLine());
-            }
-
-            streamReader.Close();
-            */
         }
 
 
-        public void GravarParaFicheiro(ProductList pl)
+        public static void GravarParaFicheiro(ProductList pl)
         {
             string location = Directory.GetCurrentDirectory();
             string fileName = "/../../../productlist.txt";

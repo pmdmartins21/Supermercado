@@ -179,11 +179,11 @@ namespace Supermercado
             Invoice compraTotal = new Invoice();
             ProductList productList = new ProductList(); 
             ProductList productListOriginal = new ProductList();
-            productListOriginal.LerFicheiro();
+            productListOriginal = ProductList.LerFicheiro();
 
             do
             {
-                productList.LerFicheiro();
+                productList = ProductList.LerFicheiro();
                 Console.WriteLine("************SUPERMERCADO BINHAS ONTE***************");
                 Console.WriteLine("**                                              **");
                 Console.WriteLine("**                  Bem-vindo/a!                **");
@@ -231,7 +231,7 @@ namespace Supermercado
                         else // sem produtos faz reset à fatura(pode já ter items adicionados) e grava o stock original.
                         {
                             compraTotal = new Invoice();
-                            productListOriginal.GravarParaFicheiro(productList);
+                            ProductList.GravarParaFicheiro(productListOriginal);
                             productList.ClearList();
                         }
                         break;
@@ -264,7 +264,7 @@ namespace Supermercado
                         break;
                     case 5:
                         compraTotal = new Invoice();
-                        productListOriginal.GravarParaFicheiro(productList);
+                        ProductList.GravarParaFicheiro(productListOriginal);
                         productList.ClearList();
                         MostrarPrincipal(activeuser);
                         break;
@@ -283,7 +283,7 @@ namespace Supermercado
         {
             ProductList productList = new ProductList(); //LISTAGEM DO STOCK
             ProductList productPurchaseList = new ProductList(); //LISTAGEM DOS PRODUTOS COMPRADOS
-            productList.LerFicheiro();
+            productList = ProductList.LerFicheiro();
 
             int repeat = 1;
             string idPurchase;
@@ -424,7 +424,7 @@ namespace Supermercado
                 }
             } while (repeat == 1);
             
-            productList.GravarParaFicheiro(productList);
+            ProductList.GravarParaFicheiro(productList);
             return productPurchaseList;
         }
 
@@ -592,7 +592,7 @@ namespace Supermercado
 
             do
             {
-                productList.LerFicheiro();
+                productList= ProductList.LerFicheiro();
                 Console.WriteLine("************SUPERMERCADO BINHAS ONTE***************");
                 Console.WriteLine("**                                              **");
                 Console.WriteLine("**                  Bem-vindo/a!                **");
@@ -634,7 +634,8 @@ namespace Supermercado
                         string nomeDoProdutoAAdicionar = Console.ReadLine(); //nao pode ser nulo
                         while(nomeDoProdutoAAdicionar == "")
                         {
-
+                            Console.WriteLine("Nome Incorrecto\nInsira o Nome do Produto:\n");
+                            nomeDoProdutoAAdicionar = Console.ReadLine();
                         }
                         if (nomeDoProdutoAAdicionar == "0")
                         {
@@ -692,7 +693,7 @@ namespace Supermercado
                         productList.AddProduct(newProduct);
 
                         Console.WriteLine(productList.ToString());  // Listar
-                        productList.GravarParaFicheiro(productList);
+                        ProductList.GravarParaFicheiro(productList);
 
                         productList.ClearList();
 
@@ -708,7 +709,7 @@ namespace Supermercado
                             break;
                         }
                         productList.RemoveProduct(produtoARemover);
-                        productList.GravarParaFicheiro(productList);
+                        ProductList.GravarParaFicheiro(productList);
                         productList.ClearList();
                         break;
                     case 4:
@@ -720,7 +721,7 @@ namespace Supermercado
                         if (limparStock == 1)
                         {
                             productList.ClearList();
-                            productList.GravarParaFicheiro(productList);
+                            ProductList.GravarParaFicheiro(productList);
                         }
                         break;
                     default:
@@ -741,7 +742,7 @@ namespace Supermercado
 
             do
             {
-                productList.LerFicheiro(); // lista produtos acima
+                productList= ProductList.LerFicheiro(); // lista produtos acima
                 Console.WriteLine("************SUPERMERCADO BINHAS ONTE***************");
                 Console.WriteLine("**                                              **");
                 Console.WriteLine("**                  Bem-vindo/a!                **");
@@ -806,7 +807,7 @@ namespace Supermercado
                             break;
                         }
                         bool resultAddStock = productList.AddStock(idAddStock, quantityAddStock);
-                        productList.GravarParaFicheiro(productList);
+                        ProductList.GravarParaFicheiro(productList);
                         if (resultAddStock) // true
                         {
                             Console.WriteLine("Quantidade adicionada com sucesso!");
@@ -854,7 +855,7 @@ namespace Supermercado
                         quantityRemoveStock = Operator.VerificarValorNegativo(quantityRemoveStock);
                         bool resultRemoveStock = productList.RemoveStock(idRemoveStock, quantityRemoveStock);
 
-                        productList.GravarParaFicheiro(productList);
+                        ProductList.GravarParaFicheiro(productList);
                         if (resultRemoveStock) // true
                         {
                             Console.WriteLine("Quantidade removida com sucesso!");
