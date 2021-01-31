@@ -64,8 +64,16 @@ namespace Supermercado
         public static int AtribuirIDFatura(InvoiceList il)
         {
             int id;
-            Invoice lastInvoice = il.invoiceListing[il.invoiceListing.Count - 1];
-            id = lastInvoice.InvoiceNumber + 1;
+            if (il.invoiceListing.Count > 0)
+            {
+                Invoice lastInvoice = il.invoiceListing[il.invoiceListing.Count - 1];
+                id = lastInvoice.InvoiceNumber + 1;
+            }
+            else
+            {
+                id = 1;
+            }
+            
             return id;
         }
     }
