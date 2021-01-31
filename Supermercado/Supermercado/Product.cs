@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 
 namespace Supermercado
@@ -90,8 +91,36 @@ namespace Supermercado
 
         public static object Globalization { get; private set; }
 
-        public void LerFicheiro()
+   
+        public ProductList LerFicheiro()
         {
+
+            string location = Directory.GetCurrentDirectory();
+            string fileName = "/../../../productlist.txt";
+
+            if (File.Exists(location + fileName))
+                
+                {
+                using (FileStream fileStream = File.OpenRead(location + fileName))
+                {
+                    BinaryFormatter f = new BinaryFormatter();
+
+                    while (fileStream.Position < fileStream.Length)
+                    {
+                        ProductList pl = f.Deserialize(fileStream) as ProductList;
+                        return pl;
+
+                    }
+                    fileStream.Close();
+                }
+            }
+            else
+            {
+                return null;
+            }
+            return null;
+
+            /*
             string path = Directory.GetCurrentDirectory();
             string filename = "/../../../productlist.txt";
 
@@ -113,31 +142,26 @@ namespace Supermercado
             }
 
             streamReader.Close();
+            */
         }
 
 
-        public void GravarParaFicheiro()
+        public void GravarParaFicheiro(ProductList pl)
         {
-            //Escolher directorio
-            string path = Directory.GetCurrentDirectory();
-
-            //nome do ficheiro
+            string location = Directory.GetCurrentDirectory();
             string fileName = "/../../../productlist.txt";
 
-            //abrir a Stream para escrita
-            StreamWriter streamWriter = new StreamWriter(path + fileName, false);
-
-
-            //Percorrer e escrever a lista
-            foreach (Product item in this.productList)
+            if (File.Exists(location + fileName))
             {
-                streamWriter.Write(item.Id + "," + item.Name + "," + item.Stock + "," + item.UnitPrice + "," + item.TypeOfProducts + "," + item.Category + "\n");
-                //streamWriter.Write(item.ToString());
+                Console.WriteLine("Deleting old file");
+                File.Delete(location + fileName);
             }
 
+            FileStream fileStream = File.Create(location + fileName);
+            BinaryFormatter f = new BinaryFormatter();
 
-            //Fechar a stream de escrit
-            streamWriter.Close();
+            f.Serialize(fileStream, pl);
+            fileStream.Close();
         }
 
         public Product AddProduct(string newId, string newName, float newStock, float newUnitPrice, TypeOfProducts newTypeOfProducts, Category newCategory)

@@ -1,7 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Threading;
 
 namespace Supermercado
 {
@@ -234,7 +231,7 @@ namespace Supermercado
                         else // sem produtos faz reset à fatura(pode já ter items adicionados) e grava o stock original.
                         {
                             compraTotal = new Invoice();
-                            productListOriginal.GravarParaFicheiro();
+                            productListOriginal.GravarParaFicheiro(productList);
                             productList.ClearList();
                         }
                         break;
@@ -267,7 +264,7 @@ namespace Supermercado
                         break;
                     case 5:
                         compraTotal = new Invoice();
-                        productListOriginal.GravarParaFicheiro();
+                        productListOriginal.GravarParaFicheiro(productList);
                         productList.ClearList();
                         MostrarPrincipal(activeuser);
                         break;
@@ -322,7 +319,7 @@ namespace Supermercado
 
                 Console.WriteLine("Introduza a quantidade");
                 
-                while (float.TryParse(Console.ReadLine(), NumberStyles.Number, CultureInfo.CurrentCulture, out quantityPurchase) == false)
+                while (float.TryParse(Console.ReadLine(), out quantityPurchase) == false)
                 {
                     Console.WriteLine("Quantidade incorrecta, tente novamente:");
                 }
@@ -427,7 +424,7 @@ namespace Supermercado
                 }
             } while (repeat == 1);
             
-            productList.GravarParaFicheiro();
+            productList.GravarParaFicheiro(productList);
             return productPurchaseList;
         }
 
@@ -695,7 +692,7 @@ namespace Supermercado
                         productList.AddProduct(newProduct);
 
                         Console.WriteLine(productList.ToString());  // Listar
-                        productList.GravarParaFicheiro();
+                        productList.GravarParaFicheiro(productList);
 
                         productList.ClearList();
 
@@ -711,7 +708,7 @@ namespace Supermercado
                             break;
                         }
                         productList.RemoveProduct(produtoARemover);
-                        productList.GravarParaFicheiro();
+                        productList.GravarParaFicheiro(productList);
                         productList.ClearList();
                         break;
                     case 4:
@@ -723,7 +720,7 @@ namespace Supermercado
                         if (limparStock == 1)
                         {
                             productList.ClearList();
-                            productList.GravarParaFicheiro();
+                            productList.GravarParaFicheiro(productList);
                         }
                         break;
                     default:
@@ -799,8 +796,9 @@ namespace Supermercado
                         {
                             Console.WriteLine("Quantidade incorrecta, tente novamente:");
                         }
-                        quantityAddStock = Operator.Virgulas(quantityAddStock);
                         quantityAddStock = Operator.VerificarValorNegativo(quantityAddStock);
+                        quantityAddStock = Operator.Virgulas(quantityAddStock);
+
 
                         if (quantityAddStock == 0)
                         {
@@ -808,7 +806,7 @@ namespace Supermercado
                             break;
                         }
                         bool resultAddStock = productList.AddStock(idAddStock, quantityAddStock);
-                        productList.GravarParaFicheiro();
+                        productList.GravarParaFicheiro(productList);
                         if (resultAddStock) // true
                         {
                             Console.WriteLine("Quantidade adicionada com sucesso!");
@@ -856,7 +854,7 @@ namespace Supermercado
                         quantityRemoveStock = Operator.VerificarValorNegativo(quantityRemoveStock);
                         bool resultRemoveStock = productList.RemoveStock(idRemoveStock, quantityRemoveStock);
 
-                        productList.GravarParaFicheiro();
+                        productList.GravarParaFicheiro(productList);
                         if (resultRemoveStock) // true
                         {
                             Console.WriteLine("Quantidade removida com sucesso!");

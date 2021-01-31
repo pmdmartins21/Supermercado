@@ -48,8 +48,16 @@ namespace Supermercado
         public static string AtribuirIDProduto(ProductList pl)
         {
             string id;
-            Product lastProduct= pl.productList[pl.productList.Count - 1];
-            id = (int.Parse(lastProduct.Id) + 1).ToString();
+            if (pl.productList.Count > 0)
+            {
+                Product lastProduct = pl.productList[pl.productList.Count - 1];
+                id = (int.Parse(lastProduct.Id) + 1).ToString();
+               
+            }
+            else
+            {
+                id = "1";
+            }
             return id;
         }
 
