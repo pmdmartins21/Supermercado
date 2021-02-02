@@ -135,6 +135,11 @@ namespace Supermercado
                     case 0:
                         break;
                     case 1:
+                        if(activeuser.EmployeeRole.Equals(EmployeeRole.Repositor))
+                        {
+                            Console.WriteLine("Lamento, não tem permissão para esta opção!");
+                            break;
+                        }
                         Invoice newInvoice = (MenuVendas(activeuser,invoiceList));
                         if (newInvoice.InvoiceProducts.Count > 0)
                         {
@@ -144,10 +149,20 @@ namespace Supermercado
                         
                         break;
                     case 2:
+                        if (activeuser.EmployeeRole.Equals(EmployeeRole.Caixa))
+                        {
+                            Console.WriteLine("Lamento, não tem permissão para esta opção!");
+                            break;
+                        }
                         MenuStock(activeuser);
                         break;
                     case 3:
-                        MenuFuncionarios(activeuser);
+                        if (activeuser.EmployeeRole.Equals(EmployeeRole.Gerente))
+                        {
+                            MenuFuncionarios(activeuser);
+                            break;
+                        }
+                        Console.WriteLine("Lamento, não tem permissão para esta opção!");
                         break;
                     case 4:
                         Table.PrintLine();
