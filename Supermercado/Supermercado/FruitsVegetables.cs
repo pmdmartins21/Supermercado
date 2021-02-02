@@ -14,11 +14,13 @@ namespace Supermercado
     [Serializable]
     class FruitsVegetables : Product
     {
+        //atributos
         private Section section;
-        public DateTime dataValidade;
+        public bool dentroValidade;
         internal Section Section { get => section; set => section = value; }
 
-        public FruitsVegetables(string id, string name, float stock, float unitPrice, TypeOfProducts typeOfProducts, Category category, Section section , DateTime dataValidade) : base(id, name, stock, unitPrice, typeOfProducts, category)
+        //construtor
+        public FruitsVegetables(string id, string name, float stock, float unitPrice, TypeOfProducts typeOfProducts, Category category, Section section , bool dentroValidade) : base(id, name, stock, unitPrice, typeOfProducts, category)
         {
             this.Id = id;
             this.Name = name;
@@ -27,7 +29,19 @@ namespace Supermercado
             this.TypeOfProducts = typeOfProducts;
             this.Category = category;
             this.Section = section;
-            this.dataValidade = dataValidade;
+            this.dentroValidade = dentroValidade;
+        }
+        
+        //metodo proprio
+        private void Estragar()
+        {
+            this.dentroValidade = false;
+        }
+
+        public void PassouDoPrazo()
+        {
+            Console.WriteLine("Passou do prazo, por favor deitar fora!");
+            this.Estragar();
         }
 
     }

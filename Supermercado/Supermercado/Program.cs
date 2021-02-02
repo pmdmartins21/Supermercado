@@ -119,7 +119,7 @@ namespace Supermercado
                 Console.WriteLine("2- Stock\n");
                 Console.WriteLine("3- Funcionarios\n");
                 Console.WriteLine("4- Listagem de Faturas\n");
-                Console.WriteLine("5- Remover Faturas\n");
+                //Console.WriteLine("5- Remover Faturas\n"); Legalmente nao se pode remover faturas, apenas inserimos aqui esta opçao para remover faturas teste
                 Console.WriteLine("--------------------------------------------------");
                 Console.WriteLine("0- Sair");
 
@@ -173,10 +173,12 @@ namespace Supermercado
                         //invoiceList.ListInvoiceList(invoiceList);
                         break;
                     case 5:
+                        /*
                         invoiceList.ListInvoiceList(invoiceList);
                         invoiceList.RemoveInvoiceFromList(invoiceList);
                         GravadorFaturas.SaveInvoiceList(invoiceList);
                         break;
+                        */
                     default:
                         Console.WriteLine("Escolheu uma opção inválida");
                         break;
