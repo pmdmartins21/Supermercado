@@ -15,9 +15,10 @@ namespace Supermercado
     class FruitsVegetables : Product
     {
         private Section section;
+        public DateTime dataValidade;
         internal Section Section { get => section; set => section = value; }
 
-        public FruitsVegetables(string id, string name, float stock, float unitPrice, TypeOfProducts typeOfProducts, Category category, Section section) : base(id, name, stock, unitPrice, typeOfProducts, category)
+        public FruitsVegetables(string id, string name, float stock, float unitPrice, TypeOfProducts typeOfProducts, Category category, Section section , DateTime dataValidade) : base(id, name, stock, unitPrice, typeOfProducts, category)
         {
             this.Id = id;
             this.Name = name;
@@ -26,6 +27,7 @@ namespace Supermercado
             this.TypeOfProducts = typeOfProducts;
             this.Category = category;
             this.Section = section;
+            this.dataValidade = dataValidade;
         }
 
     }

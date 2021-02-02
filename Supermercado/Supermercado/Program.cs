@@ -33,7 +33,7 @@ namespace Supermercado
                 Console.WriteLine("**\t" + DateTime.Now.ToString("dddd, dd MMMM yyyy HH:mm") + "\t\t**");
                 Console.WriteLine("**************************************************\n");
                 Console.WriteLine("1- Entrar");
-                Console.WriteLine("2- Recuperar a password\n"); // como será possivel recuperar a pass
+                //Console.WriteLine("2- Recuperar a password\n"); : A desenvolver
                 Console.WriteLine("--------------------------------------------------");
                 Console.WriteLine("0- Sair");
                 
@@ -450,7 +450,6 @@ namespace Supermercado
 
             EmployeeList employeeList = new EmployeeList();
 
-            Console.WriteLine(activeuser.Name);
             do
             {
                 employeeList.LerFicheiro();
@@ -514,7 +513,6 @@ namespace Supermercado
                         employeeList.GravarParaFicheiro();
                         Console.WriteLine(employeeList.ToString());
                         employeeList.ClearList();
-                        Console.WriteLine(employeeList.ToString());
                         break;
                     case 2:
                         Console.WriteLine("**TECLA 0 - PARA SAIR OU CANCELAR**\n");
@@ -530,7 +528,7 @@ namespace Supermercado
                         Console.WriteLine(employeeList.ToString());
                         employeeList.GravarParaFicheiro();
                         employeeList.ClearList();
-                        Console.WriteLine(employeeList.ToString());
+
                         break;
                     case 3:
                         Console.WriteLine("**TECLA 0 - PARA SAIR OU CANCELAR**\n");
